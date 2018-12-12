@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-
+import { BrowserRouter} from 'react-router-dom';
+import Login from './auth/Login';
 class App extends Component {
   render() {
     return (
-      <div className='container'>
-        <div className='row'>
-          <p className='col-2'>recepción</p>
-        </div>
-        
-      </div>
+      <BrowserRouter>
+        <Login/>
+      </BrowserRouter>
     );
   }
 }
