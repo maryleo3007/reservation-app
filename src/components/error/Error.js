@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 
-class Reception extends Component {
-
+class Error extends Component {
     render() { 
         return ( 
             <div>
-                <p>Recepción</p>
+                Error component
             </div>
-            
          );
     }
 }
  
-export default Reception;
+export default Error;

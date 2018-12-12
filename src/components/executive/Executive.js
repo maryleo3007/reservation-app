@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 
-class Reception extends Component {
-
+class Executive extends Component {
     render() { 
         return ( 
             <div>
-                <p>Recepción</p>
+                <p>ejecutivo component</p>
             </div>
-            
          );
     }
 }
  
-export default Reception;
+export default Executive;
