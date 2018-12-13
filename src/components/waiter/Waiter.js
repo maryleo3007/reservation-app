@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 
-class Reception extends Component {
-
+class Waiter extends Component {
     render() { 
         return ( 
             <div>
-                <p>Recepción</p>
+                componente mozo
             </div>
-            
          );
     }
 }
  
-export default Reception;
+export default Waiter;

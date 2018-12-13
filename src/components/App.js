@@ -4,6 +4,19 @@ import {app} from './../services/firebase';
 //components
 import CashList from './reception/roomContainer/containerList/CashList';
 
+// components
+import Login from './login/Login';
+import Reception from './reception/Reception';
+import Cash from './cash/CashContainer';
+import Executive from './executive/Executive';
+import Admin from './admin/Admin';
+import Waiter from './waiter/Waiter';
+import Error from './error/Error';
+
+// router
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+
 class App extends Component {
 
   constructor(props){
@@ -51,8 +64,20 @@ class App extends Component {
             cashs = {this.state.cashList}
           />
         </div>
-        
-      </div>
+        <div>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Login}/>
+              <Route path="/recepcion" component={Reception}/>
+              <Route path="/caja" component={Cash}/>
+              <Route path="/ejecutivo" component={Executive}/>
+              <Route path="/menu" component={Waiter}/>
+              <Route path="/administradora" component={Admin}/>
+              <Route component={Error}/>
+            </Switch>
+          </Router>
+        </div>
+      </div> 
     );
   }
 }
