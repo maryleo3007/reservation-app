@@ -1,5 +1,8 @@
+import firebase from 'firebase';
+// import 'firebase/database';
+
 // Initialize Firebase
-export const DB_CONFIG = {
+const DB_CONFIG = {
     apiKey: "AIzaSyDrGc2Q2ba3iCk8fGixdIqMQytawTzgToI",
     authDomain: "customer-desarrollo.firebaseapp.com",
     databaseURL: "https://customer-desarrollo.firebaseio.com",
@@ -7,5 +10,7 @@ export const DB_CONFIG = {
     storageBucket: "customer-desarrollo.appspot.com",
     messagingSenderId: "257036633584"
 };
+
+export const app = firebase.initializeApp(DB_CONFIG);
 
 

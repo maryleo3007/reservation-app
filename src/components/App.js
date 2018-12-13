@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-import {DB_CONFIG} from './../services/firebase';
-import firebase from 'firebase';
-import 'firebase/database';
+import {app} from './../services/firebase';
 
 //components
-import CashList from './cash/CashList';
+import CashList from './reception/roomContainer/containerList/CashList';
 
 class App extends Component {
 
   constructor(props){
     super(props);
-
-    this.app = firebase.initializeApp(DB_CONFIG);
-    this.db = this.app.database().ref().child('CashRoom/');
-    console.log(this.db)
+    
+    this.db = app.database().ref().child('CashRoom/');
     this.state = {
       cashList :[]
     };
@@ -32,10 +28,7 @@ class App extends Component {
         arr.push(cashObj)
         this.setState({cashList:arr})
       })
-      
-      console.log(this.state);
     })
-
   }
 
   // componentWillMount() {
@@ -48,16 +41,8 @@ class App extends Component {
   //   }.bind(this));
   // }
 
-  // state = {
-  //   cashList :[
-  //     {
-  //       id:1,
-  //       title:"caja1"
-  //     }
-  //   ]
-  // }
-
   render() {
+    
     return (
       <div className='container'>
         <div className='row'>
