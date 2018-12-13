@@ -15,21 +15,24 @@ class App extends Component {
     this.db = this.app.database().ref().child('CashRoom/');
     console.log(this.db)
     this.state = {
-      cashList :[
-        {
-          id:1,
-          title:"caja1"
-        }
-      ]
+      cashList :[]
     };
   }
 
   componentDidMount() {
     this.db.on('value', snap =>{
-      console.log(snap)
-      this.setState({
-        cashList : snap.val()
+      let arr = [];
+      snap.forEach(data =>{
+        let cashObj = {
+          id: data.val().id,
+          state: data.val().state,
+          time: data.val().time,
+          title: data.val().title
+        }
+        arr.push(cashObj)
+        this.setState({cashList:arr})
       })
+      
       console.log(this.state);
     })
 
