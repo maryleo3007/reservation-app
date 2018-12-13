@@ -7,4 +7,24 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.wrapper{
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+  box-sizing: unset !important;
+  background-color: #efefef;
+}
+.sidebar{
+  background-color: #ffffff;
+  min-height: 100vh;
+  transition: all 0.3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.room-container{
+  overflow: hidden;
+  min-height: 100vh;
+}
 

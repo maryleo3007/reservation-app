@@ -5,7 +5,7 @@ class CashList extends Component {
 
     render() {
         return (
-            <div className="row">
+            <div className="">
                 {this.props.cashs.map(cash => 
                     <Cash
                         key = {cash.id}
