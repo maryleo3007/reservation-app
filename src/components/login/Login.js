@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { login, resetPassword } from './../helpers/authFirebase'
+import { login,logout, resetPassword } from './../helpers/authFirebase'
 
 function setErrorMsg(error) {
     return {
@@ -48,6 +48,12 @@ function setErrorMsg(error) {
               </div>
             }
             <button type="submit" className="btn btn-primary">Login</button>
+            <button
+                style={{border: 'none', background: 'transparent'}}
+                onClick={() => {
+                    logout()
+                }}
+                className="navbar-brand">Logout</button>
           </form>
         </div>
       )

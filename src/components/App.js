@@ -10,7 +10,7 @@ import Waiter from './waiter/Waiter';
 import Error from './error/Error';
 import Register from './registerUser/Register';
 
-import { firebaseAuth } from '../components/config/enviroment'
+import { firebaseAuth, ref } from '../components/config/enviroment'
 
 // router
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
@@ -20,7 +20,7 @@ function PrivateRouteReception ({component: Component, data, ...rest}) {
   return (
     <Route
       {...rest}
-      render={(props) => data.authed === true && data.user === 'ale@gmail.com'
+      render={(props) => data.authed === true && data.position === 'recepcionista'
         ? <Component {...props} />
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
@@ -31,7 +31,7 @@ function PrivateRouteAdmin ({component: Component, data, ...rest}) {
   return (
     <Route
       {...rest}
-      render={(props) => data.authed === true && data.user === 'mari@gmail.com'
+      render={(props) => data.authed === true && data.position === 'administradora'
         ? <Component {...props} />
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
@@ -46,9 +46,9 @@ function PublicRoute ({component: Component, data, ...rest}) {
         if(!data.authed) {
           return <Component {...props} />
         } else {
-          if(data.user ==='ale@gmail.com') {
+          if(data.position ==='recepcionista') {
             return <Redirect to='/recepcion' />
-          } else if (data.user ==='mari@gmail.com') {
+          } else if (data.position ==='administradora') {
             return <Redirect to='/admin' />
           }
         }
@@ -64,25 +64,36 @@ class App extends Component {
   state = {
     authed: false,
     loading: true,
-    user: ''
+    user: '',
+    uid: '',
+    position: ''
     
   }
+  
 
   componentDidMount () { 
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => { 
       
       if (user) {
-        console.log(user.email)
-        this.setState({
-          authed: true,
-          loading: false,
-          user: user.email
-        })
+          ref.child('users').child(user.uid).child('info').child('position').on('value', (snapshot) => {
+            if(snapshot.val()) {
+              this.setState({
+                authed: true,
+                loading: false,
+                user: user.email,
+                uid: user.uid,
+                position: snapshot.val()
+              })
+              
+            }
+           })        
       } else {
         this.setState({
           authed: false,
           loading: false,
-          user: ''
+          user: '',
+          uid: '',
+          position: ''
         })
       }
     })
@@ -99,11 +110,11 @@ class App extends Component {
           <div className="container">
             <div className="row">
               <Switch>
-                <PublicRoute exact data={this.state} path='/' user={this.state.user} component={Login} />
+                <PublicRoute exact data={this.state} path='/' component={Login} />
                 <PublicRoute data={this.state} path='/register' component={Register} />
                 <PrivateRouteReception data={this.state} path='/recepcion' component={Reception} />
-                <PrivateRouteAdmin data={this.state} user={this.state.user} path={'/admin'} component={Admin} />
-                <Route render={() => <h3>No Match</h3>} />
+                <PrivateRouteAdmin data={this.state} path={'/admin'} component={Admin} />
+                <Route component={Error} />
               </Switch>
             </div>
           </div>
