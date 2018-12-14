@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import logo from './../img/logo.png';
 
 class SidebarLg extends Component {
-
+    changeSidebar 
     render() {
         return (
             <nav id="sidebar-lg" className="sidebar">
