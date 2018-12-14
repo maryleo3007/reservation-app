@@ -38,6 +38,28 @@ function PrivateRouteAdmin ({component: Component, data, ...rest}) {
   )
 }
 
+function PrivateRouteCash ({component: Component, data, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => data.authed === true && data.position === 'cajera'
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+    />
+  )
+}
+
+function PrivateRouteWaiter ({component: Component, data, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => data.authed === true && data.position === 'mozo'
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+    />
+  )
+}
+
 function PublicRoute ({component: Component, data, ...rest}) {
   return (
     <Route
@@ -46,15 +68,18 @@ function PublicRoute ({component: Component, data, ...rest}) {
         if(!data.authed) {
           return <Component {...props} />
         } else {
-          if(data.position ==='recepcionista') {
-            return <Redirect to='/recepcion' />
-          } else if (data.position ==='administradora') {
-            return <Redirect to='/admin' />
-          }
-        }
+            if(data.position ==='recepcionista') {
+              return <Redirect to='/recepcion' />
+            } else if (data.position ==='administradora') {
+              return <Redirect to='/admin' />
+            } else if (data.position ==='cajera') {
+              return <Redirect to='/caja' />
+            } else if (data.position ==='mozo') {
+              return <Redirect to='/menu' />
+            }
+         }
       }
-        
-      }
+    }
     />
   )
 }
@@ -67,26 +92,23 @@ class App extends Component {
     user: '',
     uid: '',
     position: ''
-    
   }
   
-
   componentDidMount () { 
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => { 
       
       if (user) {
-          ref.child('users').child(user.uid).child('info').child('position').on('value', (snapshot) => {
-            if(snapshot.val()) {
-              this.setState({
+        ref.child('users').child(user.uid).child('info').child('position').on('value', (snapshot) => {
+          if(snapshot.val()) {
+            this.setState({
                 authed: true,
                 loading: false,
                 user: user.email,
                 uid: user.uid,
                 position: snapshot.val()
               })
-              
             }
-           })        
+          })        
       } else {
         this.setState({
           authed: false,
@@ -112,8 +134,11 @@ class App extends Component {
               <Switch>
                 <PublicRoute exact data={this.state} path='/' component={Login} />
                 <PublicRoute data={this.state} path='/register' component={Register} />
+                <PublicRoute data={this.state} path='/ejecutivo' component={Executive} />
                 <PrivateRouteReception data={this.state} path='/recepcion' component={Reception} />
                 <PrivateRouteAdmin data={this.state} path={'/admin'} component={Admin} />
+                <PrivateRouteCash data={this.state} path={'/caja'} component={Cash} />
+                <PrivateRouteWaiter data={this.state} path={'/menu'} component={Waiter} />
                 <Route component={Error} />
               </Switch>
             </div>
