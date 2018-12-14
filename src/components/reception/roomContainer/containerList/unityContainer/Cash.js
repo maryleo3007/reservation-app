@@ -5,9 +5,9 @@ const Cash = (props) => {
     const {title} = props.cash ;
     
     return (
-        <div className="">
-            {title}
-        </div>
+            <div className="col-lg-3 col-md-3">
+                {title}
+            </div>
     );
 }
 
