@@ -10,11 +10,11 @@ import Waiter from './waiter/Waiter';
 import Error from './error/Error';
 import Register from './registerUser/Register';
 
+// firebase
 import { firebaseAuth, ref } from '../components/config/enviroment'
 
 // router
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-
 
 function PrivateRouteReception ({component: Component, data, ...rest}) {
   return (
@@ -84,7 +84,6 @@ function PublicRoute ({component: Component, data, ...rest}) {
   )
 }
 
-
 class App extends Component {
   state = {
     authed: false,
@@ -96,7 +95,6 @@ class App extends Component {
   
   componentDidMount () { 
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => { 
-      
       if (user) {
         ref.child('users').child(user.uid).child('info').child('position').on('value', (snapshot) => {
           if(snapshot.val()) {
