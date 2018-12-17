@@ -18,7 +18,7 @@ class RoomForm extends Component {
             <button>Disponible</button>
             <button>Ocupado</button>
             <button>Hora</button>
-            <button>Ejecutivo</button>
+            <button>Ejecutivo</button> 
             </div>
         );
     }
