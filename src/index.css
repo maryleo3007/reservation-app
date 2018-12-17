@@ -7,4 +7,68 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.wrapper{
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+  box-sizing: unset !important;
+  background-color: #efefef;
+}
+.sidebar{
+  background-color: #ffffff;
+  min-height: 100vh;
+  transition: all 0.3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+#sidebar-sm{
+  width: 50px;
+}
+#sidebar-lg{
+  width: 250px;
+}
+.room-container{
+  overflow: hidden;
+  min-height: 100vh;
+  width: 100%;
+  margin-left: 250px;
+}
+.roomsList-container{
+  position: relative;
+  min-width: 100%;
+  min-height: 500px;
+}
+.roomlist-container{
+  position: absolute;
+  left: 0;
+}
+.cashRoomlist-container{
+  position: absolute;
+  right: 0;
+}
+.sidebar .fa-chevron-right{
+  float: right;
+}
+.logo{
+  height: 27px;
+  width: 60%;
+}
+.icon-menu{
+  color: #c6c8ce;
+  font-size: 22px;
+}
+.nav-link{
+  color: #888e9f;
+}
+.tabs-options .nav-link.active, .tabs-option .nav-link:hover{
+  border-left: 6px solid #2c79be;
+  color: #2c79be;
+}
+.log-out{
+  position: absolute;
+  bottom: 15%;
+}
+
 

@@ -1,4 +1,4 @@
-import { ref, firebaseAuth } from '../config/enviroment'
+import { ref, firebaseAuth } from '../../services/firebase'
 
 export function auth (email, pw) {
   return firebaseAuth().createUserWithEmailAndPassword(email, pw)

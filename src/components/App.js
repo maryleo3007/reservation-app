@@ -11,7 +11,7 @@ import Error from './error/Error';
 import Register from './registerUser/Register';
 
 // firebase
-import { firebaseAuth, ref } from '../components/config/enviroment'
+import { firebaseAuth, ref } from '../services/firebase'
 
 // router
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
