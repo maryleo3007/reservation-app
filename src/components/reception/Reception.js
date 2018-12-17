@@ -3,6 +3,7 @@ import {app} from './../../services/firebase';
 
 //components
 import RoomContainer from './roomContainer/RoomContainer';
+import RegisterContainer from './registerContainer/RegisterContainer';
 import Sidebar from './../Sidebar';
 
 class Reception extends Component {
@@ -13,11 +14,17 @@ class Reception extends Component {
         this.dbCashRoom = app.database().ref().child('CashRoom/');
         this.dbRoom = app.database().ref().child('Room/');
         this.state = {
+          showComponent : true,
           cashList :[],
           roomList : []
         };
       }
-
+    changeComponent= (change) => {
+        this.state.showComponent ? 
+        this.setState({ showComponent : change}) 
+        : 
+        this.setState({ showComponent : change })
+    }
     componentDidMount() {
     this.dbCashRoom.on('value', snap =>{
         const arrCash = [];
@@ -61,13 +68,19 @@ class Reception extends Component {
 
 
     render() { 
+        const showComponent = this.state.showComponent;
         return ( 
             <div className="wrapper">
-                <Sidebar />
-                <RoomContainer
+                <Sidebar 
+                    changeComponent = {this.changeComponent}
+                />
+                {showComponent ? 
+                    <RoomContainer
                     rooms = {this.state.roomList}
                     cashs = {this.state.cashList}
-                />
+                    /> : 
+                    <RegisterContainer />
+                }
             </div> 
          );
     }

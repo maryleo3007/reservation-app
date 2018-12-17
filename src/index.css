@@ -60,15 +60,24 @@ body {
   font-size: 22px;
 }
 .nav-link{
-  color: #888e9f;
+  color: #888e9f !important;
+  cursor: pointer;
 }
 .tabs-options .nav-link.active, .tabs-option .nav-link:hover{
   border-left: 6px solid #2c79be;
-  color: #2c79be;
+  color: #2c79be !important;
+  cursor: pointer;
+}
+.tabs-options a:nth-child(2){
+  border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
 }
 .log-out{
   position: absolute;
   bottom: 15%;
+}
+.icon-menu{
+  cursor: pointer;
 }
 
 

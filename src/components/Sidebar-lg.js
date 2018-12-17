@@ -2,14 +2,27 @@ import React,{Component} from 'react';
 import logo from './../img/logo.png';
 
 class SidebarLg extends Component {
-    changeSidebar(){
-        const change = false
-        console.log(change)
+    state ={
+        reception : true,
+        register : false,
+        activeClassR: true,
+        activeClassRe : false
+    }
+    changeSidebar = () =>{
+        const change = false;
         this.props.changeSidebar(change);
-        console.log(this.props.changeSidebar(change))
+    }
+    changeReception = () =>{
+        this.props.changeReception();
+        this.setState({activeClassR:true,activeClassRe:false})
+    }
+    changeRegister = () =>{
+        this.props.changeRegister();
+        this.setState({activeClassR:false,activeClassRe:true})
     }
     render() {
-        
+        const classNameR = this.state.activeClassR ? 'nav-link active' : 'nav-link'
+        const classNameRe = this.state.activeClassRe ? 'nav-link active' : 'nav-link'
         return (
             <nav id="sidebar-lg" className="sidebar">
                 <div className="d-flex justify-content-between">
@@ -26,12 +39,12 @@ class SidebarLg extends Component {
                         <p>Recepcionista</p>
                     </div>
                 </div>
-                <div aria-orientation="vertical" className="nav flex-column tabs-options border-top" id="" role="tablist">
-                    <a aria-controls="v-pills-home" aria-selected="true" className="nav-link active" data-toggle="pill" href="#v-pills-home" id="tab-client" role="tab">
+                <div className="nav flex-column tabs-options border-top">
+                    <a className={classNameR} onClick={this.changeReception}>
                         <i aria-hidden="true" className="fa fa-pencil pr-2"></i> Atender Cliente 
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
                     </a>
-                    <a aria-controls="v-pills-profile" aria-selected="false" className="nav-link border-top border-bottom" data-toggle="pill" href="#v-pills-profile" id="tab-register" role="tab">
+                    <a className={classNameRe} onClick={this.changeRegister}>
                         <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro 
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
                     </a>
