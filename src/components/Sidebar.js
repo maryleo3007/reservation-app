@@ -8,8 +8,17 @@ class Sidebar extends Component {
     state = {
         sidebarState : true
     }
-    changeSidebar(){
+    changeSidebar(change){
 
+        this.state.sidebarState ? 
+        this.setState({
+            sidebarState : change
+        }) 
+        : 
+        this.setState({
+            sidebarState : change
+            })
+        console.log( this.state)
     }
     render() {
         const showNav = this.state.sidebarState;
@@ -17,11 +26,9 @@ class Sidebar extends Component {
             <div>
                 {showNav ? 
                     <SidebarLg 
-                        sidebarState = {this.state}
                         changeSidebar = {this.changeSidebar}
                     /> : 
                     <SidebarSm
-                        sidebarState = {this.state}
                         changeSidebar = {this.changeSidebar}
                     />
                 }

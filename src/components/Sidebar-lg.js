@@ -2,15 +2,21 @@ import React,{Component} from 'react';
 import logo from './../img/logo.png';
 
 class SidebarLg extends Component {
-    changeSidebar 
+    changeSidebar(){
+        const change = false
+        console.log(change)
+        this.props.changeSidebar(change);
+        console.log(this.props.changeSidebar(change))
+    }
     render() {
+        
         return (
             <nav id="sidebar-lg" className="sidebar">
                 <div className="d-flex justify-content-between">
                     <a className="navbar-brand pl-3" href="/">
                     <img alt="inteligo-logo" className="logo" src={logo}/>
                     </a>
-                    <i className="fa fa-bars icon-menu pr-4 pt-3" id="menu"></i>
+                    <i className="fa fa-bars icon-menu pr-4 pt-3" id="menu" onClick={this.changeSidebar}></i>
                 </div>
                     
                 <div className="">
