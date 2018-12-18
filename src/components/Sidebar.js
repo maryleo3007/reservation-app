@@ -24,7 +24,7 @@ class Sidebar extends Component {
     render() {
         const showNav = this.state.sidebarState;
         return (
-            <div>
+            <div className="sidebar-content">
                 {showNav ? 
                     <SidebarLg 
                         changeSidebar = {this.changeSidebar}

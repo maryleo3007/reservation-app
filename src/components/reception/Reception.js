@@ -8,17 +8,14 @@ import Sidebar from './../Sidebar';
 
 class Reception extends Component {
 
-    constructor(props){
-        super(props);
-        
-        this.dbCashRoom = app.database().ref().child('CashRoom/');
-        this.dbRoom = app.database().ref().child('Room/');
-        this.state = {
-          showComponent : true,
-          cashList :[],
-          roomList : []
-        };
-      }
+    dbCashRoom = app.database().ref().child('CashRoom/');
+    dbRoom = app.database().ref().child('Room/');
+    state = {
+        showComponent : true,
+        cashList :[],
+        roomList : []
+    };
+
     changeComponent= (change) => {
         this.state.showComponent ? 
         this.setState({ showComponent : change}) 
@@ -70,7 +67,7 @@ class Reception extends Component {
     render() { 
         const showComponent = this.state.showComponent;
         return ( 
-            <div className="wrapper">
+            <div className="wrapper ">
                 <Sidebar 
                     changeComponent = {this.changeComponent}
                 />
