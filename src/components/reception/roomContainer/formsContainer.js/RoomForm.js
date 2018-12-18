@@ -3,12 +3,11 @@ import React, { Component } from 'react';
 class RoomForm extends Component {    
     render() {
 
-        const {title, state, time, executive} = this.props.room ;
+        const {title, state, time, executive, key} = this.props.room ;
 
         const changeState = (e) => {
             e.preventDefault();
-            const value = 'probable'
-            this.props.changeState(value)
+            this.props.changeState(key)            
         }
 
         return (

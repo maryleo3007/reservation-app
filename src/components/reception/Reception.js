@@ -57,12 +57,9 @@ class Reception extends Component {
     }
 
     changeState = (state) => {
-        console.log(state);
-        const ap = (app.database().ref().child('Room/').child('/'+this.state.roomList[0].key).on('value', (snapshot) => {
-            let state = snapshot.val().state
-            console.log(state);
-            
-        }))    
+        app.database().ref().child('Room/').child('/'+ state).update({
+            state: 'ocupado'
+        });
     }
 
     render () {
