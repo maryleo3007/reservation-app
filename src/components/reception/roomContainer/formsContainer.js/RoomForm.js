@@ -8,7 +8,7 @@ class RoomForm extends Component {
             time: this.props.room.time,
             executive: this.props.room.executive,
             key: this.props.room.key,
-        },  
+        },
         available: 'disponible',
         probable: 'probable',
         unavailable: 'ocupado'
@@ -28,11 +28,11 @@ class RoomForm extends Component {
         e.preventDefault();
         this.props.changeState(this.state.roomState.key, this.state.unavailable)            
     }
-    render() { 
-        return ( 
+    render() {
+        return (
             <div>
                 <div>
-                    <span><b>Formulario :</b> {this.state.roomState.title} </span>
+                    <span><b>Formulario :</b> {this.state.roomState.title}</span>
                     <button onClick={this.changeAvailable}>Disponible</button>
                     <button onClick={this.changeProbable}>Probable</button>
                     <button onClick={this.changeUnavailable}>Ocupado</button>
