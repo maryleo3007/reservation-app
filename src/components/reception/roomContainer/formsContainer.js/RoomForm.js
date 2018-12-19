@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class RoomForm extends Component {   
+const RoomForm = props =>  {   
 
-    render() {
-
-        const {title, state, time, executive, key} = this.props.room ;
+        const {title, state, time, executive, key} = props.room ;
         const available = 'disponible';
         const probable = 'probable';
         const unavailable = 'ocupado'
@@ -12,17 +10,17 @@ class RoomForm extends Component {
 
         let changeAvailable = (e) => {
             e.preventDefault();
-            this.props.changeState(key, available)            
+            props.changeState(key, available)            
         }
 
         let changeProbable = (e) => {
             e.preventDefault();
-            this.props.changeState(key, probable)            
+            props.changeState(key, probable)            
         }
 
         let changeUnavailable = (e) => {
             e.preventDefault();
-            this.props.changeState(key, unavailable)            
+            props.changeState(key, unavailable)            
         }
 
         
@@ -36,7 +34,6 @@ class RoomForm extends Component {
             <button>Ejecutivo</button> 
             </div>
         );
-    }
 }
  
 export default RoomForm;

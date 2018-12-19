@@ -52,6 +52,7 @@ class Reception extends Component {
         
         
     }
+    
     logOut = (e) => {
         e.preventDefault()
         logout()
