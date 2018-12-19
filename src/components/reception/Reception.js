@@ -48,19 +48,22 @@ class Reception extends Component {
                 this.setState({roomList:arrRooms}) 
             })
         })
+
+        
         
     }
-
     logOut = (e) => {
         e.preventDefault()
         logout()
     }
 
-    changeState = (state) => {
-        app.database().ref().child('Room/').child('/'+ state).update({
-            state: 'ocupado'
+    changeState = (key, state) => {
+        app.database().ref().child('Room/').child('/'+ key).update({
+            state: state
         });
     }
+
+    
 
     render () {
         return (
@@ -78,8 +81,6 @@ class Reception extends Component {
                 onClick={this.logOut}
                 className="navbar-brand">Logout
             </button>
-            {/* <button onClick={this.changeState}>cambiar estado</button> */}
-
             </div>
             
         )
