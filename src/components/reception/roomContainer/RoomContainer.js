@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import CashList from './containerList/CashList';
 import RoomList from './containerList/RoomsList';
+import FormsContainer from './formsContainer.js/FormsContainer';
 
 class RoomContainer extends Component {
 
@@ -19,6 +20,11 @@ class RoomContainer extends Component {
                                 <CashList
                                     cashs = {this.props.cashs}
                                 />
+                            </div>
+                        </div>
+                        <div className="col-4">
+                            <div className="bg-white">
+                                <FormsContainer rooms = {this.props.rooms} changeState = {this.props.changeState}/>
                             </div>
                         </div>
                     </div>
