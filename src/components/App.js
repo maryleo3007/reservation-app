@@ -16,12 +16,14 @@ import { firebaseAuth, ref } from '../services/firebase'
 // router
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
-function PrivateRouteReception ({component: Component, data, ...rest}) {
+function PrivateRouteReception ({component: Component, data, state, ...rest}) {
+
   return (
+    
     <Route
       {...rest}
       render={(props) => data.authed === true && data.position === 'recepcionista'
-        ? <Component {...props} />
+        ? <Component {...props} data={data}/>
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
   )
@@ -88,7 +90,7 @@ class App extends Component {
   state = {
     authed: false,
     loading: true,
-    user: '',
+    userMail: '',
     uid: '',
     position: ''
   }
@@ -96,12 +98,13 @@ class App extends Component {
   componentDidMount () { 
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => { 
       if (user) {
+        
         ref.child('users').child(user.uid).child('info').child('position').on('value', (snapshot) => {
           if(snapshot.val()) {
             this.setState({
                 authed: true,
                 loading: false,
-                user: user.email,
+                userMail: user.email,
                 uid: user.uid,
                 position: snapshot.val()
               })
@@ -127,20 +130,16 @@ class App extends Component {
     return this.state.loading === true ? <h1>Loading</h1> : (
       <Router>
         <div>
-          <div className="container">
-            <div className="row">
               <Switch>
                 <PublicRoute exact data={this.state} path='/' component={Login} />
                 <PublicRoute data={this.state} path='/register' component={Register} />
                 <PublicRoute data={this.state} path='/ejecutivo' component={Executive} />
-                <PrivateRouteReception data={this.state} path='/recepcion' component={Reception} />
+                <PrivateRouteReception data={this.state} path='/recepcion' component={Reception} state={this.state}/>
                 <PrivateRouteAdmin data={this.state} path={'/admin'} component={Admin} />
                 <PrivateRouteCash data={this.state} path={'/caja'} component={Cash} />
                 <PrivateRouteWaiter data={this.state} path={'/menu'} component={Waiter} />
                 <Route component={Error} />
               </Switch>
-            </div>
-          </div>
         </div>
       </Router>
     );

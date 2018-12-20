@@ -18,5 +18,5 @@ const firebaseAuth = firebase.auth;
 const storage = firebase.storage()
 
 export {
-    app, ref, firebaseAuth, storage as default
+    app, ref, firebaseAuth, storage
 }

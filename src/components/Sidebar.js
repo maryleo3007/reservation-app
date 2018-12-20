@@ -30,11 +30,16 @@ class Sidebar extends Component {
                         changeSidebar = {this.changeSidebar}
                         changeReception = {this.changeReception}
                         changeRegister = {this.changeRegister}
+                        userImage = {this.props.userImage}
+                        userData = {this.props.userData}
+                        userName = {this.props.userName}
+                        logOut = {this.props.logOut}
                     /> : 
                     <SidebarSm
                         changeSidebar = {this.changeSidebar}
                         changeComponent = {this.changeComponent}
                         changeRegister = {this.changeRegister}
+                        logOut = {this.props.logOut}
                     />
                 }
             </div>

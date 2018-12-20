@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { logout } from './../../components/helpers/authFirebase'
-import {app} from './../../services/firebase';
+import {ref, storage} from './../../services/firebase';
 
 //components
 import RoomContainer from './roomContainer/RoomContainer';
@@ -8,13 +8,17 @@ import RegisterContainer from './registerContainer/RegisterContainer';
 import Sidebar from './../Sidebar';
 
 class Reception extends Component {
+    
+    dbCashRoom = ref.child('CashRoom/');
+    dbRoom = ref.child('Room/');
+    dbUsers = ref.child('Users/').child(this.props.data.uid).child('/info');
 
-    dbCashRoom = app.database().ref().child('CashRoom/');
-    dbRoom = app.database().ref().child('Room/');
     state = {
         showComponent : true,
         cashList :[],
-        roomList : []
+        roomList : [],
+        userImage: {},
+        userName: ""
     };
 
     changeComponent= (change) => {
@@ -24,7 +28,6 @@ class Reception extends Component {
         this.setState({ showComponent : change })
     }
     componentDidMount() {
-        
         this.dbCashRoom.on('value', snap =>{
             const arrCash = [];
             snap.forEach(data =>{
@@ -55,6 +58,21 @@ class Reception extends Component {
                 this.setState({roomList:arrRooms}) 
             })
         })  
+
+        ref.child('users').child(this.props.data.uid).child('info').child('name').on('value', (snapshot) => {
+            if(snapshot.val()) {
+              this.setState({userName:snapshot.val()})
+            }
+        })  
+
+        
+
+        let cutName = this.props.data.userMail.indexOf("@");
+        let name = this.props.data.userMail.substring(0, cutName);
+        console.log(this.props.data)
+        this.storage = storage.ref('/users').child(`${name}.jpg`).getDownloadURL().then(url => {
+            this.setState({userImage:url})
+        })
     }
     
     logOut = (e) => {
@@ -63,7 +81,7 @@ class Reception extends Component {
     }
 
     changeState = (key, state) => {
-        app.database().ref().child('Room/').child('/'+ key).update({
+        ref.child('Room/').child('/'+ key).update({
             state: state
         });
     }
@@ -75,6 +93,10 @@ class Reception extends Component {
                 <div className="wrapper ">
                     <Sidebar 
                         changeComponent = {this.changeComponent}
+                        userImage = {this.state.userImage}
+                        userName={this.state.userName}
+                        userData = {this.props.data}
+                        logOut = {this.logOut}
                     />
                     {showComponent ? 
                         <RoomContainer
@@ -84,11 +106,6 @@ class Reception extends Component {
                         <RegisterContainer />
                     }
                 </div> 
-                <button
-                    style={{border: 'none', background: 'transparent'}}
-                    onClick={this.logOut}
-                    className="navbar-brand">Logout
-                </button>
             </div>
             
         )

@@ -12,6 +12,7 @@ class SidebarSm extends Component {
         this.props.changeRegister();
     }
     render() {
+        const logOut = this.props.logOut;
         return (
             <nav id="sidebar-sm" className="sidebar">
                 <div className="d-flex justify-content-between"> 
@@ -24,7 +25,7 @@ class SidebarSm extends Component {
                     <a className="nav-link" href="/"onClick={this.changeRegister}>
                         <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i>
                     </a>
-                    <a className="nav-link" href="/">
+                    <a className="nav-link" href="/" onclick={logOut}>
                         <i aria-hidden="true" className="fa fa-sign-out"></i>
                     </a>
                 </div>

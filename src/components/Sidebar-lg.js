@@ -6,7 +6,7 @@ class SidebarLg extends Component {
         reception : true,
         register : false,
         activeClassR: true,
-        activeClassRe : false
+        activeClassRe : false,
     }
     changeSidebar = () =>{
         const change = false;
@@ -23,6 +23,9 @@ class SidebarLg extends Component {
     render() {
         const classNameR = this.state.activeClassR ? 'nav-link active' : 'nav-link'
         const classNameRe = this.state.activeClassRe ? 'nav-link active' : 'nav-link'
+        const userImg = this.props.userImage;
+        const userName = this.props.userName;
+        const position = this.props.userData.position;
         return (
             <nav id="sidebar-lg" className="sidebar">
                 <div className="d-flex justify-content-between">
@@ -33,10 +36,10 @@ class SidebarLg extends Component {
                 </div>
                     
                 <div className="">
-                    <img alt="" className="img-user img-fluid mx-auto d-block mt-5 " src="./../assets/img/Stephanie Pino.jpg"/>
+                    <img alt="" className="img-user img-fluid mx-auto d-block mt-5 rounded-circle pr-5 pl-5" src={userImg}/>
                     <div className="text-center user ">
-                        <p className="mt-2">Stephanie Pino</p>
-                        <p>Recepcionista</p>
+                        <p className="mt-2">{userName}</p>
+                        <p className="text-capitalize">{position}</p>
                     </div>
                 </div>
                 <div className="nav flex-column tabs-options border-top">
@@ -50,7 +53,7 @@ class SidebarLg extends Component {
                     </a>
                 </div>
                 <div className="log-out d-flex align-items-end">
-                    <a className="nav-link" href="/"><i aria-hidden="true" className="fa fa-sign-out"></i>Salir</a>
+                    <a className="nav-link" href="/" onClick={this.props.logOut}><i aria-hidden="true" className="fa fa-sign-out"></i>Salir</a>
                 </div>
             </nav>
         );

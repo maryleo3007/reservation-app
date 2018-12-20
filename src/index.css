@@ -79,5 +79,14 @@ body {
 .icon-menu{
   cursor: pointer;
 }
+.room-item{
+  font-size: 13px;
+}
+.room-list .room-item:nth-child(12), 
+.room-list .room-item:nth-child(11), 
+.room-list .room-item:nth-child(10),
+.room-list .room-item:nth-child(9){
+  border-bottom: 1px solid #000000;
+}
 
 

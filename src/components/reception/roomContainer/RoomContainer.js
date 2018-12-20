@@ -11,7 +11,7 @@ class RoomContainer extends Component {
                 <div className="row">
                     <div className="col-7">
                         <div className="roomsList-container bg-white mt-5">
-                            <div className="roomlist-container">
+                            <div className="roomlist-container container-fluid">
                                 <RoomList
                                     rooms = {this.props.rooms} 
                                 />

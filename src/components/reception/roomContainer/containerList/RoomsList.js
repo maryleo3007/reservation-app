@@ -5,7 +5,7 @@ class RoomList extends Component {
 
     render() {
         return (
-            <div className="">
+            <div className="row room-list">
                 {this.props.rooms.map(room => 
                     <Room
                         key = {room.id}
