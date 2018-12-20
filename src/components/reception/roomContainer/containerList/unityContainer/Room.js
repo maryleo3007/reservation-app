@@ -7,9 +7,6 @@ const Room = (props) => {
     return (
         <div className="">
         <span><b>Nombre:</b> {title}</span>
-        <span><b>Estado:</b> {state}</span>
-        <span><b>Hora:</b> {time}</span>
-        <span><b>Ejecutivo:</b> {executive}</span>
         </div>
     );
 }

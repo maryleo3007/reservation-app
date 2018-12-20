@@ -26,7 +26,13 @@ class RoomContainer extends Component {
                         </div>
                         <div className="col-4">
                             <div className="bg-white">
-                                <FormsContainer rooms = {this.props.rooms} changeState = {this.props.changeState}/>
+                                <FormsContainer 
+                                    rooms = {this.props.rooms}
+                                    objRegister = {this.props.objRegister} 
+                                    changeState = {this.props.changeState}
+                                    addRegister = {this.props.addRegister}
+                                    responsable = {this.props.responsable}
+                                    />
                             </div>
                         </div>
 

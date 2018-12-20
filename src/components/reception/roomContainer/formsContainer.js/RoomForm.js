@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 class RoomForm extends Component {
 
     state = { 
-        roomState : {
-            title: this.props.room.title,
-            state: this.props.room.state,
-            time: this.props.room.time,
-            executive: this.props.room.executive,
-            key: this.props.room.key,
-        },
         available: 'disponible',
         probable: 'probable',
-        unavailable: 'ocupado'
+        unavailable: 'ocupado',
     }
 
     // refs 
@@ -25,31 +19,34 @@ class RoomForm extends Component {
     executiveHour = React.createRef();
     finalHour = React.createRef();
     floor = React.createRef();
-    roomId = React.createRef();
+    room = React.createRef();
     team = React.createRef();
-    responsibleRegistry = React.createRef();
+    responsableRegistry = React.createRef();
     box = React.createRef();
-    idForm = React.createRef();
 
 
     changeAvailable = (e) => {
         e.preventDefault();
-        this.props.changeState(this.state.roomState.key, this.state.available)            
+        this.props.changeState(this.props.room.key, this.state.available)            
     }
 
     changeProbable = (e) => {
         e.preventDefault();
-        this.props.changeState(this.state.roomState.key, this.state.probable)            
+        this.props.changeState(this.props.room.key, this.state.probable)            
     }
 
     changeUnavailable = (e) => {
         e.preventDefault();
-        this.props.changeState(this.state.roomState.key, this.state.unavailable)            
+        this.props.changeState(this.props.room.key, this.state.unavailable)            
     }
 
     addRegister = e => {
         e.preventDefault();
 
+        this.room.current.value = this.props.room.title;
+        this.floor.current.value = this.props.room.floor;
+        this.area.current.value = this.props.responsable.position;
+        
         // objeto del auto
         const objResgister = {
             startTime: this.startTime.current.value,
@@ -61,44 +58,43 @@ class RoomForm extends Component {
             executiveHour: this.executiveHour.current.value,
             finalHour: this.finalHour.current.value,
             floor: this.floor.current.value,
-            roomId: this.roomId.current.value,
+            room: this.room.current.value,
             team: this.team.current.value,
-            responsibleRegistry: this.responsibleRegistry.current.value,
-            box: this.box.current.value,
-            idForm: this.idForm.current.value,
-      };
+            responsableRegistry: this.responsableRegistry.current.value,
+            box: this.box.current.value
+        };
   
-    //   this.props.cotizarSeguroProps(objResgister);
+      //   this.props.cotizarSeguroProps(objResgister);
   
       // reset form
-      console.log(objResgister);
+      this.props.addRegister(objResgister)
       
       e.currentTarget.reset();
-
-    
     };
+
     render() {
         return (
             <div>
                 <div>
-                    <span>{this.state.roomState.title}</span>
+                    <span>{this.props.room.title}</span>
                     <button onClick={this.changeAvailable}>Disponible</button>
                     <button onClick={this.changeProbable}>Probable</button>
                     <button onClick={this.changeUnavailable}>Ocupado</button>
                 </div>
                 <form onSubmit={this.addRegister}>
+                {/* inputs hidden */}
+                    <input type="hidden" className="form-control" placeholder="" ref={this.room}/>
+                    <input type="hidden" className="form-control" placeholder="" ref={this.area}/>
+                    <input type="hidden" className="form-control" placeholder="" ref={this.floor}/>
                     <div className="form-group">
                         <label>Hora de atención</label>
                         <input type="text" className="form-control" placeholder="hora de atención" ref={this.startTime}/>
                     </div>
                     <div className="form-group">
                         <label>Personal responsable</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.responsibleRegistry}/>
+                        <input type="text" className="form-control" placeholder="" ref={this.responsableRegistry}/>
                     </div>
-                    <div className="form-group">
-                        <label>Area del responsable </label>
-                        <input type="text" className="form-control" placeholder="" ref={this.area}/>
-                    </div>
+                    
                     <div className="form-group">
                         <label>Uso de Caja</label>
                         <input type="text" className="form-control" placeholder="" ref={this.box}/>
@@ -108,12 +104,8 @@ class RoomForm extends Component {
                         <input type="text" className="form-control" placeholder="" ref={this.date}/>
                     </div>
                     <div className="form-group">
-                        <label>Piso</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.floor}/>
-                    </div>
-                    <div className="form-group">
                         <label>Sala id</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.roomId}/>
+                        <input type="text" className="form-control" placeholder="" ref={this.room}/>
                     </div>
                     <div className="form-group">
                         <label>Persona</label>
@@ -136,10 +128,6 @@ class RoomForm extends Component {
                         <input type="text" className="form-control" placeholder="" ref={this.finalHour}/>
                     </div>
                     <div className="form-group">
-                        <label>form id</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.idForm}/>
-                    </div>
-                    <div className="form-group">
                         <label>Hora ejecutivo</label>
                         <input type="text" className="form-control" placeholder="" ref={this.executiveHour}/>
                     </div>
@@ -150,4 +138,25 @@ class RoomForm extends Component {
     }
 }
  
+RoomForm.propTypes = {
+    changeState: PropTypes.func,
+    addRegister: PropTypes.func,
+    responsable: PropTypes.shape({
+        authed: PropTypes.boolean,
+        loading: PropTypes.boolean,
+        uid: PropTypes.string,
+        user: PropTypes.string
+    }),
+    rooms: PropTypes.shape({
+        executive: PropTypes.string,
+        floor: PropTypes.string,
+        id: PropTypes.number,
+        key: PropTypes.string,
+        state: PropTypes.string,
+        time: PropTypes.string,
+        title: PropTypes.string
+    })
+};
+
 export default RoomForm;
+

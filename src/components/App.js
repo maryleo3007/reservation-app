@@ -21,7 +21,7 @@ function PrivateRouteReception ({component: Component, data, ...rest}) {
     <Route
       {...rest}
       render={(props) => data.authed === true && data.position === 'recepcionista'
-        ? <Component {...props} />
+        ? <Component {...props} responsable={data}/>
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
   )

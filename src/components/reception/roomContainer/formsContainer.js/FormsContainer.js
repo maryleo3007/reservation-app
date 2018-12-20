@@ -10,7 +10,10 @@ class FormsContainer extends Component {
                     <RoomForm
                         key = {room.id}
                         room = {room}
+                        objRegister = {this.props.objRegister}
                         changeState = {this.props.changeState}
+                        addRegister = {this.props.addRegister}
+                        responsable = {this.props.responsable}
                     />
                 )}
             </div>

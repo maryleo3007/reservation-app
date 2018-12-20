@@ -12,7 +12,8 @@ class Reception extends Component {
     dbRoom = app.database().ref().child('Room/');
     state = {
         cashList :[],
-        roomList : []
+        roomList : [],
+        objRegister: {}
     };
     
 
@@ -64,7 +65,33 @@ class Reception extends Component {
         });
     }
 
-    
+
+    addRegister = (objRegister) => {
+        const refRoomList  = app.database().ref().child('roomRegister');
+        const addRegister = refRoomList.push({
+            startTime: objRegister.startTime,
+            collaborator: objRegister.collaborator,
+            area: objRegister.area,
+            appointment: objRegister.appointment, 
+            commentary: objRegister.commentary,
+            date: objRegister.date,
+            executiveHour: objRegister.executiveHour,
+            finalHour: objRegister.finalHour,
+            floor: objRegister.floor,
+            room: objRegister.room,
+            team: objRegister.team,
+            responsableRegistry: objRegister.responsableRegistry,
+            box: objRegister.box
+        })
+        
+        const newRegisterkey = addRegister.key
+        refRoomList.child(newRegisterkey).update({
+            idRegRoom: newRegisterkey
+        })
+        this.setState({
+            objRegister
+        })
+    }
 
     render () {
         return (
@@ -74,7 +101,10 @@ class Reception extends Component {
                 <RoomContainer
                     rooms = {this.state.roomList}
                     cashs = {this.state.cashList}
+                    objRegister = {this.state.objRegister}
                     changeState = {this.changeState}
+                    addRegister = {this.addRegister}
+                    responsable = {this.props.responsable}
                 />
             </div> 
             <button
