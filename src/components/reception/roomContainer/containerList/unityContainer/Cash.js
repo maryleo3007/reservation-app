@@ -3,9 +3,13 @@ import React from 'react';
 const Cash = (props) => {
     
     const {title} = props.cash ;
+
+    // handleOpenCashForm = () => {
+
+    // }
     
     return (
-            <div className="col-lg-3 col-md-3">
+            <div className="border cash-item align-middle text-center text-capitalize">
                 {title}
             </div>
     );

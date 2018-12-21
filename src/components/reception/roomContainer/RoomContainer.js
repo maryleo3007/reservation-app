@@ -16,7 +16,7 @@ class RoomContainer extends Component {
                                     rooms = {this.props.rooms} 
                                 />
                             </div>
-                            <div className="cashRoomlist-container">
+                            <div className="cashRoomlist-container col-lg-3 col-md-3">
                                 <CashList
                                     cashs = {this.props.cashs}
                                 />

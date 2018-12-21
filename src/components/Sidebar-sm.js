@@ -19,13 +19,13 @@ class SidebarSm extends Component {
                     <i className="fa fa-bars icon-menu pl-3 pb-2" id="menu" onClick={this.changeSidebar}></i>
                 </div>
                 <div aria-orientation="vertical" className="nav flex-column ng-star-inserted">
-                    <a className="nav-link active" href="/" onClick={this.changeReception}>
+                    <a className="nav-link active" onClick={this.changeReception}  href="/">
                         <i aria-hidden="true" className="fa fa-pencil pr-2"></i>
                     </a>
-                    <a className="nav-link" href="/"onClick={this.changeRegister}>
+                    <a className="nav-link" onClick={this.changeRegister}  href="/">
                         <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i>
                     </a>
-                    <a className="nav-link" href="/" onclick={logOut}>
+                    <a className="nav-link" onclick={logOut}  href="/">
                         <i aria-hidden="true" className="fa fa-sign-out"></i>
                     </a>
                 </div>

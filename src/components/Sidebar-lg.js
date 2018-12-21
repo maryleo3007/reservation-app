@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import logo from './../img/logo.png';
+import logo from './../assets/logo.png';
 
 class SidebarLg extends Component {
     state ={
@@ -43,11 +43,11 @@ class SidebarLg extends Component {
                     </div>
                 </div>
                 <div className="nav flex-column tabs-options border-top">
-                    <a className={classNameR} onClick={this.changeReception}>
+                    <a className={classNameR} onClick={this.changeReception} href="/">
                         <i aria-hidden="true" className="fa fa-pencil pr-2"></i> Atender Cliente 
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
                     </a>
-                    <a className={classNameRe} onClick={this.changeRegister}>
+                    <a className={classNameRe} onClick={this.changeRegister} href="/">
                         <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro 
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
                     </a>

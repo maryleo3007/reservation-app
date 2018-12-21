@@ -47,6 +47,10 @@ body {
 .cashRoomlist-container{
   position: absolute;
   right: 0;
+  top: 35%;
+}
+.cash-item{
+  height: 78px;
 }
 .sidebar .fa-chevron-right{
   float: right;

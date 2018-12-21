@@ -65,11 +65,8 @@ class Reception extends Component {
             }
         })  
 
-        
-
         let cutName = this.props.data.userMail.indexOf("@");
         let name = this.props.data.userMail.substring(0, cutName);
-        console.log(this.props.data)
         this.storage = storage.ref('/users').child(`${name}.jpg`).getDownloadURL().then(url => {
             this.setState({userImage:url})
         })
