@@ -17,13 +17,11 @@ import { firebaseAuth, ref } from '../services/firebase'
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 function PrivateRouteReception ({component: Component, data, state, ...rest}) {
-
   return (
-    
     <Route
       {...rest}
       render={(props) => data.authed === true && data.position === 'recepcionista'
-        ? <Component {...props} data={data}/>
+        ? <Component {...props} responsable={data}/>
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
   )

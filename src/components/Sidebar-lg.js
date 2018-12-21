@@ -43,17 +43,17 @@ class SidebarLg extends Component {
                     </div>
                 </div>
                 <div className="nav flex-column tabs-options border-top">
-                    <a className={classNameR} onClick={this.changeReception} href="/">
+                    <a className={classNameR} onClick={this.changeReception}>
                         <i aria-hidden="true" className="fa fa-pencil pr-2"></i> Atender Cliente 
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
                     </a>
-                    <a className={classNameRe} onClick={this.changeRegister} href="/">
+                    <a className={classNameRe} onClick={this.changeRegister}>
                         <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro 
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
                     </a>
                 </div>
                 <div className="log-out d-flex align-items-end">
-                    <a className="nav-link" href="/" onClick={this.props.logOut}><i aria-hidden="true" className="fa fa-sign-out"></i>Salir</a>
+                    <a className="nav-link" onClick={this.props.logOut}><i aria-hidden="true" className="fa fa-sign-out"></i>Salir</a>
                 </div>
             </nav>
         );

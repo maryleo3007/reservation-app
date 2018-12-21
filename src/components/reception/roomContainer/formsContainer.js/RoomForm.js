@@ -1,60 +1,135 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 class RoomForm extends Component {
 
     state = { 
-        roomState : {
-            title: this.props.room.title,
-            state: this.props.room.state,
-            time: this.props.room.time,
-            executive: this.props.room.executive,
-            key: this.props.room.key,
-        },
         available: 'disponible',
         probable: 'probable',
-        unavailable: 'ocupado'
+        unavailable: 'ocupado',
     }
+
+    // refs 
+
+    startTime = React.createRef();
+    collaborator = React.createRef();
+    area = React.createRef(); 
+    appointment = React.createRef();
+    commentary = React.createRef();
+    date = React.createRef(); 
+    executiveHour = React.createRef();
+    finalHour = React.createRef();
+    floor = React.createRef();
+    room = React.createRef();
+    team = React.createRef();
+    responsableRegistry = React.createRef();
+    box = React.createRef();
+
 
     changeAvailable = (e) => {
         e.preventDefault();
-        this.props.changeState(this.state.roomState.key, this.state.available)            
+        this.props.changeState(this.props.room.key, this.state.available)            
     }
 
     changeProbable = (e) => {
         e.preventDefault();
-        this.props.changeState(this.state.roomState.key, this.state.probable)            
+        this.props.changeState(this.props.room.key, this.state.probable)            
     }
 
     changeUnavailable = (e) => {
         e.preventDefault();
-        this.props.changeState(this.state.roomState.key, this.state.unavailable)            
+        this.props.changeState(this.props.room.key, this.state.unavailable)            
     }
+
+    addRegister = e => {
+        e.preventDefault();
+
+        this.room.current.value = this.props.room.title;
+        this.floor.current.value = this.props.room.floor;
+        this.area.current.value = this.props.responsable.position;
+        
+        // objeto del auto
+        const objResgister = {
+            startTime: this.startTime.current.value,
+            collaborator: this.collaborator.current.value,
+            area: this.area.current.value, 
+            appointment: this.appointment.current.value,
+            commentary: this.commentary.current.value,
+            date: this.date.current.value, 
+            executiveHour: this.executiveHour.current.value,
+            finalHour: this.finalHour.current.value,
+            floor: this.floor.current.value,
+            room: this.room.current.value,
+            team: this.team.current.value,
+            responsableRegistry: this.responsableRegistry.current.value,
+            box: this.box.current.value
+        };
+  
+      //   this.props.cotizarSeguroProps(objResgister);
+  
+      // reset form
+      this.props.addRegister(objResgister)
+      
+      e.currentTarget.reset();
+    };
+
     render() {
         return (
             <div>
                 <div>
-                    <span><b>Formulario :</b> {this.state.roomState.title}</span>
+                    <span>{this.props.room.title}</span>
                     <button onClick={this.changeAvailable}>Disponible</button>
                     <button onClick={this.changeProbable}>Probable</button>
                     <button onClick={this.changeUnavailable}>Ocupado</button>
-                    <button>Hora</button>
-                    <button>Ejecutivo</button> 
                 </div>
-                <form>
+                <form onSubmit={this.addRegister}>
+                {/* inputs hidden */}
+                    <input type="hidden" className="form-control" placeholder="" ref={this.room}/>
+                    <input type="hidden" className="form-control" placeholder="" ref={this.area}/>
+                    <input type="hidden" className="form-control" placeholder="" ref={this.floor}/>
                     <div className="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
+                        <label>Hora de atención</label>
+                        <input type="text" className="form-control" placeholder="hora de atención" ref={this.startTime}/>
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                        <label>Personal responsable</label>
+                        <input type="text" className="form-control" placeholder="" ref={this.responsableRegistry}/>
                     </div>
-                    <div className="form-group form-check">
-                        <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                        <label className="form-check-label" for="exampleCheck1">Check me out</label>
+                    
+                    <div className="form-group">
+                        <label>Uso de Caja</label>
+                        <input type="text" className="form-control" placeholder="" ref={this.box}/>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Example textarea</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <div className="form-group">
+                        <label>Fecha</label>
+                        <input type="text" className="form-control" placeholder="" ref={this.date}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Sala id</label>
+                        <input type="text" className="form-control" placeholder="" ref={this.room}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Persona</label>
+                        <input type="text" className="form-control" placeholder="" ref={this.collaborator}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Equipo</label>
+                        <input type="text" className="form-control" placeholder="" ref={this.team}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Cita</label>
+                        <input type="text" className="form-control" placeholder="" ref={this.appointment}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Comentario</label>
+                        <textarea className="form-control" rows="3" ref={this.commentary}></textarea>
+                    </div>
+                    <div className="form-group">
+                        <label>Hora final</label>
+                        <input type="text" className="form-control" placeholder="" ref={this.finalHour}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Hora ejecutivo</label>
+                        <input type="text" className="form-control" placeholder="" ref={this.executiveHour}/>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
@@ -63,4 +138,25 @@ class RoomForm extends Component {
     }
 }
  
+RoomForm.propTypes = {
+    changeState: PropTypes.func,
+    addRegister: PropTypes.func,
+    responsable: PropTypes.shape({
+        authed: PropTypes.boolean,
+        loading: PropTypes.boolean,
+        uid: PropTypes.string,
+        user: PropTypes.string
+    }),
+    rooms: PropTypes.shape({
+        executive: PropTypes.string,
+        floor: PropTypes.string,
+        id: PropTypes.number,
+        key: PropTypes.string,
+        state: PropTypes.string,
+        time: PropTypes.string,
+        title: PropTypes.string
+    })
+};
+
 export default RoomForm;
+

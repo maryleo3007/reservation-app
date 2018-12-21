@@ -37,7 +37,7 @@ class Sidebar extends Component {
                     /> : 
                     <SidebarSm
                         changeSidebar = {this.changeSidebar}
-                        changeComponent = {this.changeComponent}
+                        changeReception = {this.changeReception}
                         changeRegister = {this.changeRegister}
                         logOut = {this.props.logOut}
                     />

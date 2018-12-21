@@ -11,14 +11,15 @@ class Reception extends Component {
     
     dbCashRoom = ref.child('CashRoom/');
     dbRoom = ref.child('Room/');
-    dbUsers = ref.child('Users/').child(this.props.data.uid).child('/info');
+    dbUsers = ref.child('Users/').child(this.props.responsable.uid).child('/info');
 
     state = {
         showComponent : true,
         cashList :[],
         roomList : [],
         userImage: {},
-        userName: ""
+        userName: "",
+        objRegister: {}
     };
 
     changeComponent= (change) => {
@@ -59,14 +60,14 @@ class Reception extends Component {
             })
         })  
 
-        ref.child('users').child(this.props.data.uid).child('info').child('name').on('value', (snapshot) => {
+        ref.child('users').child(this.props.responsable.uid).child('info').child('name').on('value', (snapshot) => {
             if(snapshot.val()) {
               this.setState({userName:snapshot.val()})
             }
         })  
 
-        let cutName = this.props.data.userMail.indexOf("@");
-        let name = this.props.data.userMail.substring(0, cutName);
+        let cutName = this.props.responsable.userMail.indexOf("@");
+        let name = this.props.responsable.userMail.substring(0, cutName);
         this.storage = storage.ref('/users').child(`${name}.jpg`).getDownloadURL().then(url => {
             this.setState({userImage:url})
         })
@@ -82,31 +83,57 @@ class Reception extends Component {
             state: state
         });
     }
-
+    addRegister = (objRegister) => {
+        const refRoomList  = ref.child('roomRegister');
+        const addRegister = refRoomList.push({
+            startTime: objRegister.startTime,
+            collaborator: objRegister.collaborator,
+            area: objRegister.area,
+            appointment: objRegister.appointment, 
+            commentary: objRegister.commentary,
+            date: objRegister.date,
+            executiveHour: objRegister.executiveHour,
+            finalHour: objRegister.finalHour,
+            floor: objRegister.floor,
+            room: objRegister.room,
+            team: objRegister.team,
+            responsableRegistry: objRegister.responsableRegistry,
+            box: objRegister.box
+        })
+        
+        const newRegisterkey = addRegister.key
+        refRoomList.child(newRegisterkey).update({
+            idRegRoom: newRegisterkey
+        })
+        this.setState({
+            objRegister
+        })
+    }
     render() { 
         const showComponent = this.state.showComponent;
         return ( 
-            <div>
                 <div className="wrapper ">
                     <Sidebar 
                         changeComponent = {this.changeComponent}
                         userImage = {this.state.userImage}
                         userName={this.state.userName}
-                        userData = {this.props.data}
+                        userData = {this.props.responsable}
                         logOut = {this.logOut}
                     />
                     {showComponent ? 
                         <RoomContainer
                         rooms = {this.state.roomList}
                         cashs = {this.state.cashList}
+                        objRegister = {this.state.objRegister}
+                        changeState = {this.changeState}
+                        addRegister = {this.addRegister}
+                        responsable = {this.props.responsable}
                         /> : 
                         <RegisterContainer />
                     }
                 </div> 
-            </div>
-            
         )
-    }
+}
 }
 
 export default Reception;
