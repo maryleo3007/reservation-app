@@ -22,7 +22,8 @@ class RoomContainer extends Component {
                                 />
                             </div>
                         </div>
-                        <div className="col-4">
+                    </div>
+                    <div className="col-5">
                             <div className="bg-white">
                                 <FormsContainer 
                                     rooms = {this.props.rooms}
@@ -34,7 +35,6 @@ class RoomContainer extends Component {
                                 />
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         );
