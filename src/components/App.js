@@ -62,6 +62,7 @@ function PrivateRouteWaiter ({component: Component, data, ...rest}) {
 
 function PublicRoute ({component: Component, data, ...rest}) {
   return (
+    
     <Route
       {...rest}
       render={(props) => {
@@ -125,7 +126,7 @@ class App extends Component {
   }
 
   render() {
-    return this.state.loading === false ? <h1>Loading</h1> : (
+    return this.state.loading === true ? <h1>Loading</h1> : (
       <Router>
         <div>
               <Switch>
