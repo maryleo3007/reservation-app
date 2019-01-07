@@ -30,16 +30,11 @@ class RoomContainer extends Component {
                                     changeState = {this.props.changeState}
                                     addRegister = {this.props.addRegister}
                                     responsable = {this.props.responsable}
-                                    />
+                                    cashs = {this.props.cashs}
+                                />
                             </div>
                         </div>
                     </div>
-                    <div className="col-4">
-                        <div className="bg-white mt-5">
-                            formulario
-                        </div>
-                    </div>
-
                 </div>
             </div>
         );

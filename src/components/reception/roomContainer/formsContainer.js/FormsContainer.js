@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RoomForm from './RoomForm';
-
+import CashForm from './CashForm';
 
 class FormsContainer extends Component {
     render() { 
@@ -14,6 +14,12 @@ class FormsContainer extends Component {
                         changeState = {this.props.changeState}
                         addRegister = {this.props.addRegister}
                         responsable = {this.props.responsable}
+                    />
+                )}
+                {this.props.cashs.map(cash => 
+                    <CashForm
+                        key = {cash.id}
+                        cash = {cash}
                     />
                 )}
             </div>
