@@ -126,6 +126,7 @@ class Reception extends Component {
         })
     }
     render() { 
+        
         const showComponent = this.state.showComponent;
         return ( 
                 <div className="wrapper ">

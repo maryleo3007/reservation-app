@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import RoomForm from './RoomForm';
-import CashForm from './CashForm';
+import CashOneForm from './cashForms/CashOneForm';
+import CashTwoForm from './cashForms/CashTwoForm';
 
 class FormsContainer extends Component {
+    
     render() { 
         return ( 
             <div>
-                {this.props.rooms.map(room => 
+                {/* {this.props.rooms.map(room => 
                     <RoomForm
                         key = {room.id}
                         room = {room}
@@ -15,13 +17,9 @@ class FormsContainer extends Component {
                         addRegister = {this.props.addRegister}
                         responsable = {this.props.responsable}
                     />
-                )}
-                {this.props.cashs.map(cash => 
-                    <CashForm
-                        key = {cash.id}
-                        cash = {cash}
-                    />
-                )}
+                )} */}
+                {this.props.shownCashOne ? <CashOneForm/> : ""}
+                {this.props.shownCashTwo ? <CashTwoForm/> : ""}
             </div>
          );
     }

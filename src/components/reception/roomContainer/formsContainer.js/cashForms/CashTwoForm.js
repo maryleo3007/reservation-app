@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 
-class CashForm extends Component {
+class CashTwoForm extends Component {
     state = { 
         available: 'disponible',
         busy: 'ocupado',
@@ -32,7 +32,7 @@ class CashForm extends Component {
         return (
             <div>
                 <div>
-                    <span>{this.props.cash.title}</span>
+                    {/* <span>{this.props.cash.title}</span> */}
                 </div>
                 <form onSubmit={this.addCashRegister}>
                     <input type="hidden"  ref={this.orderTime}/>
@@ -69,4 +69,4 @@ class CashForm extends Component {
     }
 }
 
-export default CashForm
+export default CashTwoForm
