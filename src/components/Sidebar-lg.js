@@ -49,7 +49,7 @@ class SidebarLg extends Component {
                 <div className="">
                     <img alt="" className="img-user img-fluidd-block mt-5 rounded-circle ml-4" src={userImg}/>
                     <div className="text-center user ">
-                        <p className="mt-2">{userName}</p>
+                        <p className="mt-2"><b>{userName}</b></p>
                         <p className="text-capitalize">{position}</p>
                     </div>
                 </div>
