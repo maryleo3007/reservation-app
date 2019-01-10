@@ -32,7 +32,7 @@ class SidebarSm extends Component {
         const classNameRegisterCash = this.state.activeClassRegisterCash ? 'icon-active' : ''
         return (
             <nav id="sidebar-sm" className="sidebar">
-                <div className="d-flex justify-content-between"> 
+                <div className="d-flex justify-content-between mt-3"> 
                     <i className="fa fa-bars icon-menu pl-3 pb-2" id="menu" onClick={this.changeSidebar}></i>
                 </div>
                 <div aria-orientation="vertical" className="nav flex-column ng-star-inserted">
