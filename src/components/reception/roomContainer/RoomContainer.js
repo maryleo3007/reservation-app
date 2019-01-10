@@ -26,7 +26,7 @@ class RoomContainer extends Component {
 
         return (
             <div className="room-container container">
-                <div className="row mt-5">
+                <div className="row mt-4">
                     <div className="col-7">
                         <div className="roomsList-container bg-white">
                             <div className="roomlist-container container-fluid">

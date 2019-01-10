@@ -30,19 +30,22 @@ class CashOneForm extends Component {
     };
 
     render() {
-        console.log(this.props.cash)
+        const cash = (this.props.cash)[0];
+        
         return (
             <div>
-                <div>
-                    {/* <span>{this.props.cash.title}</span> */}
-                </div>
-                <form onSubmit={this.addCashRegister} className="form-cash">
+                <div onSubmit={this.addCashRegister} className="form-cash">
                     <div>
-                        <h2></h2>
+                        <div className="text-center title-form">{cash.title}</div>
+                        <div className="text-center state-form">{cash.state }</div>
+                        <hr/>
                     </div>
-                    <input type="hidden"  ref={this.orderTime}/>
-                    <input type="hidden"  ref={this.attentionTime}/>
-                    <input type="hidden"  ref={this.outTime}/>
+                    <div className="form-group row">
+                        <label className="col-sm-5 col-form-label">Ingreso de cliente</label>
+                        <div className="col-sm-7">
+                            <button className="btn-play"><i aria-hidden="true" className="fa fa-caret-right"></i></button>
+                        </div>
+                    </div>
                     <div className="form-group row">
                         <label className="col-sm-5 col-form-label">Pedido de caja</label>
                         <div className="col-sm-7">
@@ -67,8 +70,7 @@ class CashOneForm extends Component {
                             <input type="text" className="form-control" ref={this.finalTime}/>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-primary">Enviar</button>
-                </form>
+                </div>
             </div>
         );
     }
