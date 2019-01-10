@@ -4,8 +4,9 @@ import {ref, storage} from './../../services/firebase';
 
 //components
 import RoomContainer from './roomContainer/RoomContainer';
-import RegisterContainer from './registerContainer/RegisterContainer';
 import Sidebar from './../Sidebar';
+import RegisterCash from './registerContainer/registerCash';
+import RegisterRooms from './registerContainer/registerRooms';
 
 class Reception extends Component {
     
@@ -14,7 +15,7 @@ class Reception extends Component {
     dbUsers = ref.child('Users/').child(this.props.responsable.uid).child('/info');
 
     state = {
-        showComponent : true,
+        showComponent : 'rooms',
         cashList :[],
         roomList : [],
         userImage: {},
@@ -22,11 +23,9 @@ class Reception extends Component {
         objRegister: {}
     };
 
+    // mostrar componente de salas o registros
     changeComponent= (change) => {
-        this.state.showComponent ? 
         this.setState({ showComponent : change}) 
-        : 
-        this.setState({ showComponent : change })
     }
     componentDidMount() {
         this.dbCashRoom.on('value', snap =>{
@@ -78,11 +77,14 @@ class Reception extends Component {
         logout()
     }
 
+    // func cambia estado de caja
     changeState = (key, state) => {
         ref.child('Room/').child('/'+ key).update({
             state: state
         });
     }
+
+    // agrega registro de formulario
     addRegister = (objRegister) => {
         const refRoomList  = ref.child('roomRegister');
         const addRegister = refRoomList.push({
@@ -125,6 +127,7 @@ class Reception extends Component {
             obj
         })
     }
+
     render() { 
         
         const showComponent = this.state.showComponent;
@@ -137,7 +140,10 @@ class Reception extends Component {
                         userData = {this.props.responsable}
                         logOut = {this.logOut}
                     />
-                    {showComponent ? 
+                    {showComponent === 'registerRooms' ? 
+                        <RegisterRooms/>
+                         : showComponent === 'registerCash' ?
+                        <RegisterCash /> :
                         <RoomContainer
                         rooms = {this.state.roomList}
                         cashs = {this.state.cashList}
@@ -145,8 +151,7 @@ class Reception extends Component {
                         changeState = {this.changeState}
                         addRegister = {this.addRegister}
                         responsable = {this.props.responsable}
-                        /> : 
-                        <RegisterContainer />
+                        />
                     }
                 </div> 
         )

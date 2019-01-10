@@ -5,24 +5,35 @@ class SidebarLg extends Component {
     state ={
         reception : true,
         register : false,
-        activeClassR: true,
-        activeClassRe : false,
+        activeClassRooms: true,
+        activeClassRegisterRooms : false,
+        activeClassRegisterCash : false,
     }
+
     changeSidebar = () =>{
         const change = false;
         this.props.changeSidebar(change);
     }
+
     changeReception = () =>{
         this.props.changeReception();
-        this.setState({activeClassR:true,activeClassRe:false})
+        this.setState({activeClassRooms:true, activeClassRegisterRooms:false, activeClassRegisterCash:false})
     }
-    changeRegister = () =>{
-        this.props.changeRegister();
-        this.setState({activeClassR:false,activeClassRe:true})
+
+    changeRegisterRooms = () =>{
+        this.props.changeRegisterRooms();
+        this.setState({activeClassRooms:false, activeClassRegisterRooms:true, activeClassRegisterCash:false})
     }
+
+    changeRegisterCash = () =>{
+        this.props.changeRegisterCash();
+        this.setState({activeClassRooms:false, activeClassRegisterRooms:false, activeClassRegisterCash:true})
+    }
+
     render() {
-        const classNameR = this.state.activeClassR ? 'nav-link active' : 'nav-link'
-        const classNameRe = this.state.activeClassRe ? 'nav-link active' : 'nav-link'
+        const classNameRooms = this.state.activeClassRooms ? 'nav-link active' : 'nav-link'
+        const classNameRegisterRooms = this.state.activeClassRegisterRooms ? 'nav-link active' : 'nav-link'
+        const classNameRegisterCash = this.state.activeClassRegisterCash ? 'nav-link active' : 'nav-link'
         const userImg = this.props.userImage;
         const userName = this.props.userName;
         const position = this.props.userData.position;
@@ -43,12 +54,16 @@ class SidebarLg extends Component {
                     </div>
                 </div>
                 <div className="nav flex-column tabs-options border-top">
-                    <a className={classNameR} onClick={this.changeReception}>
+                    <a className={classNameRooms} onClick={this.changeReception}>
                         <i aria-hidden="true" className="fa fa-pencil pr-2"></i> Atender Cliente 
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
                     </a>
-                    <a className={classNameRe} onClick={this.changeRegister}>
-                        <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro 
+                    <a className={classNameRegisterRooms} onClick={this.changeRegisterRooms}>
+                        <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro Salas
+                        <i aria-hidden="true" className="fa fa-chevron-right"></i>
+                    </a>
+                    <a className={classNameRegisterCash} onClick={this.changeRegisterCash}>
+                        <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro Cajas
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
                     </a>
                 </div>

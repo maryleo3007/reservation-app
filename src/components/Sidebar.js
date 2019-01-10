@@ -7,18 +7,28 @@ import SidebarSm from './Sidebar-sm';
 class Sidebar extends Component {
     state = {
         sidebarState : true,
-        reception : true,
-        register : false
+        reception : 'rooms',
+        registerRooms : 'registerRooms',
+        registerCash: 'registerCash'
     }
+
+    // show and hide sidebar
     changeSidebar = (change) => {
         this.state.sidebarState ? 
         this.setState({sidebarState : change}) :  this.setState({sidebarState : change})  
     }
+
+
     changeReception = () => {
         this.props.changeComponent(this.state.reception)
     }
-    changeRegister = () => {
-        this.props.changeComponent(this.state.register)
+
+    changeRegisterRooms = () => {
+        this.props.changeComponent(this.state.registerRooms)
+    }
+
+    changeRegisterCash = () => {
+        this.props.changeComponent(this.state.registerCash)
     }
    
     render() {
@@ -29,7 +39,8 @@ class Sidebar extends Component {
                     <SidebarLg 
                         changeSidebar = {this.changeSidebar}
                         changeReception = {this.changeReception}
-                        changeRegister = {this.changeRegister}
+                        changeRegisterRooms = {this.changeRegisterRooms}
+                        changeRegisterCash = {this.changeRegisterCash}
                         userImage = {this.props.userImage}
                         userData = {this.props.userData}
                         userName = {this.props.userName}
@@ -38,7 +49,8 @@ class Sidebar extends Component {
                     <SidebarSm
                         changeSidebar = {this.changeSidebar}
                         changeReception = {this.changeReception}
-                        changeRegister = {this.changeRegister}
+                        changeRegisterRooms = {this.changeRegisterRooms}
+                        changeRegisterCash = {this.changeRegisterCash}
                         logOut = {this.props.logOut}
                     />
                 }
