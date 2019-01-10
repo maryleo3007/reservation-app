@@ -55,6 +55,13 @@ body {
 .cash-item{
   height: 106px;
 }
+.form-cash{
+  padding-right: 32px;
+  padding-left: 32px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  color: #888e9f;
+}
 .sidebar .fa-chevron-right{
   float: right;
 }

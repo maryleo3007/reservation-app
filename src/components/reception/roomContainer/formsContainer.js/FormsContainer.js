@@ -6,6 +6,7 @@ import CashTwoForm from './cashForms/CashTwoForm';
 class FormsContainer extends Component {
     
     render() { 
+        console.log(this.props.cashs.id)
         return ( 
             <div>
                 {/* {this.props.rooms.map(room => 
@@ -18,8 +19,12 @@ class FormsContainer extends Component {
                         responsable = {this.props.responsable}
                     />
                 )} */}
-                {this.props.shownCashOne ? <CashOneForm/> : ""}
-                {this.props.shownCashTwo ? <CashTwoForm/> : ""}
+                {this.props.shownCashOne ? <CashOneForm
+                    cash = {this.props.cashs.id}
+                /> : ""}
+                {this.props.shownCashTwo ? <CashTwoForm
+                    cash = {this.props.cashs.id}
+                /> : ""}
             </div>
          );
     }

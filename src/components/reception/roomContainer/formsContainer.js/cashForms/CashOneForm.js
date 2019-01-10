@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 
 class CashOneForm extends Component {
+
     state = { 
         available: 'disponible',
         busy: 'ocupado',
@@ -29,13 +30,16 @@ class CashOneForm extends Component {
     };
 
     render() {
-
+        console.log(this.props.cash)
         return (
             <div>
                 <div>
                     {/* <span>{this.props.cash.title}</span> */}
                 </div>
-                <form onSubmit={this.addCashRegister}>
+                <form onSubmit={this.addCashRegister} className="form-cash">
+                    <div>
+                        <h2></h2>
+                    </div>
                     <input type="hidden"  ref={this.orderTime}/>
                     <input type="hidden"  ref={this.attentionTime}/>
                     <input type="hidden"  ref={this.outTime}/>
