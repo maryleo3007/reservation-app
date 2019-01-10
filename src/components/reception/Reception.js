@@ -3,25 +3,43 @@ import { logout } from './../../components/helpers/authFirebase'
 import {app} from './../../services/firebase';
 import PropTypes from 'prop-types';
 
+import {ref, storage} from './../../services/firebase';
 
 //components
 import RoomContainer from './roomContainer/RoomContainer';
 import Sidebar from './../Sidebar';
+import RegisterCash from './registerContainer/registerCash';
+import RegisterRooms from './registerContainer/registerRooms';
 
 class Reception extends Component {
+    
+    dbCashRoom = ref.child('CashRoom/');
+    dbRoom = ref.child('Room/');
+    dbUsers = ref.child('Users/').child(this.props.responsable.uid).child('/info');
 
-    dbCashRoom = app.database().ref().child('CashRoom/');
-    dbRoom = app.database().ref().child('Room/');
     state = {
+        showComponent : 'rooms',
         cashList :[],
         roomList : [],
         objRegister: {},
-        showRoom: false
+        showRoom: false,
+        userImage: {},
+        userName: "",
+        sidebarState : true,
     };
-    
+
+    // mostrar componente de salas o registros
+    changeComponent= (change) => {
+        this.setState({ showComponent : change}) 
+    }
+
+    // show and hide sidebar
+    changeSidebar = (change) => {
+        this.state.sidebarState ? 
+        this.setState({sidebarState : change}) :  this.setState({sidebarState : change})  
+    }
 
     componentDidMount() {
-        
         this.dbCashRoom.on('value', snap =>{
             const arrCash = [];
             snap.forEach(data =>{
@@ -51,10 +69,19 @@ class Reception extends Component {
                 arrRooms.push(roomObj);
                 this.setState({roomList:arrRooms}) 
             })
-        })
+        })  
 
-        
-        
+        ref.child('users').child(this.props.responsable.uid).child('info').child('name').on('value', (snapshot) => {
+            if(snapshot.val()) {
+              this.setState({userName:snapshot.val()})
+            }
+        })  
+
+        let cutName = this.props.responsable.userMail.indexOf("@");
+        let name = this.props.responsable.userMail.substring(0, cutName);
+        this.storage = storage.ref('/users').child(`${name}.jpg`).getDownloadURL().then(url => {
+            this.setState({userImage:url})
+        })
     }
     
     logOut = (e) => {
@@ -62,15 +89,16 @@ class Reception extends Component {
         logout()
     }
 
+    // func cambia estado de caja
     changeState = (key, state) => {
-        app.database().ref().child('Room/').child('/'+ key).update({
+        ref.child('Room/').child('/'+ key).update({
             state: state
         });
     }
 
-
+    // agrega registro de formulario
     addRegister = (objRegister) => {
-        const refRoomList  = app.database().ref().child('roomRegister');
+        const refRoomList  = ref.child('roomRegister');
         const addRegister = refRoomList.push({
             startTime: objRegister.startTime,
             collaborator: objRegister.collaborator,
@@ -96,30 +124,57 @@ class Reception extends Component {
         })
     }
 
-    render () {
-        return (
-            <div>
-                <div className="wrapper">
-                <Sidebar />
-                <RoomContainer
-                    rooms = {this.state.roomList}
-                    cashs = {this.state.cashList}
-                    objRegister = {this.state.objRegister}
-                    changeState = {this.changeState}
-                    addRegister = {this.addRegister}
-                    responsable = {this.props.responsable}
-                    showRoom = {this.state.showRoom}
-                />
-            </div> 
-            <button
-                style={{border: 'none', background: 'transparent'}}
-                onClick={this.logOut}
-                className="navbar-brand">Logout
-            </button>
-            </div>
-            
-        )
+    addCashRegister = (obj) => {
+        const refCashList  = ref.child('cashRegister');
+        const addCashRegister = refCashList.push({
+            startTime: obj.startTime,
+            date: obj.date,
+        })
+        
+        const newCashRegisterkey = addCashRegister.key
+        refCashList.child(newCashRegisterkey).update({
+            idRegCash: newCashRegisterkey
+        })
+        this.setState({
+            obj
+        })
     }
+
+    render() { 
+        
+        const showComponent = this.state.showComponent;
+        return ( 
+                <div className="wrapper ">
+                    <Sidebar 
+                        changeComponent = {this.changeComponent}
+                        userImage = {this.state.userImage}
+                        userName={this.state.userName}
+                        userData = {this.props.responsable}
+                        logOut = {this.logOut}
+                        changeSidebar = {this.changeSidebar}
+                        sidebarState = {this.state.sidebarState}
+                    />
+                    {showComponent === 'registerRooms' ? 
+                        <RegisterRooms 
+                            sidebarState = {this.state.sidebarState}
+                        />
+                         : showComponent === 'registerCash' ?
+                        <RegisterCash 
+                            sidebarState = {this.state.sidebarState}
+                        /> :
+                        <RoomContainer
+                        rooms = {this.state.roomList}
+                        cashs = {this.state.cashList}
+                        objRegister = {this.state.objRegister}
+                        changeState = {this.changeState}
+                        addRegister = {this.addRegister}
+                        responsable = {this.props.responsable}
+                        sidebarState = {this.state.sidebarState}
+                        />
+                    }
+                </div> 
+        )
+}
 }
 
 Reception.propTypes = {

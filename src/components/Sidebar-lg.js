@@ -1,11 +1,42 @@
 import React,{Component} from 'react';
-import logo from './../img/logo.png';
+import logo from './../assets/logo.png';
 
 class SidebarLg extends Component {
-    changeSidebar(){
+    state ={
+        reception : true,
+        register : false,
+        activeClassRooms: true,
+        activeClassRegisterRooms : false,
+        activeClassRegisterCash : false,
     }
+
+    changeSidebar = () =>{
+        const change = false;
+        this.props.changeSidebar(change);
+    }
+
+    changeReception = () =>{
+        this.props.changeReception();
+        this.setState({activeClassRooms:true, activeClassRegisterRooms:false, activeClassRegisterCash:false})
+    }
+
+    changeRegisterRooms = () =>{
+        this.props.changeRegisterRooms();
+        this.setState({activeClassRooms:false, activeClassRegisterRooms:true, activeClassRegisterCash:false})
+    }
+
+    changeRegisterCash = () =>{
+        this.props.changeRegisterCash();
+        this.setState({activeClassRooms:false, activeClassRegisterRooms:false, activeClassRegisterCash:true})
+    }
+
     render() {
-        
+        const classNameRooms = this.state.activeClassRooms ? 'nav-link active' : 'nav-link'
+        const classNameRegisterRooms = this.state.activeClassRegisterRooms ? 'nav-link active' : 'nav-link'
+        const classNameRegisterCash = this.state.activeClassRegisterCash ? 'nav-link active' : 'nav-link'
+        const userImg = this.props.userImage;
+        const userName = this.props.userName;
+        const position = this.props.userData.position;
         return (
             <nav id="sidebar-lg" className="sidebar">
                 <div className="d-flex justify-content-between">
@@ -16,24 +47,28 @@ class SidebarLg extends Component {
                 </div>
                     
                 <div className="">
-                    <img alt="" className="img-user img-fluid mx-auto d-block mt-5 " src="./../assets/img/Stephanie Pino.jpg"/>
+                    <img alt="" className="img-user img-fluidd-block mt-5 rounded-circle ml-4" src={userImg}/>
                     <div className="text-center user ">
-                        <p className="mt-2">Stephanie Pino</p>
-                        <p>Recepcionista</p>
+                        <p className="mt-2"><b>{userName}</b></p>
+                        <p className="text-capitalize">{position}</p>
                     </div>
                 </div>
-                <div aria-orientation="vertical" className="nav flex-column tabs-options border-top" id="" role="tablist">
-                    <a aria-controls="v-pills-home" aria-selected="true" className="nav-link active" data-toggle="pill" href="#v-pills-home" id="tab-client" role="tab">
+                <div className="nav flex-column tabs-options border-top">
+                    <a className={classNameRooms} onClick={this.changeReception}>
                         <i aria-hidden="true" className="fa fa-pencil pr-2"></i> Atender Cliente 
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
                     </a>
-                    <a aria-controls="v-pills-profile" aria-selected="false" className="nav-link border-top border-bottom" data-toggle="pill" href="#v-pills-profile" id="tab-register" role="tab">
-                        <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro 
+                    <a className={classNameRegisterRooms} onClick={this.changeRegisterRooms}>
+                        <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro Salas
+                        <i aria-hidden="true" className="fa fa-chevron-right"></i>
+                    </a>
+                    <a className={classNameRegisterCash} onClick={this.changeRegisterCash}>
+                        <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro Cajas
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
                     </a>
                 </div>
                 <div className="log-out d-flex align-items-end">
-                    <a className="nav-link" href="/"><i aria-hidden="true" className="fa fa-sign-out"></i>Salir</a>
+                    <a className="nav-link" onClick={this.props.logOut}><i aria-hidden="true" className="fa fa-sign-out"></i>Salir</a>
                 </div>
             </nav>
         );

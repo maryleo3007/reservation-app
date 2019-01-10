@@ -23,17 +23,29 @@ body {
   left: 0;
   z-index: 999;
 }
+.img-user{
+  height: 200px;
+}
 #sidebar-sm{
   width: 50px;
 }
 #sidebar-lg{
   width: 250px;
 }
+.icon-active {
+  color: #2c79be;
+}
 .room-container{
   overflow: hidden;
   min-height: 100vh;
   width: 100%;
+}
+/* margin left 250px and 50px */
+.margin-250 {
   margin-left: 250px;
+}
+.margin-50 {
+  margin-left: 50px;
 }
 .roomsList-container{
   position: relative;
@@ -46,7 +58,18 @@ body {
 }
 .cashRoomlist-container{
   position: absolute;
-  right: 0;
+  right: 27px;
+  top: 35%;
+}
+.cash-item{
+  height: 106px;
+}
+.form-cash{
+  padding-right: 32px;
+  padding-left: 32px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  color: #888e9f;
 }
 .sidebar .fa-chevron-right{
   float: right;
@@ -60,15 +83,33 @@ body {
   font-size: 22px;
 }
 .nav-link{
-  color: #888e9f;
+  color: #888e9f !important;
+  cursor: pointer;
 }
 .tabs-options .nav-link.active, .tabs-option .nav-link:hover{
   border-left: 6px solid #2c79be;
-  color: #2c79be;
+  color: #2c79be !important;
+  cursor: pointer;
+}
+.tabs-options a:nth-child(2){
+  border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
 }
 .log-out{
   position: absolute;
-  bottom: 15%;
+  bottom: 2%;
+}
+.icon-menu{
+  cursor: pointer;
+}
+.room-item{
+  font-size: 13px;
+}
+.room-list .room-item:nth-child(12), 
+.room-list .room-item:nth-child(11), 
+.room-list .room-item:nth-child(10),
+.room-list .room-item:nth-child(9){
+  border-bottom: 1px solid #000000;
 }
 
 

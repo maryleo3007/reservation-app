@@ -1,13 +1,15 @@
 import React from 'react';
 
 const Cash = (props) => {
-    
     const {title} = props.cash ;
-    
     return (
-            <div className="col-lg-3 col-md-3">
-                {title}
+        <div className="border cash-item" onClick={props.onToggleForm}>
+            <div className="container d-flex h-100">
+                <div className="row justify-content-center align-self-center mx-auto text-uppercase">
+                    {title}
+                </div>
             </div>
+        </div>
     );
 }
 

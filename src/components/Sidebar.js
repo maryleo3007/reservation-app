@@ -6,21 +6,44 @@ import SidebarSm from './Sidebar-sm';
 
 class Sidebar extends Component {
     state = {
-        sidebarState : true
+        reception : 'rooms',
+        registerRooms : 'registerRooms',
+        registerCash: 'registerCash'
     }
-    changeSidebar(){
-        console.log('holi')
+
+    changeReception = () => {
+        this.props.changeComponent(this.state.reception)
     }
+
+    changeRegisterRooms = () => {
+        this.props.changeComponent(this.state.registerRooms)
+    }
+
+    changeRegisterCash = () => {
+        this.props.changeComponent(this.state.registerCash)
+    }
+   
     render() {
-        const showNav = this.state.sidebarState;
+        const showNav = this.props.sidebarState;
         return (
-            <div>
+            <div className="sidebar-content">
                 {showNav ? 
                     <SidebarLg 
-                        changeSidebar = {this.changeSidebar}
+                        changeSidebar = {this.props.changeSidebar}
+                        changeReception = {this.changeReception}
+                        changeRegisterRooms = {this.changeRegisterRooms}
+                        changeRegisterCash = {this.changeRegisterCash}
+                        userImage = {this.props.userImage}
+                        userData = {this.props.userData}
+                        userName = {this.props.userName}
+                        logOut = {this.props.logOut}
                     /> : 
                     <SidebarSm
-                        changeSidebar = {this.changeSidebar}
+                        changeSidebar = {this.props.changeSidebar}
+                        changeReception = {this.changeReception}
+                        changeRegisterRooms = {this.changeRegisterRooms}
+                        changeRegisterCash = {this.changeRegisterCash}
+                        logOut = {this.props.logOut}
                     />
                 }
             </div>
