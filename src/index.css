@@ -30,6 +30,9 @@ body {
 #sidebar-lg{
   width: 250px;
 }
+.icon-active {
+  color: #2c79be;
+}
 .room-container{
   overflow: hidden;
   min-height: 100vh;
