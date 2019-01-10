@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { logout } from './../../components/helpers/authFirebase'
 import {app} from './../../services/firebase';
+import PropTypes from 'prop-types';
+
 
 //components
 import RoomContainer from './roomContainer/RoomContainer';
@@ -13,7 +15,8 @@ class Reception extends Component {
     state = {
         cashList :[],
         roomList : [],
-        objRegister: {}
+        objRegister: {},
+        showRoom: false
     };
     
 
@@ -105,6 +108,7 @@ class Reception extends Component {
                     changeState = {this.changeState}
                     addRegister = {this.addRegister}
                     responsable = {this.props.responsable}
+                    showRoom = {this.state.showRoom}
                 />
             </div> 
             <button
@@ -117,5 +121,14 @@ class Reception extends Component {
         )
     }
 }
+
+Reception.propTypes = {
+    responsable: PropTypes.shape({
+        authed: PropTypes.boolean,
+        loading: PropTypes.boolean,
+        uid: PropTypes.string,
+        user: PropTypes.string
+    })
+};
 
 export default Reception;

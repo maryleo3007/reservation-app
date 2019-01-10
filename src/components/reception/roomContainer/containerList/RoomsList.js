@@ -10,6 +10,7 @@ class RoomList extends Component {
                     <Room
                         key = {room.id}
                         room = {room}
+                        showRoom = {this.props.showRoom}
                     />
                 )}
             </div>

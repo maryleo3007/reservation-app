@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import CashList from './containerList/CashList';
 import RoomList from './containerList/RoomsList';
 import FormsContainer from './formsContainer.js/FormsContainer';
+import PropTypes from 'prop-types';
 
 class RoomContainer extends Component {
 
@@ -15,11 +16,13 @@ class RoomContainer extends Component {
                                 <div className="roomlist-container">
                                     <RoomList
                                         rooms = {this.props.rooms} 
+                                        showRoom = {this.props.showRoom}
                                     />
                                 </div>
                                 <div className="cashRoomlist-container">
                                     <CashList
                                         cashs = {this.props.cashs}
+                                        showRoom = {this.props.showRoom}
                                     />
                                 </div>
                             </div>
@@ -32,6 +35,7 @@ class RoomContainer extends Component {
                                     changeState = {this.props.changeState}
                                     addRegister = {this.props.addRegister}
                                     responsable = {this.props.responsable}
+                                    showRoom = {this.props.showRoom}
                                     />
                             </div>
                         </div>
@@ -42,5 +46,19 @@ class RoomContainer extends Component {
         );
     }
 }
+
+RoomContainer.propTypes = {
+    changeState: PropTypes.func,
+    addRegister: PropTypes.func,
+    showRoom: PropTypes.bool,
+    responsable: PropTypes.shape({
+        authed: PropTypes.boolean,
+        loading: PropTypes.boolean,
+        uid: PropTypes.string,
+        user: PropTypes.string
+    }),
+    rooms: PropTypes.array
+};
+
 
 export default RoomContainer

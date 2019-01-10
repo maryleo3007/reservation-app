@@ -12,6 +12,7 @@ class CashList extends Component {
                     <Cash
                         key = {cash.id}
                         cash = {cash}
+                        showRoom = {this.props.showRoom}
                     />
                 )}
             </div>

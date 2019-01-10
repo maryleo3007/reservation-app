@@ -6,7 +6,7 @@ const Room = (props) => {
     
     return (
         <div className="">
-        <span><b>Nombre:</b> {title}</span>
+            <button className='btn btn-primary mb-2'>{title}</button>
         </div>
     );
 }

@@ -64,8 +64,6 @@ class RoomForm extends Component {
             box: this.box.current.value
         };
   
-      //   this.props.cotizarSeguroProps(objResgister);
-  
       // reset form
       this.props.addRegister(objResgister)
       
