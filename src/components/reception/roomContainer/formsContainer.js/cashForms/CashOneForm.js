@@ -40,9 +40,11 @@ class CashOneForm extends Component {
     }
     
     render() {
+        
         const cash = (this.props.cash)[0];
         const showCustomerIncome = this.state.customerIncome;
         const cashOrderHour = (this.state.cashOrderTime).substr(11);
+
         return (
             
             <div>
