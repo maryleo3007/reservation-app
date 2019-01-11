@@ -111,23 +111,7 @@ class Reception extends Component {
             objRegister
         })
     }
-
-    addCashRegister = (obj) => {
-        const refCashList  = ref.child('cashRegister');
-        const addCashRegister = refCashList.push({
-            startTime: obj.startTime,
-            date: obj.date,
-        })
-        
-        const newCashRegisterkey = addCashRegister.key
-        refCashList.child(newCashRegisterkey).update({
-            idRegCash: newCashRegisterkey
-        })
-        this.setState({
-            obj
-        })
-    }
-
+    
     render() { 
         
         const showComponent = this.state.showComponent;
@@ -149,6 +133,7 @@ class Reception extends Component {
                         cashs = {this.state.cashList}
                         objRegister = {this.state.objRegister}
                         changeState = {this.changeState}
+                        changeStateCash = {this.changeStateCash}
                         addRegister = {this.addRegister}
                         responsable = {this.props.responsable}
                         />

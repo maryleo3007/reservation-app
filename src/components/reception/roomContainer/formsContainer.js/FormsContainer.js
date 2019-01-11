@@ -20,6 +20,7 @@ class FormsContainer extends Component {
                 )} */}
                 
                 {this.props.shownCashOne ? <CashOneForm
+                    changeStateCash = {this.props.changeStateCash}
                     cash = {this.props.cashs.filter( cash => cash.id == 1)}
                 /> : ""}
                 {this.props.shownCashTwo ? <CashTwoForm

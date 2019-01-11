@@ -5,6 +5,7 @@ class CashList extends Component {
 
     render() {
         const arr = this.props.cashs;
+        console.log(this.props.cashs.key)
         return (
             <div className="cashList">
                 {arr.map(cash => 

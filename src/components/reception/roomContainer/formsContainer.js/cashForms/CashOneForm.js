@@ -5,10 +5,7 @@ class CashOneForm extends Component {
 
     state = { 
         customerIncome: false,
-        cashOrderTime: '',
-        available: 'disponible',
-        busy: 'ocupado',
-        unavailable: 'no_disponible',
+        cashOrderTime: ''
     }
     checkInTime = React.createRef();
     attentionTime = React.createRef();
@@ -40,7 +37,7 @@ class CashOneForm extends Component {
     }
     
     render() {
-        
+
         const cash = (this.props.cash)[0];
         const showCustomerIncome = this.state.customerIncome;
         const cashOrderHour = (this.state.cashOrderTime).substr(11);
@@ -62,31 +59,31 @@ class CashOneForm extends Component {
                                 <button className="btn-play" onClick={this.customerIncome}><i aria-hidden="true" className="fa fa-caret-right"></i></button>
                             </div>
                         </div> :
-                        <div className="form-group row">
-                            <label className="col-sm-5 col-form-label">Pedido de caja</label>
-                            <div className="col-sm-7 title-form">
-                                <label>{cashOrderHour}</label>
+                        <div>
+                            <div className="form-group row">
+                                <label className="col-sm-5 col-form-label">Pedido de caja</label>
+                                <div className="col-sm-7 title-form">
+                                    <label>{cashOrderHour}</label>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-5 col-form-label">Atención en caja</label>
+                                <div className="col-sm-7">
+                                <label>10 00 00</label>
+                                </div>
                             </div>
                         </div>
                     }
-                    
-                    
                     <div className="form-group row">
-                        <label className="col-sm-5 col-form-label">Atención en caja</label>
+                        <label className="col-sm-5 col-form-label">Equipo</label>
                         <div className="col-sm-7">
-                            <input type="text" className="form-control" ref={this.attentionTime}/>
+                            <input type="text" className="form-control" ref={this.team}/>
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-5 col-form-label">Salida de caja</label>
-                        <div className="col-sm-7">
-                            <input type="text" className="form-control" ref={this.date}/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label className="col-sm-5 col-form-label">Hora final</label>
-                        <div className="col-sm-7">
-                            <input type="text" className="form-control" ref={this.finalTime}/>
+                        <label className="col-sm-5 col-form-label">Comentarios</label>
+                        <div className="col-sm-12">
+                        <textarea className="form-control" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
