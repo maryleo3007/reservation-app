@@ -1,11 +1,6 @@
 import React,{Component} from 'react';
 
 class SidebarSm extends Component {
-    state ={
-        activeClassRooms: true,
-        activeClassRegisterRooms : false,
-        activeClassRegisterCash : false,
-    }
 
     changeSidebar = () =>{
         const change = true
@@ -13,23 +8,20 @@ class SidebarSm extends Component {
     }
     changeReception = () =>{
         this.props.changeReception();
-        this.setState({activeClassRooms:true, activeClassRegisterRooms:false, activeClassRegisterCash:false})
     }
 
     changeRegisterRooms = () =>{
         this.props.changeRegisterRooms();
-        this.setState({activeClassRooms:false, activeClassRegisterRooms:true, activeClassRegisterCash:false})
     }
 
     changeRegisterCash = () =>{
         this.props.changeRegisterCash();
-        this.setState({activeClassRooms:false, activeClassRegisterRooms:false, activeClassRegisterCash:true})
     }
     render() {
         const logOut = this.props.logOut;
-        const classNameRooms = this.state.activeClassRooms ? 'icon-active' : ''
-        const classNameRegisterRooms = this.state.activeClassRegisterRooms ? 'icon-active' : ''
-        const classNameRegisterCash = this.state.activeClassRegisterCash ? 'icon-active' : ''
+        const classNameRooms = this.props.classSidebar.activeClassRooms ? 'icon-active' : ''
+        const classNameRegisterRooms = this.props.classSidebar.activeClassRegisterRooms ? 'icon-active' : ''
+        const classNameRegisterCash = this.props.classSidebar.activeClassRegisterCash ? 'icon-active' : ''
         return (
             <nav id="sidebar-sm" className="sidebar">
                 <div className="d-flex justify-content-between mt-3"> 
