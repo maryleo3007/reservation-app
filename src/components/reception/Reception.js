@@ -53,6 +53,9 @@ class Reception extends Component {
             this.setState({cashList:arrCash})
             })
         })
+
+        console.log(this.state.roomList);
+        
     
         this.dbRoom.on('value',snap=>{
             const arrRooms = [];

@@ -7,7 +7,7 @@ import CashTwoForm from './cashForms/CashTwoForm';
 class FormsContainer extends Component {
     
     render() { 
-        console.log(this.props.cashs.id)
+        // console.log(this.props.cashs.id)
         return ( 
             <div>
                 {/* {this.props.rooms.map(room => 

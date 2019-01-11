@@ -28,11 +28,11 @@ class RoomContainer extends Component {
         const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50'
         return (
             
-            <div className={`room-container container ${marginLeft}`}>
-                <div className="row mt-5">
+            <div className={`room-container container-fluid ${marginLeft}`}>
+                <div className="row mt-4">
                     <div className="col-7">
                         <div className="roomsList-container bg-white">
-                            <div className="roomlist-container container-fluid">
+                            <div className="roomlist-container container bg-white container-fluid">
                                 <RoomList
                                     rooms = {this.props.rooms}  
                                 />
@@ -45,7 +45,7 @@ class RoomContainer extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-5">
+                    <div className="col-4">
                         <div className="bg-white">
                             <FormsContainer 
                                 rooms = {this.props.rooms}
@@ -57,6 +57,7 @@ class RoomContainer extends Component {
                                 shownCashOne = {this.state.shownCashOne}
                                 shownCashTwo = {this.state.shownCashTwo}
                             />
+                            <p>componente de formulario</p>
                         </div>
                     </div>
                 </div>
