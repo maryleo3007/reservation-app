@@ -34,6 +34,8 @@ class CashOneForm extends Component {
             customerIncome: true,
             cashOrderTime: `${getDateFull()}-${getHour()}`
         })
+        this.props.changeCashState((this.props.cash)[0].key,3)
+        
     }
     
     render() {
@@ -45,7 +47,7 @@ class CashOneForm extends Component {
         return (
             
             <div>
-                <div onSubmit={this.addCashRegister} className="form-cash">
+                <div className="form-cash">
                     <div>
                         <div className="text-center title-form">{cash.title}</div>
                         <div className="text-center state-form">{cash.state }</div>

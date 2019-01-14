@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import CashList from './containerList/CashList';
 import RoomList from './containerList/RoomsList';
 import FormsContainer from './formsContainer.js/FormsContainer';
-import {ref} from './../../../services/firebase';
 
 class RoomContainer extends Component {
 
@@ -40,6 +39,7 @@ class RoomContainer extends Component {
                                 <CashList
                                     cashs = {cashArr}
                                     onToggleForm = {this.onToggleForm}
+                                    changeCashState = {this.props.changeCashState}
                                 />
                             </div>
                         </div>
@@ -50,7 +50,6 @@ class RoomContainer extends Component {
                                 rooms = {this.props.rooms}
                                 objRegister = {this.props.objRegister} 
                                 changeState = {this.props.changeState}
-                                changeStateCash = {this.props.changeStateCash}
                                 addRegister = {this.props.addRegister}
                                 responsable = {this.props.responsable}
                                 cashs = {cashArr}

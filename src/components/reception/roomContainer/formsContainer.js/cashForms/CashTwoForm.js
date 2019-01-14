@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
+import {getDateFull, getHour} from '../../../../helpers/date.js';
 
 class CashTwoForm extends Component {
     state = { 
-        available: 'disponible',
-        busy: 'ocupado',
-        unavailable: 'no_disponible',
+        customerIncome: false,
+        cashOrderTime: ''
     }
     checkInTime = React.createRef();
     attentionTime = React.createRef();
@@ -28,42 +28,65 @@ class CashTwoForm extends Component {
       e.currentTarget.reset();
     };
 
+    customerIncome = () => {
+        this.setState({
+            customerIncome: true,
+            cashOrderTime: `${getDateFull()}-${getHour()}`
+        })
+        this.props.changeCashState((this.props.cash)[0].key,3)
+        
+    }
+
     render() {
+        console.log(this.props.cash)
+        const cash = (this.props.cash)[0];
+        const showCustomerIncome = this.state.customerIncome;
+        const cashOrderHour = (this.state.cashOrderTime).substr(11);
+
         return (
             <div>
-                <div>
-                    {/* <span>{this.props.cash.title}</span> */}
+                <div className="form-cash">
+                    <div>
+                        <div className="text-center title-form">{cash.title}</div>
+                        <div className="text-center state-form">{cash.state }</div>
+                        <hr/>
+                    </div>
+                    {
+                        !showCustomerIncome ?
+                        <div className="form-group row">
+                            <label className="col-sm-5 col-form-label">Ingreso de cliente</label>
+                            <div className="col-sm-7">
+                                <button className="btn-play" onClick={this.customerIncome}><i aria-hidden="true" className="fa fa-caret-right"></i></button>
+                            </div>
+                        </div> :
+                        <div>
+                            <div className="form-group row">
+                                <label className="col-sm-5 col-form-label">Pedido de caja</label>
+                                <div className="col-sm-7 title-form">
+                                    <label>{cashOrderHour}</label>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-5 col-form-label">Atención en caja</label>
+                                <div className="col-sm-7">
+                                <label>10 00 00</label>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div className="form-group row">
+                        <label className="col-sm-5 col-form-label">Equipo</label>
+                        <div className="col-sm-7">
+                            <input type="text" className="form-control" ref={this.team}/>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label className="col-sm-5 col-form-label">Comentarios</label>
+                        <div className="col-sm-12">
+                        <textarea className="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
                 </div>
-                <form onSubmit={this.addCashRegister}>
-                    <input type="hidden"  ref={this.orderTime}/>
-                    <input type="hidden"  ref={this.attentionTime}/>
-                    <input type="hidden"  ref={this.outTime}/>
-                    <div className="form-group row">
-                        <label className="col-sm-5 col-form-label">Pedido de caja</label>
-                        <div className="col-sm-7">
-                            <input type="text" readOnly className="form-control-plaintext"  value="9:41:45"/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label className="col-sm-5 col-form-label">Atención en caja</label>
-                        <div className="col-sm-7">
-                            <input type="text" className="form-control" ref={this.attentionTime}/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label className="col-sm-5 col-form-label">Salida de caja</label>
-                        <div className="col-sm-7">
-                            <input type="text" className="form-control" ref={this.date}/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label className="col-sm-5 col-form-label">Hora final</label>
-                        <div className="col-sm-7">
-                            <input type="text" className="form-control" ref={this.finalTime}/>
-                        </div>
-                    </div>
-                    <button type="submit" className="btn btn-primary">Enviar</button>
-                </form>
             </div>
         );
     }

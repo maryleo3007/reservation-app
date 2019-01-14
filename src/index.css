@@ -44,10 +44,6 @@ body {
   min-width: 100%;
   min-height: 500px;
 }
-.roomlist-container{
-  position: absolute;
-  left: 0;
-}
 .cashRoomlist-container{
   position: absolute;
   right: 27px;

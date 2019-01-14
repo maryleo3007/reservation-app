@@ -31,15 +31,16 @@ class Reception extends Component {
         this.dbCashRoom.on('value', snap =>{
             const arrCash = [];
             snap.forEach(data =>{
-            let cashObj = {
+                let cashObj = {
                 id: data.val().id,
                 state: data.val().state,
                 time: data.val().time,
-                title: data.val().title
+                title: data.val().title,
+                key: data.key
             }
             arrCash.push(cashObj)
             this.setState({cashList:arrCash})
-            })
+            }) 
         })
     
         this.dbRoom.on('value',snap=>{
@@ -77,7 +78,7 @@ class Reception extends Component {
         logout()
     }
 
-    // func cambia estado de caja
+    // func cambia estado de sala
     changeState = (key, state) => {
         ref.child('Room/').child('/'+ key).update({
             state: state
@@ -111,6 +112,14 @@ class Reception extends Component {
             objRegister
         })
     }
+
+    //cambia estado de caja
+    changeCashState = (key, state) => {
+        ref.child('CashRoom').child('/'+ key).update({
+            state: state
+        });
+    }
+    
     
     render() { 
         
@@ -133,9 +142,9 @@ class Reception extends Component {
                         cashs = {this.state.cashList}
                         objRegister = {this.state.objRegister}
                         changeState = {this.changeState}
-                        changeStateCash = {this.changeStateCash}
                         addRegister = {this.addRegister}
                         responsable = {this.props.responsable}
+                        changeCashState = {this.changeCashState}
                         />
                     }
                 </div> 
