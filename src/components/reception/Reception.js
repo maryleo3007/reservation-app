@@ -53,8 +53,6 @@ class Reception extends Component {
             this.setState({cashList:arrCash})
             })
         })
-
-        console.log(this.state.roomList);
         
     
         this.dbRoom.on('value',snap=>{
@@ -76,7 +74,7 @@ class Reception extends Component {
 
         ref.child('users').child(this.props.responsable.uid).child('info').child('name').on('value', (snapshot) => {
             if(snapshot.val()) {
-              this.setState({userName:snapshot.val()})
+              this.setState({userName:snapshot.val()})             
             }
         })  
 
@@ -171,7 +169,7 @@ class Reception extends Component {
                         objRegister = {this.state.objRegister}
                         changeState = {this.changeState}
                         addRegister = {this.addRegister}
-                        responsable = {this.props.responsable}
+                        responsable = {this.state.userName}
                         sidebarState = {this.state.sidebarState}
                         />
                     }
@@ -179,14 +177,5 @@ class Reception extends Component {
         )
 }
 }
-
-Reception.propTypes = {
-    responsable: PropTypes.shape({
-        authed: PropTypes.boolean,
-        loading: PropTypes.boolean,
-        uid: PropTypes.string,
-        user: PropTypes.string
-    })
-};
 
 export default Reception;

@@ -30,16 +30,5 @@ class FormsContainer extends Component {
          );
     }
 }
- 
-FormsContainer.propTypes = {
-    changeState: PropTypes.func,
-    addRegister: PropTypes.func,
-    responsable: PropTypes.shape({
-        authed: PropTypes.boolean,
-        loading: PropTypes.boolean,
-        uid: PropTypes.string,
-        user: PropTypes.string
-    })
-};
 
 export default FormsContainer;

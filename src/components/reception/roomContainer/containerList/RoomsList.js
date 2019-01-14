@@ -7,31 +7,89 @@ class RoomList extends Component {
         return (
             <div className="room-list">
                 <div className='row'>
-                    <div className='col-3'>
-                        <Room room={this.props.rooms[0]}/>
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[3]}
+                            responsable = {this.props.responsable}
+                        />
                     </div>
-                    <div className='col-3'>
-                    
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[2]}
+                            responsable = {this.props.responsable}
+                        />
                     </div>
-                    <div className='col-3'>
-                    
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[1]}
+                            responsable = {this.props.responsable}
+                        />
                     </div>
-                    <div className='col-3'>
-                    
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[0]}
+                            responsable = {this.props.responsable}
+                        />
                     </div>
                 </div>
-                {/* {this.props.rooms.map(room => 
-                    <Room
-                        key = {room.id}
-                        room = {room}
-                        showRoom = {this.props.showRoom}
-                    />
-                )} */}
-                {/* <React.Fragment>
-                    <Room data={this.props.rooms[0]}/>
-                    <Room data={this.props.rooms[2]}/>
-                </React.Fragment> */}
-
+                <div className='row'>
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[4]}
+                            responsable = {this.props.responsable}
+                        />
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[5]}
+                            responsable = {this.props.responsable}
+                        />
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[6]}
+                            responsable = {this.props.responsable}
+                        />
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[7]}
+                            responsable = {this.props.responsable}
+                        />
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[8]}
+                            responsable = {this.props.responsable}
+                        />
+                    </div>
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[9]}
+                            responsable = {this.props.responsable}
+                        />
+                    </div>
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[10]}
+                            responsable = {this.props.responsable}
+                        />
+                    </div>
+                    <div className='col-3 p-0 min-height-15'>
+                        <Room
+                            room={this.props.rooms[11]}
+                            responsable = {this.props.responsable}
+                        />
+                    </div>
+                </div>
             </div>
         );
     }

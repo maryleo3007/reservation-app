@@ -29,12 +29,13 @@ class RoomContainer extends Component {
         return (
             
             <div className={`room-container container-fluid ${marginLeft}`}>
-                <div className="row mt-4">
-                    <div className="col-7">
-                        <div className="roomsList-container bg-white">
-                            <div className="roomlist-container container bg-white container-fluid">
+                <div className="row mt-3">
+                    <div className="col-8">
+                        <div className="roomsList-container bg-white p-3">
+                            <div className="container bg-white container-fluid">
                                 <RoomList
-                                    rooms = {this.props.rooms}  
+                                    rooms = {this.props.rooms} 
+                                    responsable = {this.props.responsable} 
                                 />
                             </div>
                             <div className="cashRoomlist-container col-lg-3 col-md-3">
@@ -45,8 +46,8 @@ class RoomContainer extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-4">
-                        <div className="bg-white">
+                    <div className="col-4 pl-0">
+                        <div className="bg-white pl-2">
                             <FormsContainer 
                                 rooms = {this.props.rooms}
                                 objRegister = {this.props.objRegister} 
@@ -65,19 +66,5 @@ class RoomContainer extends Component {
         );
     }
 }
-
-RoomContainer.propTypes = {
-    changeState: PropTypes.func,
-    addRegister: PropTypes.func,
-    showRoom: PropTypes.bool,
-    responsable: PropTypes.shape({
-        authed: PropTypes.boolean,
-        loading: PropTypes.boolean,
-        uid: PropTypes.string,
-        user: PropTypes.string
-    }),
-    rooms: PropTypes.array
-};
-
 
 export default RoomContainer

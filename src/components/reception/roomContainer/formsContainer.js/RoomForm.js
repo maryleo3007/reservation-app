@@ -135,26 +135,6 @@ class RoomForm extends Component {
          );
     }
 }
- 
-RoomForm.propTypes = {
-    changeState: PropTypes.func,
-    addRegister: PropTypes.func,
-    responsable: PropTypes.shape({
-        authed: PropTypes.boolean,
-        loading: PropTypes.boolean,
-        uid: PropTypes.string,
-        user: PropTypes.string
-    }),
-    rooms: PropTypes.shape({
-        executive: PropTypes.string,
-        floor: PropTypes.string,
-        id: PropTypes.number,
-        key: PropTypes.string,
-        state: PropTypes.string,
-        time: PropTypes.string,
-        title: PropTypes.string
-    })
-};
 
 export default RoomForm;
 

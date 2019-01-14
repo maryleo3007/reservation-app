@@ -36,7 +36,6 @@ body {
   color: #2c79be;
 }
 .room-container{
-  overflow: hidden;
   min-height: 100vh;
   width: 100%;
 }
@@ -48,14 +47,58 @@ body {
   margin-left: 50px;
 }
 /* finish */
+
+/* room content */
+
+.room-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+.room-content span {
+  font-size: 12px;
+}
+
+/* room states */
+
+.room-available {
+  background-color: #C4D97E;
+  border: 1px solid;
+  border-color: #90AF69;
+}
+
+.room-to-be-confirmed {
+  background-color: #F3E66B;
+  border: 1px solid;
+  border-color: #bdb252;
+}
+
+.room-occupied {
+  background-color: #BC7765;
+  border: 1px solid;
+  border-color: #96513F; 
+}
+
+.room-not-available {
+  background-color: #F0F0F0;
+  border: 1px solid;
+  border-color: #C6C6C6; 
+}
+
+.room-on-hold {
+  background-color: #C8FBFF;
+  border: 1px solid;
+  border-color: rgb(153, 198, 201); 
+}
+
+.min-height-15 {
+  min-height: 15vh;
+}
 .roomsList-container{
   position: relative;
   min-width: 100%;
   min-height: 500px;
-}
-.roomlist-container{
-  position: absolute;
-  left: 0;
 }
 .cashRoomlist-container{
   position: absolute;
