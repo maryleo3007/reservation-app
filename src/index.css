@@ -85,13 +85,20 @@ body {
   color: #888E9F;
 }
 .box-available{
-  background-color: green;
+  background-color: #C4D97E;
+  border: 1px solid #90AF69;
 }
 .box-toBeCofirm{
-  background-color: yellow;
+  background-color: #F3E66B;
+  border: none;
+}
+.box-busy{
+  background-color: #BC7765;
+  border: 1px solid #96513F;
 }
 .box-unAvailable{
-  background-color: red;
+  background-color: #F0F0F0;
+  border: 1px solid #C6C6C6;
 }
 .sidebar .fa-chevron-right{
   float: right;

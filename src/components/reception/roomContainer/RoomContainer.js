@@ -26,6 +26,7 @@ class RoomContainer extends Component {
                                     cashs = {cashArr}
                                     onToggleForm = {this.props.onToggleForm}
                                     changeCashState = {this.props.changeCashState}
+                                    changeCashComponent = {this.props.changeCashComponent}
                                 />
                             </div>
                         </div>

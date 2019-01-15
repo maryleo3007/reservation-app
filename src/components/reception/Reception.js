@@ -40,7 +40,8 @@ class Reception extends Component {
                 state: data.val().state,
                 time: data.val().time,
                 title: data.val().title,
-                key: data.key
+                key: data.key,
+                showComponent: data.val().showComponent
             }
             arrCash.push(cashObj)
             this.setState({cashList:arrCash})
@@ -123,19 +124,23 @@ class Reception extends Component {
             state: state
         });
     }
-    onToggleForm = (id,key) => {
+
+    //cambia estado de caja
+    changeCashComponent= (key, showComponent) => {
+        ref.child('CashRoom').child('/'+ key).update({
+            showComponent: showComponent
+        });
+    }
+    
+    onToggleForm = (id) => {    
         if (id === 1) {
             this.setState({shownCashOne: !this.state.shownCashOne})
-            this.state.shownCashOne ? this.setState({stateOne: 2}) : this.setState({stateOne: 1}) 
-            this.changeCashState(key, this.state.stateOne)
         }
         if (id === 2) {
             this.setState({shownCashTwo: !this.state.shownCashTwo})
-            this.state.shownCashTwo ? this.setState({stateTwo: 2}) : this.setState({stateTwo: 1}) 
         }
-
     }
-    
+
     render() { 
         
         const showComponent = this.state.showComponent;
@@ -159,10 +164,11 @@ class Reception extends Component {
                         changeState = {this.changeState}
                         addRegister = {this.addRegister}
                         responsable = {this.props.responsable}
-                        changeCashState = {this.changeCashState}
-                        onToggleForm = {this.onToggleForm}
                         shownCashOne = {this.state.shownCashOne}
                         shownCashTwo = {this.state.shownCashTwo}
+                        changeCashState = {this.changeCashState}
+                        onToggleForm = {this.onToggleForm}
+                        changeCashComponent = {this.changeCashComponent}
                         />
                     }
                 </div> 
