@@ -13,7 +13,21 @@ class RoomContainer extends Component {
         roomToBeConfirmed : 'Por confirmar',
         roomOccupied : 'Ocupado',
         roomNotAvailable: 'No disponible',
-        roomOnHold: 'En espera de sala'
+        roomOnHold: 'En espera de sala',
+        showHideFormArr: {
+           1: { showRoom: false}, 
+           2: { showRoom: false},
+           3: { showRoom: false},
+           4: { showRoom: false},
+           5: { showRoom: false},
+           6: { showRoom: false},
+           7: { showRoom: false},
+           8: { showRoom: false},
+           9: { showRoom: false},
+           10: { showRoom: false},
+           11: { showRoom: false},
+           12: { showRoom: false}
+        }
     }
 
     dbRoom = ref.child('Room/');
@@ -41,6 +55,22 @@ class RoomContainer extends Component {
         
     }
 
+    showHideFormArr = (i) => {
+        if(this.state.showHideFormArr !== undefined) {
+            this.setState(({showHideFormArr}) => ({
+                showHideFormArr: {
+                    ...showHideFormArr,
+                    [i] :{
+                        showRoom: !showHideFormArr[i].showForm    
+                    }   
+                }
+            }))
+        }       
+    }
+
+    componentDidMount() {
+        this.showHideFormArr(2)
+    }
     render() {
         const cashArr = this.props.cashs.sort(function(a, b) {
             return a.id - b.id;
@@ -79,7 +109,8 @@ class RoomContainer extends Component {
                                 shownCashOne = {this.state.shownCashOne}
                                 shownCashTwo = {this.state.shownCashTwo}
                             />
-                            <p>componente de formulario</p>
+                            {/* <p onClick={this.showHideFormArr(2)}>componente de formulario</p> */}
+
                         </div>
                     </div>
                 </div>
