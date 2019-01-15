@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {getDateFull, getHour} from '../../../../helpers/date.js';
+import {changeTitleState} from '../../../../helpers/receptionHelper.js';
 
 class CashOneForm extends Component {
 
@@ -42,14 +43,14 @@ class CashOneForm extends Component {
         const cash = (this.props.cash)[0];
         const showCustomerIncome = this.state.customerIncome;
         const cashOrderHour = (this.state.cashOrderTime).substr(11);
-
+        const showState = changeTitleState(cash.state)
         return (
             
             <div>
                 <div className="form-cash">
                     <div>
                         <div className="text-center title-form">{cash.title}</div>
-                        <div className="text-center state-form">{cash.state }</div>
+                        <div className="text-center state-form">{showState }</div>
                         <hr/>
                     </div>
                     {
