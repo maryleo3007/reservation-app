@@ -9,8 +9,8 @@ class CashList extends Component {
             <div className="cashList">
                 {this.props.cashs.map(cash => 
                     <Cash
-                        onToggleForm={() =>{this.props.onToggleForm(cash.id)}}
-                        changeCashState = {()=>{this.props.changeCashState(cash.key,2)}}
+                        onToggleForm={() =>{this.props.onToggleForm(cash.id,cash.key)}}
+                        // changeCashState = {()=>{this.props.changeCashState(cash.key,2)}}
                         key = {cash.id}
                         cash = {cash}
                     />

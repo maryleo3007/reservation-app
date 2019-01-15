@@ -20,7 +20,11 @@ class Reception extends Component {
         roomList : [],
         userImage: {},
         userName: "",
-        objRegister: {}
+        objRegister: {},
+        shownCashOne:false,
+        shownCashTwo:false,
+        stateOne:1,
+        stateTwo:1
     };
 
     // mostrar componente de salas o registros
@@ -119,7 +123,18 @@ class Reception extends Component {
             state: state
         });
     }
-    
+    onToggleForm = (id,key) => {
+        if (id === 1) {
+            this.setState({shownCashOne: !this.state.shownCashOne})
+            this.state.shownCashOne ? this.setState({stateOne: 2}) : this.setState({stateOne: 1}) 
+            this.changeCashState(key, this.state.stateOne)
+        }
+        if (id === 2) {
+            this.setState({shownCashTwo: !this.state.shownCashTwo})
+            this.state.shownCashTwo ? this.setState({stateTwo: 2}) : this.setState({stateTwo: 1}) 
+        }
+
+    }
     
     render() { 
         
@@ -145,6 +160,9 @@ class Reception extends Component {
                         addRegister = {this.addRegister}
                         responsable = {this.props.responsable}
                         changeCashState = {this.changeCashState}
+                        onToggleForm = {this.onToggleForm}
+                        shownCashOne = {this.state.shownCashOne}
+                        shownCashTwo = {this.state.shownCashTwo}
                         />
                     }
                 </div> 

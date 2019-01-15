@@ -35,7 +35,6 @@ class CashOneForm extends Component {
             cashOrderTime: `${getDateFull()}-${getHour()}`
         })
         this.props.changeCashState((this.props.cash)[0].key,3)
-        
     }
     
     render() {

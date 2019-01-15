@@ -5,20 +5,6 @@ import FormsContainer from './formsContainer.js/FormsContainer';
 
 class RoomContainer extends Component {
 
-    state = {
-        shownCashOne:false,
-        shownCashTwo:false,
-    }
-
-    onToggleForm = (id) => {
-        if (id === 1) {
-            this.setState({shownCashOne: !this.state.shownCashOne})
-        }
-        if (id === 2) {
-            this.setState({shownCashTwo: !this.state.shownCashTwo})
-        }
-    }
-
     render() {
         
         const cashArr = this.props.cashs.sort(function(a, b) {
@@ -38,7 +24,7 @@ class RoomContainer extends Component {
                             <div className="cashRoomlist-container col-lg-3 col-md-3">
                                 <CashList
                                     cashs = {cashArr}
-                                    onToggleForm = {this.onToggleForm}
+                                    onToggleForm = {this.props.onToggleForm}
                                     changeCashState = {this.props.changeCashState}
                                 />
                             </div>
@@ -53,8 +39,9 @@ class RoomContainer extends Component {
                                 addRegister = {this.props.addRegister}
                                 responsable = {this.props.responsable}
                                 cashs = {cashArr}
-                                shownCashOne = {this.state.shownCashOne}
-                                shownCashTwo = {this.state.shownCashTwo}
+                                shownCashOne = {this.props.shownCashOne}
+                                shownCashTwo = {this.props.shownCashTwo}
+                                changeCashState = {this.props.changeCashState}
                             />
                         </div>
                     </div>

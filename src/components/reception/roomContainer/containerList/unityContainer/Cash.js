@@ -3,7 +3,11 @@ import React from 'react';
 const Cash = (props) => {
     
     const {title,state} = props.cash ;
-    const classNames = {available:'border cash-item box-available',toBeConfirm:' border cash-item box-toBeCofirm',unAvailable:'border cash-item box-unAvailable'}
+    const classNames = {
+        available:'border cash-item box-available',
+        toBeConfirm:' border cash-item box-toBeCofirm',
+        unAvailable:'border cash-item box-unAvailable'
+    }
 
     let showClass = '';
 
@@ -16,7 +20,7 @@ const Cash = (props) => {
     }
 
     const functions = () => {
-        props.changeCashState();
+        // props.changeCashState();
         props.onToggleForm();
     }
 
