@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
+
 class Room extends Component {
 
-    showRooms = () => {
+    showRoom = () => {
         if(this.props.room === undefined) return null
         const {id, state, time, title, floor, executive, key} = this.props.room;
         const cutName = this.props.responsable.indexOf(' ');
@@ -12,21 +13,26 @@ class Room extends Component {
         const classRoomOccupied = state === 'Ocupado' ? 'room-occupied' : '' 
         const classRoomNotAvailable = state === 'No disponible' ? 'room-not-available' : '' 
         const classRoomOnHold = state === 'En espera de caja' ? 'room-on-hold' : '' 
+        const showDetails = state === 'Ocupado' || state === 'En espera de caja' ? 'd-flex' : 'd-none'
         
         return (
-            <div atrkey={key} id={id} className={`room-content min-height-15 mb-0 ${classRoomNotAvailable} ${classRoomAvailable} ${classRoomToBeConfirmed} ${classRoomOccupied} ${classRoomOnHold}`}>
+            <div onClick={this.props.changeToGreenOrAmber} atrkey={key} id={id} className={`room-content min-height-15 mb-0 ${classRoomNotAvailable} 
+            ${classRoomAvailable} ${classRoomToBeConfirmed} ${classRoomOccupied} ${classRoomOnHold}`}
+            >
                 <span className='d-block'><b>{title}</b></span>
-                 <span className='d-block'>{time}</span>
-                <span className='d-block'>{executive}</span>
-                <hr className='m-0'/>
-                <span className='d-block'>{name}</span>
+                <div className={`${showDetails}`}>
+                    <span className='d-block'>{time}</span>
+                    <span className='d-block mb-1'>{executive}</span>
+                    <hr className='m-0'/>
+                    <span className='d-block'>{name}</span>
+                </div>                 
             </div>
         )
     }
     render() { 
         return ( 
-            <div className="">
-                {this.showRooms()}
+            <div className="" >
+                {this.showRoom()}
             </div>
          );
     }

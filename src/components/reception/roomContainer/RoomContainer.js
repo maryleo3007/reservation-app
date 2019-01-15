@@ -2,14 +2,21 @@ import React,{Component} from 'react';
 import CashList from './containerList/CashList';
 import RoomList from './containerList/RoomsList';
 import FormsContainer from './formsContainer.js/FormsContainer';
-import PropTypes from 'prop-types';
+import {ref} from './../../../services/firebase';
 
 class RoomContainer extends Component {
 
     state = {
         shownCashOne:false,
-        shownCashTwo:false
+        shownCashTwo:false,
+        roomAvailable: 'Disponible',
+        roomToBeConfirmed : 'Por confirmar',
+        roomOccupied : 'Ocupado',
+        roomNotAvailable: 'No disponible',
+        roomOnHold: 'En espera de sala'
     }
+
+    dbRoom = ref.child('Room/');
 
     onToggleForm = (id) => {
         if (id === 1) {
@@ -18,6 +25,20 @@ class RoomContainer extends Component {
         if (id === 2) {
             this.setState({shownCashTwo: !this.state.shownCashTwo})
         }
+    }
+
+    // change state room
+    changeToGreenOrAmber = (key, state) => {
+        if (state === 'Disponible') {
+            this.dbRoom.child('/'+ key).update({
+                state: 'Por confirmar'
+            });
+        } else if (state === 'Por confirmar') {
+            this.dbRoom.child('/'+ key).update({
+                state: 'Disponible'
+            });
+        }
+        
     }
 
     render() {
@@ -36,6 +57,7 @@ class RoomContainer extends Component {
                                 <RoomList
                                     rooms = {this.props.rooms} 
                                     responsable = {this.props.responsable} 
+                                    changeToGreenOrAmber = {this.changeToGreenOrAmber}
                                 />
                             </div>
                             <div className="cashRoomlist-container col-lg-3 col-md-3">
@@ -51,7 +73,6 @@ class RoomContainer extends Component {
                             <FormsContainer 
                                 rooms = {this.props.rooms}
                                 objRegister = {this.props.objRegister} 
-                                changeState = {this.props.changeState}
                                 addRegister = {this.props.addRegister}
                                 responsable = {this.props.responsable}
                                 cashs = {cashArr}

@@ -22,6 +22,7 @@ class SidebarSm extends Component {
         const classNameRooms = this.props.classSidebar.activeClassRooms ? 'icon-active' : ''
         const classNameRegisterRooms = this.props.classSidebar.activeClassRegisterRooms ? 'icon-active' : ''
         const classNameRegisterCash = this.props.classSidebar.activeClassRegisterCash ? 'icon-active' : ''
+
         return (
             <nav id="sidebar-sm" className="sidebar">
                 <div className="d-flex justify-content-between mt-3"> 

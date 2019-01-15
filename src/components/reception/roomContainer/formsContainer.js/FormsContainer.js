@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import RoomForm from './RoomForm';
-import PropTypes from 'prop-types';
 import CashOneForm from './cashForms/CashOneForm';
 import CashTwoForm from './cashForms/CashTwoForm';
 

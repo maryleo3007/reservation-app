@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { logout } from './../../components/helpers/authFirebase'
 import {app} from './../../services/firebase';
-import PropTypes from 'prop-types';
 
 import {ref, storage} from './../../services/firebase';
 
@@ -93,7 +92,7 @@ class Reception extends Component {
     // func cambia estado de caja
     changeState = (key, state) => {
         ref.child('Room/').child('/'+ key).update({
-            state: state
+            state
         });
     }
 

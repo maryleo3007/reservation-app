@@ -56,9 +56,21 @@ body {
   flex-direction: column;
   text-align: center;
 }
-.room-content span {
-  font-size: 12px;
+
+.room-content div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
+.room-content span {
+  font-size: 14px;
+}
+
+.room-content div hr {
+  width: 60%;
+  align-self: center;
+  border-top: 1px solid #34383b;
+} 
 
 /* room states */
 
