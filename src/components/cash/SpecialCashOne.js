@@ -46,7 +46,7 @@ class SpecialCashOne extends Component {
                         <div className="d-flex h-100">
                                 <div className="justify-content-center align-self-center mx-auto title-form">
                                     <div className="text-center">
-                                        <p>Cliente se esta aproximando</p>
+                                        <p>Cliente se está aproximando</p>
                                         <button className="btn-specialCash">Iniciar Atención</button>
                                     </div>
                                     
