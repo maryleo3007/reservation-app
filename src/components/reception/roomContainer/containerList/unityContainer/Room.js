@@ -23,7 +23,10 @@ class Room extends Component {
         const showDetails = state === 'Ocupado' || state === 'En espera de caja' ? 'd-flex' : 'd-none'
         
         return (
-            <div onClick={() => this.props.showHideForm(id)} atrkey={key} id={id} className={`room-content min-height-15 mb-0 ${classRoomNotAvailable} 
+            <div onClick={() => {
+                this.props.changeToGreenOrAmber();
+                this.props.showHideForm(id);
+            }} atrkey={key} id={id} className={`room-content min-height-15 mb-0 ${classRoomNotAvailable} 
             ${classRoomAvailable} ${classRoomToBeConfirmed} ${classRoomOccupied} ${classRoomOnHold}`}
             >
                 <span className='d-block'><b>{title}</b></span>
