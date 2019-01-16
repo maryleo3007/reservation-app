@@ -10,7 +10,9 @@ body {
   width: 100%;
   align-items: stretch;
   box-sizing: unset !important;
-  background-color: #efefef;
+}
+.bg-main{
+  background-color: #f5f6fa;
 }
 .sidebar{
   background-color: #ffffff;
@@ -62,6 +64,7 @@ body {
 .title-form{
   font-size: 28px;
   font-weight: 350;
+  color: #888e9f;
 }
 .state-form{
   font-size: 13px;
