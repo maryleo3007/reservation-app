@@ -15,7 +15,7 @@ class RoomContainer extends Component {
         roomNotAvailable: 'No disponible',
         roomOnHold: 'En espera de sala',
         showHideFormArr: {
-           1: { showRoom: true}, 
+           1: { showRoom: false}, 
            2: { showRoom: false},
            3: { showRoom: false},
            4: { showRoom: false},
@@ -56,18 +56,14 @@ class RoomContainer extends Component {
     }
 
     showHideForm = (i) => {
-        let bool = false 
-        if(!bool) {
             this.setState(({showHideFormArr}) => ({
-            showHideFormArr: {
-                ...showHideFormArr,
-                [i] :{
-                    showRoom: !this.state.showHideFormArr[i].showRoom
-                }   
-            }            
-        }))
-        }
-            
+                showHideFormArr: {
+                    ...showHideFormArr,
+                    [i] :{
+                        showRoom: !this.state.showHideFormArr[i].showRoom
+                    }   
+                }            
+            }))     
     }
     
     render() {
@@ -87,6 +83,8 @@ class RoomContainer extends Component {
                                     rooms = {this.props.rooms} 
                                     responsable = {this.props.responsable} 
                                     changeToGreenOrAmber = {this.changeToGreenOrAmber}
+                                    showHideFormArr = {this.state.showHideFormArr}
+                                    showHideForm = {this.showHideForm}
                                 />
                             </div>
                             <div className="cashRoomlist-container col-lg-3 col-md-3">

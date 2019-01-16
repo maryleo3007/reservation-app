@@ -69,11 +69,6 @@ class RoomForm extends Component {
       e.currentTarget.reset();
     };
 
-    componentDidMount() {
-        console.log(this.props.showHideFormArr);
-        
-    }
-
     render() {
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         return (

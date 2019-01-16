@@ -3,6 +3,13 @@ import React, { Component } from 'react';
 
 class Room extends Component {
 
+    componentDidMount() {
+        console.log(this.props.showHideFormArr.showRoom);
+        // console.log(this.props.showHideForm);
+        
+        
+    }
+
     showRoom = () => {
         if(this.props.room === undefined) return null
         const {id, state, time, title, floor, executive, key} = this.props.room;
@@ -16,7 +23,7 @@ class Room extends Component {
         const showDetails = state === 'Ocupado' || state === 'En espera de caja' ? 'd-flex' : 'd-none'
         
         return (
-            <div onClick={this.props.changeToGreenOrAmber} atrkey={key} id={id} className={`room-content min-height-15 mb-0 ${classRoomNotAvailable} 
+            <div onClick={() => this.props.showHideForm(id)} atrkey={key} id={id} className={`room-content min-height-15 mb-0 ${classRoomNotAvailable} 
             ${classRoomAvailable} ${classRoomToBeConfirmed} ${classRoomOccupied} ${classRoomOnHold}`}
             >
                 <span className='d-block'><b>{title}</b></span>
