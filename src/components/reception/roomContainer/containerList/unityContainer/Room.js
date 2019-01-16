@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 
-
 class Room extends Component {
-
-    componentDidMount() {
-        console.log(this.props.showHideFormArr.showRoom);
-        // console.log(this.props.showHideForm);
-        
-        
-    }
 
     showRoom = () => {
         if(this.props.room === undefined) return null

@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import {ref} from './../../../../services/firebase';
+
 class RoomForm extends Component {
 
     state = { 
         available: 'disponible',
         probable: 'probable',
         unavailable: 'ocupado',
+        objectFb: {}
     }
+
+    dbFormSala = ref.child('FormSala/'+this.props.room.id);
 
     // refs 
 
@@ -69,24 +74,53 @@ class RoomForm extends Component {
       e.currentTarget.reset();
     };
 
+    updateComment = (val) => {
+        this.dbFormSala.update({
+            comment : val
+        });
+        console.log(val);
+        
+    }
+
+    componentDidMount() {
+        this.dbFormSala.on('value', snap => {
+                let objectFb = {
+                    appoinment: snap.val().appoinment,
+                    area: snap.val().area,
+                    collaborator: snap.val().collaborator,
+                    comment: snap.val().comment,
+                    date: snap.val().date,
+                    floor: snap.val().floor,
+                    hourEnd: snap.val().hourEnd,
+                    hourExecutive: snap.val().hourExecutive,
+                    hourStart: snap.val().hourStart,
+                    person: snap.val().person,
+                    room: snap.val().room,
+                    team: snap.val().team,
+                    use: snap.val().use
+                }
+                this.setState({
+                    objectFb
+                })
+        })
+    }
+
     render() {
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         return (
             <div className={`form-container ${showform}`}>
                 <div>
                     <span>{this.props.room.title}</span>
-                    <button onClick={this.changeAvailable}>Disponible</button>
-                    <button onClick={this.changeProbable}>Probable</button>
-                    <button onClick={this.changeUnavailable}>Ocupado</button>
                 </div>
-                <form onSubmit={this.addRegister}>
+                <form onSubmit={this.addRegister} id={this.props.room.key}>
                 {/* inputs hidden */}
                     <input type="hidden" className="form-control" placeholder="" ref={this.room}/>
                     <input type="hidden" className="form-control" placeholder="" ref={this.area}/>
                     <input type="hidden" className="form-control" placeholder="" ref={this.floor}/>
                     <div className="form-group">
-                        <label>Hora de atención</label>
-                        <input type="text" className="form-control" placeholder="hora de atención" ref={this.startTime}/>
+                        <label>Ingreso del cliente</label>
+                        <button>Play</button>
+                        <input type="text" className="form-control" placeholder="hora de atención" ref={this.startTime} defaultValue={this.state.objectFb.hourStart}/>
                     </div>
                     <div className="form-group">
                         <label>Personal responsable</label>
@@ -115,11 +149,12 @@ class RoomForm extends Component {
                     </div>
                     <div className="form-group">
                         <label>Cita</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.appointment}/>
+                        <input type="text" className="form-control" placeholder="" ref={this.appointment} defaultValue={this.state.objectFb.appoinment}/>
                     </div>
                     <div className="form-group">
                         <label>Comentario</label>
-                        <textarea className="form-control" rows="3" ref={this.commentary}></textarea>
+                        <textarea className="form-control" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
+                        defaultValue={this.state.objectFb.comment}></textarea>
                     </div>
                     <div className="form-group">
                         <label>Hora final</label>

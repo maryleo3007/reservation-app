@@ -52,7 +52,6 @@ class RoomContainer extends Component {
                 state: 'Disponible'
             });
         }
-        
     }
 
     showHideForm = (i) => {
