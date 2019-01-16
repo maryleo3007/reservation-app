@@ -15,7 +15,7 @@ class RoomContainer extends Component {
         roomNotAvailable: 'No disponible',
         roomOnHold: 'En espera de sala',
         showHideFormArr: {
-           1: { showRoom: false}, 
+           1: { showRoom: true}, 
            2: { showRoom: false},
            3: { showRoom: false},
            4: { showRoom: false},
@@ -55,7 +55,7 @@ class RoomContainer extends Component {
         
     }
 
-    showHideFormArr = (i) => {
+    showHideForm = (i) => {
         let bool = false 
         if(!bool) {
             this.setState(({showHideFormArr}) => ({
@@ -107,20 +107,9 @@ class RoomContainer extends Component {
                                 cashs = {cashArr}
                                 shownCashOne = {this.state.shownCashOne}
                                 shownCashTwo = {this.state.shownCashTwo}
+                                showHideFormArr = {this.state.showHideFormArr}
+                                showHideForm = {this.showHideForm}
                             />
-                            <button onClick={() => {this.showHideFormArr(1)}}>Click</button>
-                            <button onClick={() => {this.showHideFormArr(2)}}>Click</button>
-                            <button onClick={() => {this.showHideFormArr(3)}}>Click</button>
-                            <button onClick={() => {this.showHideFormArr(4)}}>Click</button>
-                            <button onClick={() => {this.showHideFormArr(5)}}>Click</button>
-                            <button onClick={() => {this.showHideFormArr(6)}}>Click</button>
-                            <button onClick={() => {this.showHideFormArr(7)}}>Click</button>
-                            <button onClick={() => {this.showHideFormArr(8)}}>Click</button>
-                            <button onClick={() => {this.showHideFormArr(9)}}>Click</button>
-                            <button onClick={() => {this.showHideFormArr(10)}}>Click</button>
-                            <button onClick={() => {this.showHideFormArr(11)}}>Click</button>
-                            <button onClick={() => {this.showHideFormArr(12)}}>Click</button>
-
                         </div>
                     </div>
                 </div>

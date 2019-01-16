@@ -69,9 +69,15 @@ class RoomForm extends Component {
       e.currentTarget.reset();
     };
 
+    componentDidMount() {
+        console.log(this.props.showHideFormArr);
+        
+    }
+
     render() {
+        let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         return (
-            <div>
+            <div className={`form-container ${showform}`}>
                 <div>
                     <span>{this.props.room.title}</span>
                     <button onClick={this.changeAvailable}>Disponible</button>
