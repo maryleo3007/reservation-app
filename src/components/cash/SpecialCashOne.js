@@ -6,7 +6,7 @@ class SpecialCashOne extends Component {
         return (
             <div className="content-specialCash px-5 py-3">
                 <div className="container">
-                    <div className="row mx-5 mt-4 h-120">
+                    <div className="row mx-5 mt-4 h-90">
                         <div className="col-8 col-sm-8 col-md-8 bg-title title-wait-clients h-25 rounded-top">
                             <div className="text-center">Clientes en espera</div>
                         </div>
@@ -16,7 +16,7 @@ class SpecialCashOne extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="row mx-5 mt-4 h-120">
+                    <div className="row mx-5 mt-4 h-90">
                         <div className="col-8 col-sm-8 col-md-8 bg-title title-special-cash h-25 rounded-top">
                             <div className="text-center">Caja especial</div>
                         </div>
@@ -29,7 +29,7 @@ class SpecialCashOne extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="row mx-5 mt-4 h-120">
+                    <div className="row mx-5 mt-4 h-90">
                         <div className="col-8 col-sm-8 col-md-8 bg-title title-state-cash h-25 rounded-top">
                             <div className="text-center">Mi estado</div>
                         </div>
