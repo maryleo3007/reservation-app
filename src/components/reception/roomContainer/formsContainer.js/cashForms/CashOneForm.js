@@ -20,6 +20,14 @@ class CashOneForm extends Component {
         this.props.updateDtHrInitCashForm((this.props.cash)[0].uidCash,objCash);
     }
 
+    updateTeam = (e) =>{
+        e.preventDefault();
+        this.props.updateTeamCash('-LWRAmCghpfW7PXIv7_P',this.teamRef.current.value)
+    }
+    updateComements = (e) => {
+        e.preventDefault();
+        this.props.updateCommentsCash('-LWRAmCghpfW7PXIv7_P', this.commentsRef.current.value)
+    }
     
     render() {
         // {appointment,fromRoom,hourAttention,hourEnd,hourInit} = (this.props.formCash)[0]
