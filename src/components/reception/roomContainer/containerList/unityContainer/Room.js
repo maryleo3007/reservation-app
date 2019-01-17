@@ -4,7 +4,7 @@ class Room extends Component {
 
     showRoom = () => {
         if(this.props.room === undefined) return null
-        const {id, state, time, title, floor, executive, key} = this.props.room;
+        const {id, state, time, title, floor, executive, key, responsable} = this.props.room;
         const cutName = this.props.responsable.indexOf(' ');
         const name = this.props.responsable.substring(0, cutName);
         const classRoomAvailable = state === 'Disponible' ? 'room-available' : ''
@@ -26,7 +26,7 @@ class Room extends Component {
                     <span className='d-block'>{time}</span>
                     <span className='d-block mb-1'>{executive}</span>
                     <hr className='m-0'/>
-                    <span className='d-block'>{name}</span>
+                    <span className='d-block'>{responsable}</span>
                 </div>                 
             </div>
         )

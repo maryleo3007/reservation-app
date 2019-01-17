@@ -81,7 +81,8 @@ class Reception extends Component {
                     title: data.val().title,
                     floor: data.val().floor,
                     executive: data.val().executive,
-                    key: data.key
+                    responsable: data.val().responsable,
+                    key: data.key,
                 }
                 arrRooms.push(roomObj);
                 this.setState({
@@ -166,10 +167,8 @@ class Reception extends Component {
     render() {
 
         const showComponent = this.state.showComponent;
-        return ( <
-            div className = "wrapper " >
-            <
-            Sidebar changeComponent = {
+        return ( <div className = "wrapper " >
+            <Sidebar changeComponent = {
                 this.changeComponent
             }
             userImage = {
@@ -192,8 +191,7 @@ class Reception extends Component {
             }
             /> {
                 showComponent === 'registerRooms' ?
-                    <
-                    RegisterRooms
+                    <RegisterRooms
                 sidebarState = {
                     this.state.sidebarState
                 }
@@ -203,8 +201,7 @@ class Reception extends Component {
                 sidebarState = {
                     this.state.sidebarState
                 }
-                /> : <
-                RoomContainer
+                /> : <RoomContainer
                 rooms = {
                     this.state.roomList
                 }
@@ -227,8 +224,7 @@ class Reception extends Component {
                     this.state.sidebarState
                 }
                 />
-            } <
-            /div> 
+            } </div> 
         )
     }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {ref} from './../../../../services/firebase';
+import {getCurrenHour, getCurrentDate} from '../../../helpers/roomHelpers'
 
 class RoomForm extends Component {
 
@@ -7,7 +8,8 @@ class RoomForm extends Component {
         available: 'disponible',
         probable: 'probable',
         unavailable: 'ocupado',
-        objectFb: {}
+        objectFb: {},
+        checked: false
     }
 
     dbFormSala = ref.child('FormSala/'+this.props.room.id);
@@ -74,13 +76,65 @@ class RoomForm extends Component {
       e.currentTarget.reset();
     };
 
+
+    updateRoomResponsable = (key, responsable) => {
+        ref.child('Room/').child('/' + key).update({
+            responsable
+        });
+    }
+
     updateComment = (val) => {
         this.dbFormSala.update({
             comment : val
         });
-        console.log(val);
-        
     }
+
+    updateHourStart = () => {
+        const hourStart = getCurrenHour()
+        this.dbFormSala.update({
+            hourStart
+        });
+    }
+
+    updateCollaborator = () => {
+        const cutName = this.props.responsable.indexOf(' ');
+        const collaborator = this.props.responsable.substring(0, cutName);
+        this.updateRoomResponsable(this.props.room.key, collaborator);
+        this.dbFormSala.update({
+            collaborator
+        });
+    }
+
+    updateUse = (use) => {
+        this.dbFormSala.update({
+            use
+        });
+    }
+
+    updateDate = () => {
+        
+        const a = getCurrentDate()
+        console.log(a)
+    }
+
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+    
+        this.setState({
+            checked: !this.state.checked
+        },()=> {
+                if(this.state.checked){ 
+                    const use = 'Uso de sala para caja'
+                    this.updateUse(use)
+                } else {
+                    const use = 'Solo uso de sala'
+                    this.updateUse(use)
+                }
+            }       
+        )  
+      }
 
     componentDidMount() {
         this.dbFormSala.on('value', snap => {
@@ -119,17 +173,22 @@ class RoomForm extends Component {
                     <input type="hidden" className="form-control" placeholder="" ref={this.floor}/>
                     <div className="form-group">
                         <label>Ingreso del cliente</label>
-                        <button>Play</button>
+                        <button onClick={() => {this.updateHourStart(); this.updateCollaborator(); this.updateDate()}}>Play</button>
                         <input type="text" className="form-control" placeholder="hora de atención" ref={this.startTime} defaultValue={this.state.objectFb.hourStart}/>
                     </div>
                     <div className="form-group">
                         <label>Personal responsable</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.responsableRegistry}/>
+                        <input type="text" className="form-control" placeholder="" ref={this.responsableRegistry} defaultValue={this.state.objectFb.collaborator}/>
                     </div>
                     
                     <div className="form-group">
-                        <label>Uso de Caja</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.box}/>
+                        <label>Uso de Caja</label><br/>
+                        <input className="form-check-input" type="checkbox" checked={this.state.checked} onChange={(e)=>this.handleInputChange(e)}/>
+                        <label className="form-check-label">
+                        Solo para uso de caja
+                        </label>
+                        <p>{this.state.objectFb.use}</p>
+                        <input type="text" className="form-control" placeholder="" ref={this.box} defaultValue={this.state.objectFb.use}/>
                     </div>
                     <div className="form-group">
                         <label>Fecha</label>
@@ -153,8 +212,8 @@ class RoomForm extends Component {
                     </div>
                     <div className="form-group">
                         <label>Comentario</label>
-                        <textarea className="form-control" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
-                        defaultValue={this.state.objectFb.comment}></textarea>
+                        <input className="form-control" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
+                        defaultValue={this.state.objectFb.comment}/>
                     </div>
                     <div className="form-group">
                         <label>Hora final</label>
