@@ -18,6 +18,7 @@ class FormsContainer extends Component {
                         responsable = {this.props.responsable}
                         showHideFormArr = {this.props.showHideFormArr[room.id].showRoom}
                         showHideForm = {this.props.showHideForm}
+                        position = {this.props.position}
                     />
                 )}
                 {this.props.shownCashOne ? <CashOneForm

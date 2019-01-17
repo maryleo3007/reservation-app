@@ -1,17 +1,8 @@
-import React, {
-    Component
-} from 'react';
-import {
-    logout
-} from './../../components/helpers/authFirebase'
-import {
-    app
-} from './../../services/firebase';
+import React, {Component} from 'react';
+import {logout} from './../../components/helpers/authFirebase'
+import {app} from './../../services/firebase';
 
-import {
-    ref,
-    storage
-} from './../../services/firebase';
+import {ref,storage} from './../../services/firebase';
 
 //components
 import RoomContainer from './roomContainer/RoomContainer';
@@ -125,7 +116,7 @@ class Reception extends Component {
         const refRoomList = ref.child('roomRegister');
         const addRegister = refRoomList.push({
             startTime: objRegister.startTime,
-            collaborator: objRegister.collaborator,
+            person: objRegister.person,
             area: objRegister.area,
             appointment: objRegister.appointment,
             commentary: objRegister.commentary,
@@ -136,7 +127,8 @@ class Reception extends Component {
             room: objRegister.room,
             team: objRegister.team,
             responsableRegistry: objRegister.responsableRegistry,
-            box: objRegister.box
+            box: objRegister.box,
+            id: objRegister.id
         })
 
         const newRegisterkey = addRegister.key
@@ -168,49 +160,17 @@ class Reception extends Component {
 
         const showComponent = this.state.showComponent;
         return ( <div className = "wrapper " >
-            <Sidebar changeComponent = {
-                this.changeComponent
-            }
-            userImage = {
-                this.state.userImage
-            }
-            userName = {
-                this.state.userName
-            }
-            userData = {
-                this.props.responsable
-            }
-            logOut = {
-                this.logOut
-            }
-            changeSidebar = {
-                this.changeSidebar
-            }
-            sidebarState = {
-                this.state.sidebarState
-            }
-            /> {
-                showComponent === 'registerRooms' ?
-                    <RegisterRooms
-                sidebarState = {
-                    this.state.sidebarState
-                }
-                />: showComponent === 'registerCash' ?
-                    <
-                    RegisterCash
-                sidebarState = {
-                    this.state.sidebarState
-                }
-                /> : <RoomContainer
-                rooms = {
-                    this.state.roomList
-                }
-                cashs = {
-                    this.state.cashList
-                }
-                objRegister = {
-                    this.state.objRegister
-                }
+            <Sidebar changeComponent = {this.changeComponent}
+            userImage = {this.state.userImage}
+            userName = {this.state.userName}
+            userData = {this.props.responsable}
+            logOut = {this.logOut}
+            changeSidebar = {this.changeSidebar}
+            sidebarState = {this.state.sidebarState}/> {showComponent === 'registerRooms' ?<RegisterRooms
+                sidebarState = {this.state.sidebarState}/>: showComponent === 'registerCash' ?
+                    <RegisterCash sidebarState = {this.state.sidebarState}/> : <RoomContainer rooms = {this.state.roomList}
+                cashs = {this.state.cashList}
+                objRegister = {this.state.objRegister}
                 changeState = {
                     this.changeState
                 }
@@ -220,6 +180,9 @@ class Reception extends Component {
                 responsable = {
                     this.state.userName
                 }
+
+                position = {this.props.responsable.position}
+
                 sidebarState = {
                     this.state.sidebarState
                 }

@@ -106,6 +106,7 @@ class RoomContainer extends Component {
                                 shownCashTwo = {this.state.shownCashTwo}
                                 showHideFormArr = {this.state.showHideFormArr}
                                 showHideForm = {this.showHideForm}
+                                position = {this.props.position}
                             />
                         </div>
                     </div>
