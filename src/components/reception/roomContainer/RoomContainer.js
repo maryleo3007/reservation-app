@@ -40,9 +40,13 @@ class RoomContainer extends Component {
                                 addRegister = {this.props.addRegister}
                                 responsable = {this.props.responsable}
                                 cashs = {cashArr}
+                                formCashList = {this.props.formCashList}
                                 shownCashOne = {this.props.shownCashOne}
                                 shownCashTwo = {this.props.shownCashTwo}
                                 changeCashState = {this.props.changeCashState}
+                                updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
+                                updateTeamCash = {this.props.updateTeamCash}
+                                updateCommentsCash = {this.props.updateCommentsCash}
                             />
                         </div>
                     </div>

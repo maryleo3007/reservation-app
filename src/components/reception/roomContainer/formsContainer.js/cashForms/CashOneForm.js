@@ -5,47 +5,29 @@ import {changeTitleState} from '../../../../helpers/receptionHelper.js';
 class CashOneForm extends Component {
 
     state = { 
-        customerIncome: false,
-        cashOrderTime: ''
+        customerIncome: false
     }
-    checkInTime = React.createRef();
-    attentionTime = React.createRef();
-    date = React.createRef(); 
-    finalTime = React.createRef(); 
-
-    addCashRegister = e => {
-        e.preventDefault();
-        const objResgister = {
-            // checkInTime: si viene de sala o si viene directo a caja
-            attentionTime: this.attentionTime.current.value,
-            date: this.date.current.value, 
-            finalTime: this.finalTime.current.value,
-            // orderTime:  
-            // attentionTime: 
-            // outTime: 
-        };
-
-      this.props.addCashRegister(objResgister)
-      
-      e.currentTarget.reset();
-    };
+    teamRef= React.createRef();
+    commentsRef = React.createRef();
 
     customerIncome = () => {
-        this.setState({
-            customerIncome: true,
-            cashOrderTime: `${getDateFull()}-${getHour()}`
-        })
+        const objCash = {
+            date: getDateFull(),
+            hourInit: getHour()
+        }
+        this.setState({customerIncome: true})
         this.props.changeCashState((this.props.cash)[0].key,3)
+        this.props.updateDtHrInitCashForm((this.props.cash)[0].uidCash,objCash);
     }
+
     
     render() {
-
+        // {appointment,fromRoom,hourAttention,hourEnd,hourInit} = (this.props.formCash)[0]
+        const formCash = (this.props.formCash)[0]
         const cash = (this.props.cash)[0];
         const showCustomerIncome = this.state.customerIncome;
-        const cashOrderHour = (this.state.cashOrderTime).substr(11);
         const showState = changeTitleState(cash.state)
         return (
-            
             <div>
                 <div className="form-cash">
                     <div>
@@ -65,13 +47,13 @@ class CashOneForm extends Component {
                             <div className="form-group row">
                                 <label className="col-sm-5 col-form-label">Pedido de caja</label>
                                 <div className="col-sm-7 title-form">
-                                    <label>{cashOrderHour}</label>
+                                    <label>{formCash.hourInit}</label>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <label className="col-sm-5 col-form-label">Atención en caja</label>
                                 <div className="col-sm-7">
-                                <label>10 00 00</label>
+                                <label>{formCash.hourAttention}</label>
                                 </div>
                             </div>
                         </div>
@@ -79,13 +61,13 @@ class CashOneForm extends Component {
                     <div className="form-group row">
                         <label className="col-sm-5 col-form-label">Equipo</label>
                         <div className="col-sm-7">
-                            <input type="text" className="form-control" ref={this.team}/>
+                            <input type="text" className="form-control" ref={this.teamRef} onKeyUp={this.updateTeam}/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-5 col-form-label">Comentarios</label>
                         <div className="col-sm-12">
-                        <textarea className="form-control" rows="3"></textarea>
+                        <textarea className="form-control" rows="3" ref={this.commentsRef} onKeyUp={this.updateComements}></textarea>
                         </div>
                     </div>
                 </div>

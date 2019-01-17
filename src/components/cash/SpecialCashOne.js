@@ -1,8 +1,24 @@
 import React,{Component} from 'react';
+import {getDateFull, getHour} from './../helpers/date.js';
 import './cashComponent.css';
-class SpecialCashOne extends Component {
 
+class SpecialCashOne extends Component {
+    state = {
+        clientAttented : true
+    }
+    updateHourAttention = () => {
+        const hourAttention = getHour();
+        this.props.updateHrAtCashForm('-LWRAmCghpfW7PXIv7_P',hourAttention)
+        this.setState({clientAttented:false})
+    }
+    updateHrEndCashForm = () => {
+        const hourEndAttention = getHour();
+        this.props.updateHrEndCashForm('-LWRAmCghpfW7PXIv7_P',hourEndAttention)
+        this.setState({clientAttented:true})
+    }
     render() {
+        const clientAttented = this.state.clientAttented;
+        
         return (
             <div className="content-specialCash px-5 py-3">
                 <div className="container">
@@ -45,12 +61,14 @@ class SpecialCashOne extends Component {
                         <div className="col-12 col-sm-12 col-md-12 bg-white content-state-cash">
                         <div className="d-flex h-100">
                                 <div className="justify-content-center align-self-center mx-auto title-form">
-                                    <div className="text-center">
-                                        <p>Cliente se está aproximando</p>
-                                        <button className="btn-specialCash">Iniciar Atención</button>
-                                    </div>
-                                    
-                                    <button className="btn-specialCash">Salida del cliente</button>
+                                    {
+                                        clientAttented ?
+                                        <div className="text-center">
+                                            <p>Cliente se está aproximando</p>
+                                            <button className="btn-specialCash" onClick={this.updateHourAttention}>Iniciar Atención</button>
+                                        </div>:
+                                        <button className="btn-specialCash" onClick={this.updateHrEndCashForm}>Salida del cliente</button>
+                                    }
                                 </div>
                             </div>
                         </div>

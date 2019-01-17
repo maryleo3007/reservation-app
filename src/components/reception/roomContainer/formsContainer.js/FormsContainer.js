@@ -21,7 +21,11 @@ class FormsContainer extends Component {
                 
                 {this.props.shownCashOne ? <CashOneForm
                     cash = {this.props.cashs.filter( cash => cash.id === 1)}
+                    formCash = {this.props.formCashList.filter( formCash => formCash.id === 1)}
                     changeCashState = {this.props.changeCashState}
+                    updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
+                    updateTeamCash = {this.props.updateTeamCash}
+                    updateCommentsCash = {this.props.updateCommentsCash}
                 /> : ""}
                 {this.props.shownCashTwo ? <CashTwoForm
                     cash = {this.props.cashs.filter( cash => cash.id === 2)}

@@ -13,6 +13,7 @@ class Reception extends Component {
     dbCashRoom = ref.child('CashRoom/');
     dbRoom = ref.child('Room/');
     dbUsers = ref.child('Users/').child(this.props.responsable.uid).child('/info');
+    dbFormCash = ref.child('FormCaja/');
 
     state = {
         showComponent : 'rooms',
@@ -23,8 +24,7 @@ class Reception extends Component {
         objRegister: {},
         shownCashOne:false,
         shownCashTwo:false,
-        stateOne:1,
-        stateTwo:1
+        formCashList:[]
     };
 
     // mostrar componente de salas o registros
@@ -41,7 +41,8 @@ class Reception extends Component {
                 time: data.val().time,
                 title: data.val().title,
                 key: data.key,
-                showComponent: data.val().showComponent
+                showComponent: data.val().showComponent,
+                uidCash: data.val().uidCash
             }
             arrCash.push(cashObj)
             this.setState({cashList:arrCash})
@@ -63,7 +64,27 @@ class Reception extends Component {
                 arrRooms.push(roomObj);
                 this.setState({roomList:arrRooms}) 
             })
-        })  
+        }) 
+        
+        this.dbFormCash.on('value',snap => {
+            const arrFormCash = [];
+            snap.forEach(data=>{
+                let objFormCash = {
+                    appointment:  data.val().appointment,
+                    caja_id:   data.val().caja_id,
+                    date:   data.val().date,
+                    fromRoom:  data.val().fromRoom,
+                    hourAttention:  data.val().hourAttention,
+                    hourEnd: data.val().hourEnd,
+                    hourInit:   data.val().hourInit,
+                    id:  data.val().id,
+                    team: data.val().team,
+                    comments: data.val().comments                  
+                }
+                arrFormCash.push(objFormCash)
+                this.setState({formCashList:arrFormCash})
+            })
+        })
 
         ref.child('users').child(this.props.responsable.uid).child('info').child('name').on('value', (snapshot) => {
             if(snapshot.val()) {
@@ -82,7 +103,7 @@ class Reception extends Component {
         e.preventDefault()
         logout()
     }
-
+    /*****funciones para caja */
     // func cambia estado de sala
     changeState = (key, state) => {
         ref.child('Room/').child('/'+ key).update({
@@ -141,6 +162,26 @@ class Reception extends Component {
         }
     }
 
+    //actualizar hora de inicio y fecha de registro del form de caja
+    updateDtHrInitCashForm = (key,obj) => {
+        ref.child('FormCaja').child('/'+key).update({
+            date: obj.date,
+            hourInit: obj.hourInit
+        })
+    }
+    /*********funciones para formularios de caja*********** */
+    //actualizar equipo de formulario de caja
+    updateTeamCash = (key,team) => {
+        ref.child('FormCaja').child('/'+key).update({
+            team:team
+        })
+    }
+    //actualizar commentario de formulario de caja
+    updateCommentsCash = (key,comments) => {
+        ref.child('FormCaja').child('/'+key).update({
+            comments:comments
+        })
+    }
     render() { 
         
         const showComponent = this.state.showComponent;
@@ -169,6 +210,10 @@ class Reception extends Component {
                         changeCashState = {this.changeCashState}
                         onToggleForm = {this.onToggleForm}
                         changeCashComponent = {this.changeCashComponent}
+                        updateDtHrInitCashForm = {this.updateDtHrInitCashForm}
+                        formCashList = {this.state.formCashList}
+                        updateTeamCash = {this.updateTeamCash}
+                        updateCommentsCash = {this.updateCommentsCash}
                         />
                     }
                 </div> 

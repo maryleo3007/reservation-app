@@ -13,6 +13,7 @@ const Cash = (props) => {
     }
     const showClass = changeState(state);
 
+
     return (
         <div className={showClass}  onClick={functions}>
             <div className="container d-flex h-100">
