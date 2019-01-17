@@ -4,7 +4,17 @@ import './cashComponent.css';
 
 class SpecialCashOne extends Component {
     state = {
-        clientAttented : true
+        clientAttented : true,
+        obj:{
+            indicator : "solo caja",
+            date: "hoy",
+            cash: "caja 1",
+            hourInit: "a la hora que inica",
+            hourAttention: "a la hora q atendio",
+            hourEnd: "a la hora que marco atendido",
+            team:"equipo",
+            comment:"todos los comentarios"
+        }
     }
     updateHourAttention = () => {
         const hourAttention = getHour();
@@ -13,7 +23,8 @@ class SpecialCashOne extends Component {
     }
     updateHrEndCashForm = () => {
         const hourEndAttention = getHour();
-        this.props.updateHrEndCashForm('-LWRAmCghpfW7PXIv7_P',hourEndAttention)
+        this.props.updateHrEndCashForm('-LWRAmCghpfW7PXIv7_P',hourEndAttention);
+        this.props.addRegisterCash(this.state.obj)
         this.setState({clientAttented:true})
     }
     render() {
