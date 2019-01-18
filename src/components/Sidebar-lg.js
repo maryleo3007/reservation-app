@@ -5,9 +5,6 @@ class SidebarLg extends Component {
     state ={
         reception : true,
         register : false,
-        activeClassRooms: true,
-        activeClassRegisterRooms : false,
-        activeClassRegisterCash : false,
     }
 
     changeSidebar = () =>{
@@ -17,23 +14,20 @@ class SidebarLg extends Component {
 
     changeReception = () =>{
         this.props.changeReception();
-        this.setState({activeClassRooms:true, activeClassRegisterRooms:false, activeClassRegisterCash:false})
     }
 
     changeRegisterRooms = () =>{
         this.props.changeRegisterRooms();
-        this.setState({activeClassRooms:false, activeClassRegisterRooms:true, activeClassRegisterCash:false})
     }
 
     changeRegisterCash = () =>{
         this.props.changeRegisterCash();
-        this.setState({activeClassRooms:false, activeClassRegisterRooms:false, activeClassRegisterCash:true})
     }
 
     render() {
-        const classNameRooms = this.state.activeClassRooms ? 'nav-link active' : 'nav-link'
-        const classNameRegisterRooms = this.state.activeClassRegisterRooms ? 'nav-link active' : 'nav-link'
-        const classNameRegisterCash = this.state.activeClassRegisterCash ? 'nav-link active' : 'nav-link'
+        const classNameRooms = this.props.classSidebar.activeClassRooms ? 'nav-link active' : 'nav-link'
+        const classNameRegisterRooms = this.props.classSidebar.activeClassRegisterRooms ? 'nav-link active' : 'nav-link'
+        const classNameRegisterCash = this.props.classSidebar.activeClassRegisterCash ? 'nav-link active' : 'nav-link'
         const userImg = this.props.userImage;
         const userName = this.props.userName;
         const position = this.props.userData.position;

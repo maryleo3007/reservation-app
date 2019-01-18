@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import {ref} from './../../../../services/firebase';
+import {getCurrenHour, getCurrentDate} from '../../../helpers/roomHelpers'
+
 class RoomForm extends Component {
 
     state = { 
         available: 'disponible',
         probable: 'probable',
         unavailable: 'ocupado',
+        objectFb: {},
+        checked: false,
     }
+
+    dbFormSala = ref.child('FormSala/'+this.props.room.id);
 
     // refs 
 
     startTime = React.createRef();
-    collaborator = React.createRef();
+    person = React.createRef();
     area = React.createRef(); 
     appointment = React.createRef();
     commentary = React.createRef();
@@ -45,12 +51,12 @@ class RoomForm extends Component {
 
         this.room.current.value = this.props.room.title;
         this.floor.current.value = this.props.room.floor;
-        this.area.current.value = this.props.responsable.position;
-        
+        this.area.current.value = this.props.position;
+        this.finalHour.current.value = getCurrenHour()
         // objeto del auto
         const objResgister = {
             startTime: this.startTime.current.value,
-            collaborator: this.collaborator.current.value,
+            person: this.person.current.value,
             area: this.area.current.value, 
             appointment: this.appointment.current.value,
             commentary: this.commentary.current.value,
@@ -61,10 +67,9 @@ class RoomForm extends Component {
             room: this.room.current.value,
             team: this.team.current.value,
             responsableRegistry: this.responsableRegistry.current.value,
-            box: this.box.current.value
+            box: this.box.current.value,
+            id: this.props.room.id
         };
-  
-      //   this.props.cotizarSeguroProps(objResgister);
   
       // reset form
       this.props.addRegister(objResgister)
@@ -72,91 +77,223 @@ class RoomForm extends Component {
       e.currentTarget.reset();
     };
 
+
+    updateRoomResponsable = (key, responsable) => {
+        ref.child('Room/').child('/' + key).update({
+            responsable
+        });
+    }
+
+    updateComment = (val) => {
+        this.dbFormSala.update({
+            comment : val
+        });
+    }
+
+    updateHourStart = (e) => {
+        e.preventDefault();
+        const hourStart = getCurrenHour()
+        this.dbFormSala.update({
+            hourStart
+        });
+    }
+
+    updateCollaborator = (e) => {
+        e.preventDefault();
+        const cutName = this.props.responsable.indexOf(' ');
+        const collaborator = this.props.responsable.substring(0, cutName);
+        this.updateRoomResponsable(this.props.room.key, collaborator);
+        this.dbFormSala.update({
+            collaborator
+        });
+    }
+
+    updateUse = (use) => {
+        this.dbFormSala.update({
+            use
+        });
+    }
+
+    updateDate = (e) => {
+        e.preventDefault();
+        const date = getCurrentDate()
+        this.dbFormSala.update({
+            date
+        });
+    }
+
+    updateAppoinment = (appoinment) => {
+        this.dbFormSala.update({
+            appoinment
+        });
+    }
+
+    updateAppoinmentBooleanN = (appoinmentBooleanN) => {
+        this.dbFormSala.update({
+            appoinmentBooleanN
+        });
+    }
+
+    updateAppoinmentBooleanY = (appoinmentBooleanY) => {
+        this.dbFormSala.update({
+            appoinmentBooleanY
+        });
+    }
+
+    updateHourExecutive = (e) => {
+        e.preventDefault();
+        const hourExecutive = getCurrenHour()
+        this.dbFormSala.update({
+            hourExecutive
+        });
+    }
+
+    updatePerson = (person) => {
+        this.dbFormSala.update({
+            person
+        });
+    }
+
+    selectPerson = (e) => {
+        this.updatePerson(e.target.value)
+    }
+
+    useCashCheckbox=()=> {
+        this.setState({
+            checked: !this.state.checked
+        },()=> {
+                if(this.state.checked){ 
+                    const use = 'Uso de sala para caja'
+                    this.updateUse(use)
+                } else {
+                    const use = 'Solo uso de sala'
+                    this.updateUse(use)
+                }
+            }       
+        )  
+    }
+
+    apoinmentCheckbox = (e) => {
+        if(e.target.value === 'si') {
+            const appoinment = e.target.value;
+            const appoinmentBooleanY = true;
+            const appoinmentBooleanN = false;
+            this.updateAppoinmentBooleanN(appoinmentBooleanN)
+            this.updateAppoinmentBooleanY(appoinmentBooleanY)
+            this.updateAppoinment(appoinment)
+        } else {
+            const appoinment = e.target.value;
+            const appoinmentBooleanY = false;
+            const appoinmentBooleanN = true;
+            this.updateAppoinmentBooleanN(appoinmentBooleanN)
+            this.updateAppoinmentBooleanY(appoinmentBooleanY)
+            this.updateAppoinment(appoinment)
+        } 
+    }
+
+    componentDidMount() {
+        this.dbFormSala.on('value', snap => {
+                let objectFb = {
+                    appoinment: snap.val().appoinment,
+                    area: snap.val().area,
+                    collaborator: snap.val().collaborator,
+                    comment: snap.val().comment,
+                    date: snap.val().date,
+                    floor: snap.val().floor,
+                    hourEnd: snap.val().hourEnd,
+                    hourExecutive: snap.val().hourExecutive,
+                    hourStart: snap.val().hourStart,
+                    person: snap.val().person,
+                    room: snap.val().room,
+                    team: snap.val().team,
+                    use: snap.val().use,
+                    appoinmentBooleanN: snap.val().appoinmentBooleanN,
+                    appoinmentBooleanY: snap.val().appoinmentBooleanY
+                }
+                this.setState({
+                    objectFb
+                })
+        })
+    }
+
     render() {
+        let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         return (
-            <div>
+            <div className={`form-container ${showform}`}>
                 <div>
                     <span>{this.props.room.title}</span>
-                    <button onClick={this.changeAvailable}>Disponible</button>
-                    <button onClick={this.changeProbable}>Probable</button>
-                    <button onClick={this.changeUnavailable}>Ocupado</button>
                 </div>
-                <form onSubmit={this.addRegister}>
+                <form onSubmit={this.addRegister} id={this.props.room.key}>
                 {/* inputs hidden */}
                     <input type="hidden" className="form-control" placeholder="" ref={this.room}/>
                     <input type="hidden" className="form-control" placeholder="" ref={this.area}/>
                     <input type="hidden" className="form-control" placeholder="" ref={this.floor}/>
                     <div className="form-group">
-                        <label>Hora de atención</label>
-                        <input type="text" className="form-control" placeholder="hora de atención" ref={this.startTime}/>
+                        <label>Ingreso del cliente</label>
+                        <button onClick={(e) => {this.updateHourStart(e); this.updateCollaborator(e); this.updateDate(e)}}>Play</button>
+                        <input type="text" className="form-control" placeholder="hora de atención" ref={this.startTime} defaultValue={this.state.objectFb.hourStart}/>
                     </div>
                     <div className="form-group">
                         <label>Personal responsable</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.responsableRegistry}/>
+                        <input type="text" className="form-control" placeholder="" ref={this.responsableRegistry} defaultValue={this.state.objectFb.collaborator}/>
                     </div>
                     
                     <div className="form-group">
-                        <label>Uso de Caja</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.box}/>
+                        <label>Uso de Caja</label><br/>
+                        <input className="form-check-input" type="checkbox" checked={this.state.checked} onChange={(e)=>this.useCashCheckbox(e)}/>
+                        <label className="form-check-label">
+                        Solo para uso de caja
+                        </label>
+                        <p>{this.state.objectFb.use}</p>
+                        <input type="text" className="form-control" placeholder="" ref={this.box} defaultValue={this.state.objectFb.use}/>
                     </div>
                     <div className="form-group">
                         <label>Fecha</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.date}/>
-                    </div>
-                    <div className="form-group">
-                        <label>Sala id</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.room}/>
+                        <input type="text" className="form-control" placeholder="" ref={this.date}  defaultValue={this.state.objectFb.date}/>
                     </div>
                     <div className="form-group">
                         <label>Persona</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.collaborator}/>
+                        <select defaultValue={this.state.objectFb.person} selected={this.state.objectFb.person} className="form-control" ref={this.person} onChange={(e)=> this.selectPerson(e)}>
+                            <option value="grapefruit">Grapefruit</option>
+                            <option value="lime">Lime</option>
+                            <option value="coconut">Coconut</option>
+                            <option value="mango">Mango</option>
+                        </select>
+                        <input type="text" className="form-control" placeholder="" ref={this.person} defaultValue={this.state.objectFb.person}/>
                     </div>
                     <div className="form-group">
                         <label>Equipo</label>
                         <input type="text" className="form-control" placeholder="" ref={this.team}/>
                     </div>
                     <div className="form-group">
-                        <label>Cita</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.appointment}/>
+                        <label>Cita</label><br/>
+                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" onClick={(e) => this.apoinmentCheckbox(e)} value='si' defaultChecked={this.state.objectFb.appoinmentBooleanY}/>
+                        <span>si</span> <br/>
+                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" onClick={(e) => this.apoinmentCheckbox(e)}  value="no" defaultChecked={this.state.objectFb.appoinmentBooleanN} />
+                        <span>No</span>
+
+                        <input type="text"  className="form-control d-none" placeholder="" ref={this.appointment} defaultValue={this.state.objectFb.appoinment}/>
                     </div>
                     <div className="form-group">
                         <label>Comentario</label>
-                        <textarea className="form-control" rows="3" ref={this.commentary}></textarea>
+                        <input className="form-control" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
+                        defaultValue={this.state.objectFb.comment}/>
                     </div>
                     <div className="form-group">
                         <label>Hora final</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.finalHour}/>
+                        <input type="text"  className="form-control d-none" placeholder="" ref={this.finalHour}/>
                     </div>
                     <div className="form-group">
                         <label>Hora ejecutivo</label>
-                        <input type="text" className="form-control" placeholder="" ref={this.executiveHour}/>
+                        <input type="text" className="form-control" placeholder="" ref={this.executiveHour} defaultValue={this.state.objectFb.hourExecutive}/>
                     </div>
+                    <button onClick={(e) => this.updateHourExecutive(e)}>Ejecutivo</button>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
          );
     }
 }
- 
-RoomForm.propTypes = {
-    changeState: PropTypes.func,
-    addRegister: PropTypes.func,
-    responsable: PropTypes.shape({
-        authed: PropTypes.boolean,
-        loading: PropTypes.boolean,
-        uid: PropTypes.string,
-        user: PropTypes.string
-    }),
-    rooms: PropTypes.shape({
-        executive: PropTypes.string,
-        floor: PropTypes.string,
-        id: PropTypes.number,
-        key: PropTypes.string,
-        state: PropTypes.string,
-        time: PropTypes.string,
-        title: PropTypes.string
-    })
-};
 
 export default RoomForm;
 

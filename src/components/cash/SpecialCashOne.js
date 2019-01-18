@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {getDateFull, getHour} from './../helpers/date.js';
+import {getHour} from './../helpers/date.js';
 import './cashComponent.css';
 
 class SpecialCashOne extends Component {

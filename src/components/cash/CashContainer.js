@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { logout } from './../../components/helpers/authFirebase';
-import {ref, storage} from './../../services/firebase';
+import {ref} from './../../services/firebase';
 
 import SpecialCashOne from './SpecialCashOne.js';
 

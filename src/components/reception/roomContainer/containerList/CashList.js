@@ -13,6 +13,7 @@ class CashList extends Component {
                         changeCashState = {this.props.changeCashState}
                         key = {cash.key}
                         cash = {cash}
+                        showRoom = {this.props.showRoom}
                     />
                 )}
             </div>
