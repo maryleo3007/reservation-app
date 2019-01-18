@@ -281,8 +281,8 @@ class RoomForm extends Component {
                             ref={this.person}
                             value={this.state.objectFb.person}
                             onChange={(e)=> this.selectPerson(e)}
-                            options={this.props.optionTeam}
-                            key={this.props.optionTeam.value}
+                            options={this.props.optionPerson}
+                            key={this.props.optionPerson.value}
                         />
                     </div>
                     <div className="form-group">
@@ -291,7 +291,7 @@ class RoomForm extends Component {
                         <Select
                             value={this.state.objectFb.team}
                             onChange={this.handleChange}
-                            options={options}
+                            options={this.props.optionTeam}
                         />
                     </div>
                     <div className="form-group">
