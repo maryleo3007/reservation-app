@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import {ref} from './../../../../services/firebase';
 import {getCurrenHour, getCurrentDate} from '../../../helpers/roomHelpers'
+import OptionTeam from '../containerList/unityContainer/optionTeam';
+import Select from 'react-select';
+
+const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ];
 
 class RoomForm extends Component {
 
@@ -10,6 +18,7 @@ class RoomForm extends Component {
         unavailable: 'ocupado',
         objectFb: {},
         checked: false,
+        selectedOption: null
     }
 
     dbFormSala = ref.child('FormSala/'+this.props.room.id);
@@ -56,7 +65,7 @@ class RoomForm extends Component {
         // objeto del auto
         const objResgister = {
             startTime: this.startTime.current.value,
-            person: this.person.current.value,
+            person: this.state.objectFb.person.value,
             area: this.area.current.value, 
             appointment: this.appointment.current.value,
             commentary: this.commentary.current.value,
@@ -150,12 +159,16 @@ class RoomForm extends Component {
 
     updatePerson = (person) => {
         this.dbFormSala.update({
-            person
+            person : {
+                value: person.value,
+                label: person.value
+            }
         });
     }
 
-    selectPerson = (e) => {
-        this.updatePerson(e.target.value)
+    selectPerson = (selectedOption, e) => {
+        this.setState({ selectedOption })
+        this.updatePerson(selectedOption)
     }
 
     useCashCheckbox=()=> {
@@ -190,7 +203,7 @@ class RoomForm extends Component {
             this.updateAppoinment(appoinment)
         } 
     }
-
+    
     componentDidMount() {
         this.dbFormSala.on('value', snap => {
                 let objectFb = {
@@ -213,11 +226,12 @@ class RoomForm extends Component {
                 this.setState({
                     objectFb
                 })
-        })
+        })        
     }
 
     render() {
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
+        const { selectedOption } = this.state;
         return (
             <div className={`form-container ${showform}`}>
                 <div>
@@ -253,13 +267,13 @@ class RoomForm extends Component {
                     </div>
                     <div className="form-group">
                         <label>Persona</label>
-                        <select defaultValue={this.state.objectFb.person} selected={this.state.objectFb.person} className="form-control" ref={this.person} onChange={(e)=> this.selectPerson(e)}>
-                            <option value="grapefruit">Grapefruit</option>
-                            <option value="lime">Lime</option>
-                            <option value="coconut">Coconut</option>
-                            <option value="mango">Mango</option>
-                        </select>
-                        <input type="text" className="form-control" placeholder="" ref={this.person} defaultValue={this.state.objectFb.person}/>
+                        <Select
+                            ref={this.person}
+                            value={this.state.objectFb.person}
+                            onChange={(e)=> this.selectPerson(e)}
+                            options={this.props.optionTeam}
+                            key={this.props.optionTeam.value}
+                        />
                     </div>
                     <div className="form-group">
                         <label>Equipo</label>
@@ -267,9 +281,9 @@ class RoomForm extends Component {
                     </div>
                     <div className="form-group">
                         <label>Cita</label><br/>
-                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" onClick={(e) => this.apoinmentCheckbox(e)} value='si' defaultChecked={this.state.objectFb.appoinmentBooleanY}/>
+                        <input className="form-check-input" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)} value='si' defaultChecked={this.state.objectFb.appoinmentBooleanY}/>
                         <span>si</span> <br/>
-                        <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" onClick={(e) => this.apoinmentCheckbox(e)}  value="no" defaultChecked={this.state.objectFb.appoinmentBooleanN} />
+                        <input className="form-check-input" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)}  value="no" defaultChecked={this.state.objectFb.appoinmentBooleanN} />
                         <span>No</span>
 
                         <input type="text"  className="form-control d-none" placeholder="" ref={this.appointment} defaultValue={this.state.objectFb.appoinment}/>
