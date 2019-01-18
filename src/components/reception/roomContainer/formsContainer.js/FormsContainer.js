@@ -20,15 +20,14 @@ class FormsContainer extends Component {
             snap.forEach(data => {
                 let optionObj = {
                     value: data.val().value,
-                    label: data.val().label
+                    label: data.val().label,
+                    team: data.val().team
                 }
                 optionTeam.push(optionObj)
                 this.setState({
                     optionTeam
                 })
-            })
-            console.log(this.state.optionTeam);
-            
+            })            
         })
     }
     render() { 

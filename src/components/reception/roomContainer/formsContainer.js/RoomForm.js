@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {ref} from './../../../../services/firebase';
 import {getCurrenHour, getCurrentDate} from '../../../helpers/roomHelpers'
-import OptionTeam from '../containerList/unityContainer/optionTeam';
 import Select from 'react-select';
 
 const options = [
@@ -17,8 +16,7 @@ class RoomForm extends Component {
         probable: 'probable',
         unavailable: 'ocupado',
         objectFb: {},
-        checked: false,
-        selectedOption: null
+        checked: false
     }
 
     dbFormSala = ref.child('FormSala/'+this.props.room.id);
@@ -74,7 +72,7 @@ class RoomForm extends Component {
             finalHour: this.finalHour.current.value,
             floor: this.floor.current.value,
             room: this.room.current.value,
-            team: this.team.current.value,
+            team: this.state.objectFb.team.value,
             responsableRegistry: this.responsableRegistry.current.value,
             box: this.box.current.value,
             id: this.props.room.id
@@ -163,13 +161,26 @@ class RoomForm extends Component {
                 value: person.value,
                 label: person.value
             }
+        });        
+    }
+
+    updateTeam = (team) => {
+        this.dbFormSala.update({
+            team : {
+                value: team.value,
+                label: team.value
+            }
         });
     }
 
     selectPerson = (selectedOption, e) => {
-        this.setState({ selectedOption })
         this.updatePerson(selectedOption)
+        this.updateTeam(selectedOption.team)
     }
+
+    handleChange = (selectedOption) => {
+        this.updateTeam(selectedOption)
+      }
 
     useCashCheckbox=()=> {
         this.setState({
@@ -203,7 +214,7 @@ class RoomForm extends Component {
             this.updateAppoinment(appoinment)
         } 
     }
-    
+
     componentDidMount() {
         this.dbFormSala.on('value', snap => {
                 let objectFb = {
@@ -231,7 +242,6 @@ class RoomForm extends Component {
 
     render() {
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
-        const { selectedOption } = this.state;
         return (
             <div className={`form-container ${showform}`}>
                 <div>
@@ -278,6 +288,11 @@ class RoomForm extends Component {
                     <div className="form-group">
                         <label>Equipo</label>
                         <input type="text" className="form-control" placeholder="" ref={this.team}/>
+                        <Select
+                            value={this.state.objectFb.team}
+                            onChange={this.handleChange}
+                            options={options}
+                        />
                     </div>
                     <div className="form-group">
                         <label>Cita</label><br/>
