@@ -41,10 +41,10 @@ class SidebarLg extends Component {
                 </div>
                     
                 <div className="">
-                    <img alt="" className="img-user img-fluidd-block mt-5 rounded-circle ml-4" src={userImg}/>
-                    <div className="text-center user ">
-                        <p className="mt-2"><b>{userName}</b></p>
-                        <p className="text-capitalize">{position}</p>
+                    <img alt="" className="img-user img-fluidd-block mt-5 rounded-circle ml-5" src={userImg}/>
+                    <div className="text-center user mt-3">
+                        <span className="mt-2"><b>{userName}</b></span>
+                        <p className="text-capitalize"><small>{position}</small></p>
                     </div>
                 </div>
                 <div className="nav flex-column tabs-options border-top">

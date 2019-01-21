@@ -7,35 +7,14 @@ export function changeState(state) {
     }
     let showClass = '';
 
-    if (state === 1) {
+    if (state === 'Disponible') {
         showClass = classNames.available;
-    } else if (state === 2) {
+    } else if (state === 'Por confirmar') {
         showClass = classNames.toBeConfirm;
-    } else if (state === 3){
+    } else if (state === 'Ocupado'){
         showClass = classNames.busy;
-    }else if (state === 4){
+    }else if (state === 'No disponible'){
         showClass = classNames.unAvailable;
     }
     return showClass
-}
-
-export function changeTitleState(state) {
-    const classNames = {
-        available:'Disponible',
-        toBeConfirm:'Por confirmar',
-        busy:'Ocupado',
-        unAvailable:'No disponible'
-    }
-    let titleState = '';
-
-    if (state === 1) {
-        titleState = classNames.available;
-    } else if (state === 2) {
-        titleState = classNames.toBeConfirm;
-    } else if (state === 3){
-        titleState = classNames.busy;
-    }else if (state === 4){
-        titleState = classNames.unAvailable;
-    }
-    return titleState
 }

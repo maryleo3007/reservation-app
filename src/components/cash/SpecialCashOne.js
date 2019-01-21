@@ -13,8 +13,9 @@ class SpecialCashOne extends Component {
     }
     updateClearCashForm = () => {
         const hourEndAttention = getHour();
-        this.props.updateClearCashForm('-LWRAmCghpfW7PXIv7_P');
+        
         const {appointment,comments,date,fromRoom, hourAttention,hourInit,team} = this.props.formCashList;
+        
         let obj = {
             indicator : "solo caja",
             date: date,
@@ -28,10 +29,20 @@ class SpecialCashOne extends Component {
         this.props.addRegisterCash(obj)
         this.props.changeCashState('-lajsdiwoj')
         this.setState({clientAttented:true})
+        setTimeout(function() {
+            this.props.updateClearCashForm('-LWRAmCghpfW7PXIv7_P');
+        }, 3000);
     }
     render() {
-        const clientAttented = this.state.clientAttented;
-        
+        console.log(this.props.formCashList)
+        console.log(this.props.cashList)
+        if(this.props.cashList === undefined) return null;
+        let clientAttented = this.state.clientAttented;
+        let clientAproaching = false;
+        const {state} = this.props.cashList;
+        if (state == 'Ocupado') {
+            clientAproaching = true
+        }
         
         return (
             <div className="content-specialCash px-5 py-3">
@@ -74,6 +85,7 @@ class SpecialCashOne extends Component {
                     <div className="row mx-5 mt-4 h-300">
                         <div className="col-12 col-sm-12 col-md-12 bg-white content-state-cash">
                         <div className="d-flex h-100">
+                            {clientAproaching?
                                 <div className="justify-content-center align-self-center mx-auto title-form">
                                     {
                                         clientAttented ?
@@ -83,7 +95,9 @@ class SpecialCashOne extends Component {
                                         </div>:
                                         <button className="btn-specialCash" onClick={this.updateClearCashForm}>Salida del cliente</button>
                                     }
-                                </div>
+                                </div>:
+                                <div></div>
+                            }        
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import RoomForm from './RoomForm';
-import CashOneForm from './cashForms/CashOneForm';
-import CashTwoForm from './cashForms/CashTwoForm';
+import CashForm from './CashForm';
 
 class FormsContainer extends Component {
     
     render() { 
+        if(this.props.formCashList === undefined) return null;
         return ( 
             <div>
                 {/* {this.props.rooms.map(room => 
@@ -20,20 +20,22 @@ class FormsContainer extends Component {
                         position = {this.props.position}
                     />
                 )} */}
-                <CashOneForm
-                    cash = {this.props.cashs.filter( cash => cash.id === 1)}
-                    formCash = {this.props.formCashList.filter( formCash => formCash.id === 1)}
-                    changeCashState = {this.props.changeCashState}
-                    updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
-                    updateTeamCash = {this.props.updateTeamCash}
-                    updateCommentsCash = {this.props.updateCommentsCash}
-                    shownCashOne = {this.props.shownCashOne}
-                />
-                {/* <CashTwoForm
-                    cash = {this.props.cashs.filter( cash => cash.id === 2)}
-                    changeCashState = {this.props.changeCashState}
-                    shownCashTwo = {this.props.shownCashTwo}
-                />  */}
+                {
+                    this.props.cashs.map( cash =>
+                        <CashForm
+                            key = {cash.id}
+                            cash = {cash}
+                            formCash = {this.props.formCashList.find( formCash => formCash.id === cash.id)}
+                            showHideFormArr = {this.props.showHideFormArr[cash.order].showRoom}
+                            changeCashState = {this.props.changeCashState}
+                            changeCashComponent = {this.props.changeCashComponent}
+                            updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
+                            updateTeamCash = {this.props.updateTeamCash}
+                            updateCommentsCash = {this.props.updateCommentsCash}
+                        />
+                        
+                    )
+                }
             </div>
          );
     }

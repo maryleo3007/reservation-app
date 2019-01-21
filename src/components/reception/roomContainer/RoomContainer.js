@@ -24,20 +24,22 @@ class RoomContainer extends Component {
            9: { showRoom: false},
            10: { showRoom: false},
            11: { showRoom: false},
-           12: { showRoom: false}
+           12: { showRoom: false},
+           13: { showRoom: false},
+           14: { showRoom: false}
         }
     }
 
     dbRoom = ref.child('Room/');
-
-    onToggleForm = (id) => {
-        if (id === 1) {
-            this.setState({shownCashOne: !this.state.shownCashOne})
-        }
-        if (id === 2) {
-            this.setState({shownCashTwo: !this.state.shownCashTwo})
-        }
-    }
+    dbCashRoom = ref.child('CashRoom/');
+    // onToggleForm = (id) => {
+    //     if (id === 1) {
+    //         this.setState({shownCashOne: !this.state.shownCashOne})
+    //     }
+    //     if (id === 2) {
+    //         this.setState({shownCashTwo: !this.state.shownCashTwo})
+    //     }
+    // }
 
     // change state room
     changeToGreenOrAmber = (key, state) => {
@@ -47,6 +49,18 @@ class RoomContainer extends Component {
             });
         } else if (state === 'Por confirmar') {
             this.dbRoom.child('/'+ key).update({
+                state: 'Disponible'
+            });
+        }
+    }
+
+    changeToGreenOrAmberCash = (key, state) => {
+        if (state === 'Disponible') {
+            this.dbCashRoom.child('/'+ key).update({
+                state: 'Por confirmar'
+            });
+        } else if (state === 'Por confirmar') {
+            this.dbCashRoom.child('/'+ key).update({
                 state: 'Disponible'
             });
         }
@@ -68,7 +82,6 @@ class RoomContainer extends Component {
         const cashArr = this.props.cashs.sort(function(a, b) {
             return a.id - b.id;
         });
-
         const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50'
         return (
             
@@ -76,7 +89,7 @@ class RoomContainer extends Component {
                 <div className="row mt-3">
                     <div className="col-7">
                         <div className="roomsList-container bg-white p-3">
-                            <div className="container bg-white container-fluid">
+                            <div className="container-fluid">
                                 <RoomList
                                     rooms = {this.props.rooms} 
                                     responsable = {this.props.responsable} 
@@ -88,15 +101,17 @@ class RoomContainer extends Component {
                             <div className="cashRoomlist-container col-lg-3 col-md-3">
                                 <CashList
                                     cashs = {cashArr}
-                                    onToggleForm = {this.props.onToggleForm}
+                                    showHideFormArr = {this.state.showHideFormArr}
+                                    showHideForm = {this.showHideForm}
+                                    changeToGreenOrAmberCash = {this.changeToGreenOrAmberCash}
                                     changeCashState = {this.props.changeCashState}
                                     changeCashComponent = {this.props.changeCashComponent}
                                 />
                             </div>
                         </div>
                     </div>
-                    <div className="col-4 pl-0">
-                        <div className="bg-white pl-2">
+                    <div className="col-5 pl-0">
+                        <div className="pl-2">
                             <FormsContainer 
                                 rooms = {this.props.rooms}
                                 objRegister = {this.props.objRegister} 
@@ -108,8 +123,7 @@ class RoomContainer extends Component {
                                 updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
                                 updateTeamCash = {this.props.updateTeamCash}
                                 updateCommentsCash = {this.props.updateCommentsCash}
-                                shownCashOne = {this.props.shownCashOne}
-                                shownCashTwo = {this.props.shownCashTwo}
+                                changeCashComponent = {this.props.changeCashComponent}
                                 showHideFormArr = {this.state.showHideFormArr}
                                 showHideForm = {this.showHideForm}
                                 position = {this.props.position}

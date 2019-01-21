@@ -57,7 +57,8 @@ class Reception extends Component {
                 title: data.val().title,
                 key: data.key,
                 showComponent: data.val().showComponent,
-                formCash_id: data.val().formCash_id
+                formCash_id: data.val().formCash_id,
+                order: data.val().order
             }
             arrCash.push(cashObj)
             this.setState({cashList:arrCash})
@@ -166,44 +167,35 @@ class Reception extends Component {
     //cambia estado de caja
     changeCashState = (key, state) => {
         ref.child('CashRoom').child('/'+ key).update({
-            state: state
+            state
         });
     }
 
     //cambia estado de caja
     changeCashComponent= (key, showComponent) => {
         ref.child('CashRoom').child('/'+ key).update({
-            showComponent: showComponent
+            showComponent
         });
-    }
-    
-    onToggleForm = (id) => {    
-        if (id === 1) {
-            this.setState({shownCashOne: !this.state.shownCashOne})
-        }
-        if (id === 2) {
-            this.setState({shownCashTwo: !this.state.shownCashTwo})
-        }
     }
 
     //actualizar hora de inicio y fecha de registro del form de caja
     updateDtHrInitCashForm = (key,obj) => {
         ref.child('FormCaja').child('/'+key).update({
             date: obj.date,
-            hourInit: obj.hourInit
+            hourInit:obj.hourInit
         })
     }
     /*********funciones para formularios de caja*********** */
     //actualizar equipo de formulario de caja
     updateTeamCash = (key,team) => {
         ref.child('FormCaja').child('/'+key).update({
-            team:team
+            team
         })
     }
     //actualizar commentario de formulario de caja
     updateCommentsCash = (key,comments) => {
         ref.child('FormCaja').child('/'+key).update({
-            comments:comments
+            comments
         })
     }
 
@@ -223,11 +215,8 @@ class Reception extends Component {
                 sidebarState = {this.state.sidebarState}/> : 
                 <RoomContainer rooms = {this.state.roomList}
                     cashs = {this.state.cashList}
-                    shownCashOne = {this.state.shownCashOne}
-                    shownCashTwo = {this.state.shownCashTwo}
                     objRegister = {this.state.objRegister}
                     changeCashState = {this.changeCashState}
-                    onToggleForm = {this.onToggleForm}
                     changeCashComponent = {this.changeCashComponent}
                     updateDtHrInitCashForm = {this.updateDtHrInitCashForm}
                     formCashList = {this.state.formCashList}

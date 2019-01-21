@@ -6,11 +6,12 @@ import SpecialCashOne from './SpecialCashOne.js';
 
 class Cash extends Component {
     state={
-        formCashList: []
-
+        formCashList: [],
+        cashList: []
     }
         
         dbFormCash = ref.child('FormCaja/');
+        dbCashRoom = ref.child('CashRoom/');
         //actualizar hora de atención del form de caja
         updateHrAtCashForm = (key,hourAttention) => {
             ref.child('FormCaja').child('/'+key).update({
@@ -23,11 +24,11 @@ class Cash extends Component {
                 appointment: "",
                 date:"",
                 fromRoom:"",
-                hourInit:"",
+                hourInit:"00:00:00",
                 hourEnd: "",
-                hourAttention:"",
+                hourAttention:"00:00:00",
                 team:"",
-                comments:""
+                comments:"No hay comentarios"
             })
         }
         //agregar registro de caja
@@ -51,7 +52,7 @@ class Cash extends Component {
         //cambia estado de caja
         changeCashState = (key) => {
             ref.child('CashRoom').child('/'+ key).update({
-                state: 1,
+                state: 'Disponible',
                 showComponent: false
             });
         }
@@ -76,6 +77,24 @@ class Cash extends Component {
                     this.setState({formCashList:arrFormCash})
                 })
             })
+
+            this.dbCashRoom.on('value', snap => {
+                const arrCash = [];
+                snap.forEach(data =>{
+                    let cashObj = {
+                    id: data.val().id,
+                    state: data.val().state,
+                    time: data.val().time,
+                    title: data.val().title,
+                    key: data.key,
+                    showComponent: data.val().showComponent,
+                    formCash_id: data.val().formCash_id,
+                    order: data.val().order
+                }
+                arrCash.push(cashObj)
+                this.setState({cashList:arrCash})
+                }) 
+            })
         }
         
 
@@ -89,6 +108,7 @@ class Cash extends Component {
                 addRegisterCash = {this.addRegisterCash}
                 changeCashState = {this.changeCashState}
                 formCashList = {this.state.formCashList[0]}
+                cashList = {this.state.cashList[1]}
                 />
                 <button
                 style={{border: 'none', background: 'transparent'}}
