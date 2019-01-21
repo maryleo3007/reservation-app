@@ -9,11 +9,13 @@ class FormsContainer extends Component {
     
     state = { 
         optionPerson: [],
-        optionTeam: []
+        optionTeam: [],
+        divsObj: []
     }
 
     dbOptionPerson = ref.child('OptionPerson/');
     dbOptionTeam = ref.child('OptionTeam/');
+    dbFormSala = ref.child('FormSala/');
 
 
     componentDidMount() {
@@ -45,6 +47,13 @@ class FormsContainer extends Component {
                 })
             })            
         })
+
+        this.dbFormSala.on('value', snap => {
+            let divsObj = snap.val()
+            this.setState({
+                divsObj
+            })
+    })       
     }
     render() { 
         return ( 
@@ -61,6 +70,8 @@ class FormsContainer extends Component {
                         position = {this.props.position}
                         optionPerson = {this.state.optionPerson}
                         optionTeam = {this.state.optionTeam}
+                        changeState = {this.props.changeState}
+                        divs = {this.state.divsObj[room.id].divs}
                     />
                 )}
                 {this.props.shownCashOne ? <CashOneForm

@@ -107,6 +107,7 @@ class RoomContainer extends Component {
                                 showHideFormArr = {this.state.showHideFormArr}
                                 showHideForm = {this.showHideForm}
                                 position = {this.props.position}
+                                changeState = {this.props.changeState}
                             />
                         </div>
                     </div>
