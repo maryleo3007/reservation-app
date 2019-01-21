@@ -6,7 +6,6 @@ import CashTwoForm from './cashForms/CashTwoForm';
 class FormsContainer extends Component {
     
     render() { 
-        console.log(this.props.shownCashOne)
         return ( 
             <div>
                 {/* {this.props.rooms.map(room => 
@@ -21,18 +20,20 @@ class FormsContainer extends Component {
                         position = {this.props.position}
                     />
                 )} */}
-                {this.props.shownCashOne ? <CashOneForm
+                <CashOneForm
                     cash = {this.props.cashs.filter( cash => cash.id === 1)}
                     formCash = {this.props.formCashList.filter( formCash => formCash.id === 1)}
                     changeCashState = {this.props.changeCashState}
                     updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
                     updateTeamCash = {this.props.updateTeamCash}
                     updateCommentsCash = {this.props.updateCommentsCash}
-                /> : ""}
-                {this.props.shownCashTwo ? <CashTwoForm
+                    shownCashOne = {this.props.shownCashOne}
+                />
+                {/* <CashTwoForm
                     cash = {this.props.cashs.filter( cash => cash.id === 2)}
                     changeCashState = {this.props.changeCashState}
-                /> : ""}
+                    shownCashTwo = {this.props.shownCashTwo}
+                />  */}
             </div>
          );
     }

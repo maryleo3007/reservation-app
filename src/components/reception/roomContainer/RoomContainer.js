@@ -74,7 +74,7 @@ class RoomContainer extends Component {
             
             <div className={`room-container container-fluid ${marginLeft}`}>
                 <div className="row mt-3">
-                    <div className="col-8">
+                    <div className="col-7">
                         <div className="roomsList-container bg-white p-3">
                             <div className="container bg-white container-fluid">
                                 <RoomList

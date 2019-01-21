@@ -57,7 +57,7 @@ class Reception extends Component {
                 title: data.val().title,
                 key: data.key,
                 showComponent: data.val().showComponent,
-                uidCash: data.val().uidCash
+                formCash_id: data.val().formCash_id
             }
             arrCash.push(cashObj)
             this.setState({cashList:arrCash})

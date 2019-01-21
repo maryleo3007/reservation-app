@@ -17,7 +17,7 @@ class CashOneForm extends Component {
         }
         this.setState({customerIncome: true})
         this.props.changeCashState((this.props.cash)[0].key,3)
-        this.props.updateDtHrInitCashForm((this.props.cash)[0].uidCash,objCash);
+        this.props.updateDtHrInitCashForm('-LWRAmCghpfW7PXIv7_P',objCash);
     }
 
     updateTeam = (e) =>{
@@ -34,13 +34,17 @@ class CashOneForm extends Component {
         const formCash = (this.props.formCash)[0]
         const cash = (this.props.cash)[0];
         const showCustomerIncome = this.state.customerIncome;
-        const showState = changeTitleState(cash.state)
+        // const showState = changeTitleState(cash.state)
+        let showComponent = this.props.shownCashOne;
+
+        let showClass = '';
+        showComponent ? showClass = 'd-block form-cash' : showClass = ' d-none form-cash'
+        
         return (
-            <div>
-                <div className="form-cash">
+                <div className={showClass}>
                     <div>
-                        <div className="text-center title-form">{cash.title}</div>
-                        <div className="text-center state-form">{showState }</div>
+                        {/* <div className="text-center title-form">{cash.title}</div> */}
+                        {/* <div className="text-center state-form">{showState }</div> */}
                         <hr/>
                     </div>
                     {
@@ -79,7 +83,6 @@ class CashOneForm extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
         );
     }
 }

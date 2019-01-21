@@ -5,6 +5,12 @@ import {ref} from './../../services/firebase';
 import SpecialCashOne from './SpecialCashOne.js';
 
 class Cash extends Component {
+    state={
+        formCashList: []
+
+    }
+        
+        dbFormCash = ref.child('FormCaja/');
         //actualizar hora de atención del form de caja
         updateHrAtCashForm = (key,hourAttention) => {
             ref.child('FormCaja').child('/'+key).update({
@@ -12,9 +18,16 @@ class Cash extends Component {
             })
         }
         //actualizar hora final de atención del form de caja
-        updateHrEndCashForm = (key,hourEnd) => {
+        updateClearCashForm = (key) => {
             ref.child('FormCaja').child('/'+key).update({
-                hourEnd: hourEnd
+                appointment: "",
+                date:"",
+                fromRoom:"",
+                hourInit:"",
+                hourEnd: "",
+                hourAttention:"",
+                team:"",
+                comments:""
             })
         }
         //agregar registro de caja
@@ -36,19 +49,46 @@ class Cash extends Component {
             })
         }
         //cambia estado de caja
-        changeCashState = (key, state) => {
+        changeCashState = (key) => {
             ref.child('CashRoom').child('/'+ key).update({
-                state: state
+                state: 1,
+                showComponent: false
             });
         }
+
+        componentDidMount(){
+            this.dbFormCash.on('value',snap => {
+                const arrFormCash = [];
+                snap.forEach(data=>{
+                    let objFormCash = {
+                        appointment:  data.val().appointment,
+                        caja_id:   data.val().caja_id,
+                        date:   data.val().date,
+                        fromRoom:  data.val().fromRoom,
+                        hourAttention:  data.val().hourAttention,
+                        hourEnd: data.val().hourEnd,
+                        hourInit:   data.val().hourInit,
+                        id:  data.val().id,
+                        team: data.val().team,
+                        comments: data.val().comments                  
+                    }
+                    arrFormCash.push(objFormCash)
+                    this.setState({formCashList:arrFormCash})
+                })
+            })
+        }
+        
+
 
     render() { 
         return ( 
             <div className="bg-main">
                 <SpecialCashOne 
                 updateHrAtCashForm = {this.updateHrAtCashForm}
-                updateHrEndCashForm = {this.updateHrEndCashForm}
+                updateClearCashForm = {this.updateClearCashForm}
                 addRegisterCash = {this.addRegisterCash}
+                changeCashState = {this.changeCashState}
+                formCashList = {this.state.formCashList[0]}
                 />
                 <button
                 style={{border: 'none', background: 'transparent'}}
