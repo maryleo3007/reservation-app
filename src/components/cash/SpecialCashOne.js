@@ -12,10 +12,9 @@ class SpecialCashOne extends Component {
         this.setState({clientAttented:false})
     }
     updateClearCashForm = () => {
-        const hourEndAttention = getHour();
-        
+        const hourEndAttention = getHour();   
         const {appointment,comments,date,fromRoom, hourAttention,hourInit,team} = this.props.formCashList;
-        
+
         let obj = {
             indicator : "solo caja",
             date: date,
@@ -26,16 +25,12 @@ class SpecialCashOne extends Component {
             team:team,
             comment:comments
         }
-        this.props.addRegisterCash(obj)
-        this.props.changeCashState('-lajsdiwoj')
-        this.setState({clientAttented:true})
-        setTimeout(function() {
-            this.props.updateClearCashForm('-LWRAmCghpfW7PXIv7_P');
-        }, 3000);
+        this.props.addRegisterCash(obj);
+        this.props.changeCashState('-lajsdiwoj');
+        this.setState({clientAttented:true});
+        this.props.updateClearCashForm('-LWRAmCghpfW7PXIv7_P');
     }
     render() {
-        console.log(this.props.formCashList)
-        console.log(this.props.cashList)
         if(this.props.cashList === undefined) return null;
         let clientAttented = this.state.clientAttented;
         let clientAproaching = false;

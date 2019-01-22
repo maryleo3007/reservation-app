@@ -27,13 +27,13 @@ class FormsContainer extends Component {
                             cash = {cash}
                             formCash = {this.props.formCashList.find( formCash => formCash.id === cash.id)}
                             showHideFormArr = {this.props.showHideFormArr[cash.order].showRoom}
+                            showHideForm = {this.props.showHideForm}
                             changeCashState = {this.props.changeCashState}
                             changeCashComponent = {this.props.changeCashComponent}
                             updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
                             updateTeamCash = {this.props.updateTeamCash}
                             updateCommentsCash = {this.props.updateCommentsCash}
                         />
-                        
                     )
                 }
             </div>

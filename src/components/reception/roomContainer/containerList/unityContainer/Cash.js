@@ -1,10 +1,11 @@
 import React from 'react';
 import {changeState} from '../../../../helpers/receptionHelper.js';
 const Cash = (props) => {
-    if(props.cash === undefined) return null
+    if(props.cash === undefined) return null;
     const {title,state,showComponent,key,order} = props.cash ;
+
     const functions = () => {
-        props.changeToGreenOrAmberCash(key,state)
+        props.changeToGreenOrAmberCash(key,state);
         props.showHideForm(order);
     }
     const showClass = changeState(state);

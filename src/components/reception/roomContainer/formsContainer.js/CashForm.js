@@ -13,9 +13,9 @@ class CashForm extends Component {
             date: getDateFull(),
             hourInit: getHour()
         }
-        this.props.changeCashState(this.props.cash.key,'Ocupado')
+        this.props.changeCashState(this.props.cash.key,'Ocupado');
         this.props.updateDtHrInitCashForm(this.props.cash.formCash_id,objCash);
-        this.props.changeCashComponent(this.props.cash.key,true)
+        this.props.changeCashComponent(this.props.cash.key,true);
     }
 
     updateTeam = (e) =>{
@@ -33,15 +33,18 @@ class CashForm extends Component {
         if(formCash === undefined) return null; 
         const cash = this.props.cash;
         let showCustomerIncome = true;
+        let showFormSpecialCash = true;
         if (cash.state === 'Disponible' || cash.state === 'Por confirmar') {
             showCustomerIncome = true;
         } else if(cash.state === 'Ocupado'){
             showCustomerIncome = false;
         }
-        
+
+        console.log("showHideFormArr de"+this.props.showHideFormArr+"de caja"+cash.title)
+
         let showClass = '';
         this.props.showHideFormArr ? showClass = 'd-block form-cash mb-3 bg-white' : showClass = ' d-none'
-        
+
         return (
                 <div className={showClass}>
                     <div>
