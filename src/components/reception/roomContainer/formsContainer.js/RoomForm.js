@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {ref} from './../../../../services/firebase';
 import {getCurrenHour, getCurrentDate} from '../../../helpers/roomHelpers'
 import Select from 'react-select';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class RoomForm extends Component {
 
@@ -10,8 +11,12 @@ class RoomForm extends Component {
         toBeConfirmed: 'Por confirmar',
         unavailable: 'No disponible',
         occupied: 'Ocupado',
+        roomOnHold: 'En espera de caja',
         objectFb: {},
-        checked: false
+        checked: false,
+        modal: false,
+        close: true
+
     }
 
     dbFormSala = ref.child('FormSala/'+this.props.room.id);
@@ -32,7 +37,6 @@ class RoomForm extends Component {
     responsableRegistry = React.createRef();
     box = React.createRef();
 
-
     changeAvailable = (e) => {
         e.preventDefault();
         this.props.changeState(this.props.room.key, this.state.available)            
@@ -48,9 +52,12 @@ class RoomForm extends Component {
         this.props.changeState(this.props.room.key, this.state.unavailable)            
     }
 
-    changeOccupied = (e) => {
-        e.preventDefault();
+    changeOccupied = () => {
         this.props.changeState(this.props.room.key, this.state.occupied)            
+    }
+
+    changeRoomOnHold = () => {
+        this.props.changeState(this.props.room.key, this.state.roomOnHold)              
     }
 
     updateFormDafault = () => {
@@ -88,15 +95,25 @@ class RoomForm extends Component {
         }); 
     }
 
-    addRegister = (e) => {
-        e.preventDefault();
-
+    objResgister = (bool, msg) => {
         this.room.current.value = this.props.room.title;
         this.floor.current.value = this.props.room.floor;
         this.area.current.value = this.props.position;
         this.finalHour.current.value = getCurrenHour()
         if (this.commentary.current.value === '') {
             this.commentary.current.value = 'No hay comentarios'
+        }
+        if (this.executiveHour.current.value === '') {
+            this.executiveHour.current.value = 'No hay atención de ejecutivo'
+        }
+        if(!bool){
+            this.updateUse(msg)
+            this.box.current.value = msg 
+            console.log(this.box.current.value);
+        } else {
+            this.box.current.value = this.state.objectFb.use
+            console.log(this.box.current.value);
+
         }
         // objeto del auto
         const objResgister = {
@@ -118,15 +135,18 @@ class RoomForm extends Component {
   
       // reset form
       this.props.addRegister(objResgister)
-      this.updateFormDafault();
-      e.currentTarget.reset();
-      this.setState({
-        checked: false
-      })
+    }
 
-      this.changeAvailable(e)
-      this.props.showHideForm(this.props.room.id)
-      
+    addRegister = (e) => {
+        e.preventDefault();
+        this.objResgister(this.state.objectFb.useChecked, 'Solo uso de sala')
+        this.updateFormDafault();
+        e.currentTarget.reset();
+        this.setState({
+            checked: false
+        })
+        this.changeAvailable(e);
+        this.props.showHideForm(this.props.room.id);
     };
 
     resetForm =(e) => {
@@ -135,6 +155,19 @@ class RoomForm extends Component {
         this.setState({
             checked: false
         })
+    }
+
+    roomToCash =(e) => {
+        
+        e.preventDefault();
+
+        this.objResgister(this.state.objectFb.useChecked, 'Uso de sala y caja');
+        this.setState({
+            checked: false
+        })
+        this.changeAvailable(e);
+        this.updateFormDafault();
+        this.props.showHideForm(this.props.room.id);
     }
 
     updateRoomResponsable = (key, responsable) => {
@@ -241,7 +274,7 @@ class RoomForm extends Component {
         this.updateTeam(selectedOption)
       }
 
-    useCashCheckbox=()=> {
+    useCashCheckbox=(e)=> {
         this.setState({
             checked: !this.state.checked
         },()=> {
@@ -251,12 +284,7 @@ class RoomForm extends Component {
                     });
                     const use = 'Uso de sala para caja'
                     this.updateUse(use)
-                } else {
-                    this.dbFormSala.update({
-                        useChecked : false
-                    });
-                    const use = 'Solo uso de sala'
-                    this.updateUse(use)
+                    this.changeRoomOnHold()
                 }
             }       
         )  
@@ -316,6 +344,14 @@ class RoomForm extends Component {
         });
     }
 
+    toggle=()=> {
+        this.setState({
+          modal: !this.state.modal,
+          close: !this.state.close
+        },
+        );
+    }
+
     componentDidMount() {
         this.dbFormSala.on('value', snap => {
                 let objectFb = {
@@ -343,8 +379,6 @@ class RoomForm extends Component {
         })        
     }
 
-    
-
     render() {
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         let buttonPlay = this.props.divs.butonPlay ? 'd-block' : 'd-none'
@@ -354,6 +388,7 @@ class RoomForm extends Component {
         let buttonExecutive = this.props.divs.buttonExecutive ? 'd-block' : 'd-none'
         return (
             <div className={`form-container ${showform}`}>
+            
                 <div>
                     <span>{this.props.room.title}</span>
                 </div>
@@ -361,6 +396,20 @@ class RoomForm extends Component {
                     <span>{this.props.room.state}</span>
                 </div>
                 <form onSubmit={this.addRegister} id={this.props.room.key}>
+                <div>
+                
+                <Modal isOpen={this.state.modal} toggle={this.toggle} autoFocus={this.state.modal} className={this.props.className}>
+                <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                <ModalBody>
+                    <Button onClick={()=>this.toggle()}>Cerrar</Button>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </ModalBody>
+                <ModalFooter>
+                    <button color="primary" onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
+                    <Button color="secondary" onClick={this.toggle}>Cancelar</Button>
+                </ModalFooter>
+                </Modal>
+            </div>
                 {/* inputs hidden */}
                     <input type="hidden" className="form-control" placeholder="" ref={this.room}/>
                     <input type="hidden" className="form-control" placeholder="" ref={this.area}/>
@@ -432,10 +481,10 @@ class RoomForm extends Component {
                     </div>
                     <div className={`${div3Buttons}`}>
                         <button className={`${buttonExecutive}`} onClick={(e) => {this.updateHourExecutive(e); this.hideButtonExecutive(this.state.objectFb.divs)}}>Ejecutivo</button>
-                        <button>Caja</button>
-                        <button>Salida</button>
+                        <Button color="danger" onClick={()=>this.toggle()}>Caja</Button>
+                        <button type="submit" className="btn btn-primary">Submit</button>                   
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    
                 </form>
             </div>
          );

@@ -169,6 +169,11 @@ body {
 }
 
 /* utils */
-
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
 
 
