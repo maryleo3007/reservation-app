@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {logout} from './../../components/helpers/authFirebase';
 import {ref,storage} from './../../services/firebase';
+import { getCutName } from './../helpers/receptionHelper';
 
 //components
 import RoomContainer from './roomContainer/RoomContainer';
@@ -114,8 +115,9 @@ class Reception extends Component {
             }
         })
 
-        let cutName = this.props.responsable.userMail.indexOf("@");
-        let name = this.props.responsable.userMail.substring(0, cutName);
+        
+        let name = getCutName(this.props.responsable.userMail); 
+        
         this.storage = storage.ref('/users').child(`${name}.jpg`).getDownloadURL().then(url => {
             this.setState({
                 userImage: url

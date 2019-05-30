@@ -31,6 +31,12 @@ class SpecialCashOne extends Component {
         this.props.updateClearCashForm('-LWRAmCghpfW7PXIv7_P');
     }
     render() {
+
+        let cashName = ('caja1').slice(4,7);
+        let cashNumber = ('caja2').slice(0,4);
+        console.log(cashName)
+        console.log(cashNumber)
+
         if(this.props.cashList === undefined) return null;
         let clientAttented = this.state.clientAttented;
         let clientAproaching = false;
@@ -38,6 +44,7 @@ class SpecialCashOne extends Component {
         if (state == 'Ocupado') {
             clientAproaching = true
         }
+        console.log(this.props)
         
         return (
             <div className="content-specialCash px-5 py-3">

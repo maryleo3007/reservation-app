@@ -43,7 +43,7 @@ function PrivateRouteCash ({component: Component, data, ...rest}) {
     <Route
       {...rest}
       render={(props) => data.authed === true && data.position === 'cajera'
-        ? <Component {...props} />
+        ? <Component {...props} data={data}/>
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
   )

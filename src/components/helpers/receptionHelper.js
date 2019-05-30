@@ -16,5 +16,18 @@ export function changeState(state) {
     }else if (state === 'No disponible'){
         showClass = classNames.unAvailable;
     }
-    return showClass
+    return showClass;
+}
+
+export const getCutName = (mail) => {
+    let cutName = mail.indexOf("@");
+    let name = mail.substring(0, cutName);
+    return name;
+}
+
+export const cashName = (name) => {
+    let cashName = (name).slice(4,7);
+    let cashNumber = (name).slice(0,3);
+
+    return `${cashName.charAt(0).toUpperCase() + cashName.slice(1)} ${cashNumber}`;
 }
