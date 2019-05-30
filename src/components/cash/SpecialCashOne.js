@@ -32,11 +32,6 @@ class SpecialCashOne extends Component {
     }
     render() {
 
-        let cashName = ('caja1').slice(4,7);
-        let cashNumber = ('caja2').slice(0,4);
-        console.log(cashName)
-        console.log(cashNumber)
-
         if(this.props.cashList === undefined) return null;
         let clientAttented = this.state.clientAttented;
         let clientAproaching = false;
