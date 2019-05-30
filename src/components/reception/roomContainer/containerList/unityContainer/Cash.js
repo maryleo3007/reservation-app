@@ -1,18 +1,14 @@
 import React from 'react';
 import {changeState} from '../../../../helpers/receptionHelper.js';
 const Cash = (props) => {
-    const {title,state,showComponent,key} = props.cash ;
+    if(props.cash === undefined) return null;
+    const {title,state,showComponent,key,order} = props.cash ;
+
     const functions = () => {
-        props.onToggleForm(showComponent);
-        props.changeCashComponent();
-        if (!showComponent) {
-            props.changeCashState(key,2);
-        } else {
-            props.changeCashState(key,1);
-        }
+        props.changeToGreenOrAmberCash(key,state);
+        props.showHideForm(order);
     }
     const showClass = changeState(state);
-
 
     return (
         <div className={showClass}  onClick={functions}>

@@ -1,34 +1,45 @@
 import React,{Component} from 'react';
-import {getDateFull, getHour} from './../helpers/date.js';
+import {getHour} from './../helpers/date.js';
 import './cashComponent.css';
 
 class SpecialCashOne extends Component {
     state = {
-        clientAttented : true,
-        obj:{
-            indicator : "solo caja",
-            date: "hoy",
-            cash: "caja 1",
-            hourInit: "a la hora que inica",
-            hourAttention: "a la hora q atendio",
-            hourEnd: "a la hora que marco atendido",
-            team:"equipo",
-            comment:"todos los comentarios"
-        }
+        clientAttented : true
     }
     updateHourAttention = () => {
         const hourAttention = getHour();
         this.props.updateHrAtCashForm('-LWRAmCghpfW7PXIv7_P',hourAttention)
         this.setState({clientAttented:false})
     }
-    updateHrEndCashForm = () => {
-        const hourEndAttention = getHour();
-        this.props.updateHrEndCashForm('-LWRAmCghpfW7PXIv7_P',hourEndAttention);
-        this.props.addRegisterCash(this.state.obj)
-        this.setState({clientAttented:true})
+    updateClearCashForm = () => {
+        const hourEndAttention = getHour();   
+        const {appointment,comments,date,fromRoom, hourAttention,hourInit,team} = this.props.formCashList;
+
+        let obj = {
+            indicator : "solo caja",
+            date: date,
+            cash: "caja 1",
+            hourInit: hourInit,
+            hourAttention: hourAttention,
+            hourEnd: hourEndAttention,
+            team:team,
+            comment:comments
+        }
+        this.props.addRegisterCash(obj);
+        this.props.changeCashState('-lajsdiwoj');
+        this.setState({clientAttented:true});
+        this.props.updateClearCashForm('-LWRAmCghpfW7PXIv7_P');
     }
     render() {
-        const clientAttented = this.state.clientAttented;
+
+        if(this.props.cashList === undefined) return null;
+        let clientAttented = this.state.clientAttented;
+        let clientAproaching = false;
+        const {state} = this.props.cashList;
+        if (state == 'Ocupado') {
+            clientAproaching = true
+        }
+        console.log(this.props)
         
         return (
             <div className="content-specialCash px-5 py-3">
@@ -71,6 +82,7 @@ class SpecialCashOne extends Component {
                     <div className="row mx-5 mt-4 h-300">
                         <div className="col-12 col-sm-12 col-md-12 bg-white content-state-cash">
                         <div className="d-flex h-100">
+                            {clientAproaching?
                                 <div className="justify-content-center align-self-center mx-auto title-form">
                                     {
                                         clientAttented ?
@@ -78,9 +90,11 @@ class SpecialCashOne extends Component {
                                             <p>Cliente se está aproximando</p>
                                             <button className="btn-specialCash" onClick={this.updateHourAttention}>Iniciar Atención</button>
                                         </div>:
-                                        <button className="btn-specialCash" onClick={this.updateHrEndCashForm}>Salida del cliente</button>
+                                        <button className="btn-specialCash" onClick={this.updateClearCashForm}>Salida del cliente</button>
                                     }
-                                </div>
+                                </div>:
+                                <div></div>
+                            }        
                             </div>
                         </div>
                     </div>
