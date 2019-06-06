@@ -91,21 +91,24 @@ class App extends Component {
     loading: true,
     userMail: '',
     uid: '',
-    position: ''
+    position: '',
+    name:''
   }
   
   componentDidMount () { 
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => { 
       if (user) {
         
-        ref.child('users').child(user.uid).child('info').child('position').on('value', (snapshot) => {
-          if(snapshot.val()) {
+        ref.child('users').child(user.uid).child('info').on('value', (snapshot) => { //*modificado* la ruta se modifico desde info, para obtener también el "name" de c/cajera
+          
+        if(snapshot.val()) {
             this.setState({
                 authed: true,
                 loading: false,
                 userMail: user.email,
                 uid: user.uid,
-                position: snapshot.val()
+                position: snapshot.val().position,
+                name: snapshot.val().name
               })
             }
           })        
@@ -115,7 +118,8 @@ class App extends Component {
           loading: false,
           user: '',
           uid: '',
-          position: ''
+          position: '',
+          name:''
         })
       }
     })
