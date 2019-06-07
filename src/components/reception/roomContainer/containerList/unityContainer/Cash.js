@@ -1,7 +1,7 @@
 import React from 'react';
 import {changeState} from '../../../../helpers/receptionHelper.js';
 const Cash = (props) => {
-    console.log(props)
+    
     if(props.cash === undefined) return null;
     const {title,state,key,order, userId_open} = props.cash ;
 

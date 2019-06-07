@@ -20,12 +20,14 @@ class CashForm extends Component {
         e.preventDefault();
         this.props.updateTeamCash(this.props.cash.formCash_id,this.teamRef.current.value)
     }
+    
     updateComements = (e) => {
         e.preventDefault();
         this.props.updateCommentsCash(this.props.cash.formCash_id, this.commentsRef.current.value)
     }
     
     render() {
+
         if(this.props.formCash === undefined) return null; 
         const formCash = this.props.formCash;
         
