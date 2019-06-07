@@ -44,9 +44,11 @@ class CashForm extends Component {
         let showClass = '';
         this.props.showHideFormArr ? showClass = 'd-block form-cash mb-3 bg-white' : showClass = ' d-none'
         
-        if (cash.showComponent ) {
-            showClass = ' d-none' 
-        }
+        // if (cash.showComponent ) {
+        //     showClass = ' d-none'; 
+        //     // console.log(cash.order)
+            
+        // }
 
         return (
                 <div className={showClass}>
