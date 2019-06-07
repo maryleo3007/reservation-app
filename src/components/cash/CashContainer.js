@@ -9,10 +9,7 @@ class Cash extends Component {
         formCashList: [],
         cashList: [],
         userName: '',
-        specialCashList: [],
-        currentObjSpecialCash : {},
-        currentObjCashRoom : {},
-        currentObjFormCash : {}
+        specialCashList: []
     }
         
     dbFormCash = ref.child('FormCaja/');
@@ -59,8 +56,14 @@ class Cash extends Component {
     changeCashState = (key) => {
         ref.child('CashRoom').child('/'+ key).update({
             state: 'Disponible',
-            showComponent: false
+            userId_open: '',
+            showComponent: true
         });
+        setTimeout(() => {
+            ref.child('CashRoom').child('/'+ key).update({
+                showComponent: false
+            }); 
+        }, 2000);
     }
 
     componentDidMount(){
@@ -76,7 +79,8 @@ class Cash extends Component {
                     hourInit:   data.val().hourInit,
                     id:  data.val().id,
                     team: data.val().team,
-                    comments: data.val().comments                  
+                    comments: data.val().comments,
+                    key: data.key                  
                 }
                 arrFormCash.push(objFormCash)
                 this.setState({formCashList:arrFormCash})
@@ -112,7 +116,8 @@ class Cash extends Component {
                     state: data.val().state,
                     userId: data.val().userId,
                     cashRoom_Id: data.val().cashRoom_Id,
-                    formCash_Id: data.val().formCash_Id
+                    formCash_Id: data.val().formCash_Id,
+                    key: data.key 
                 }
                 arrSpecialCash.push(specialCashObj);
                 this.setState({specialCashList: arrSpecialCash})
@@ -125,8 +130,9 @@ class Cash extends Component {
         //validaciones si las listas devuelven indefinido
         if(this.state.cashList === undefined || this.state.formCashList === undefined || this.state.specialCashList === undefined) return null;
 
-        //declaracion de variables (listas)
+        //declaracion de variables 
         let arrcashList = []; let arrformCashList = []; let arrspecialCashList = [];
+        let currentObjSpecialCash = {}; let currentObjCashRoom = {}; let currentObjFormCash = {};
 
         //validacion para obtener la caja especial del usuario q inicio sesión
         if( this.state.cashList.length !== 0  && 
@@ -136,13 +142,13 @@ class Cash extends Component {
             arrcashList = this.state.cashList;
             arrformCashList = this.state.formCashList;
             arrspecialCashList = this.state.specialCashList;
-            
-            this.state.currentObjSpecialCash = arrspecialCashList.find((e) => e.userId === this.props.data.uid)
-            if (this.state.currentObjSpecialCash !== undefined) {
-                this.state.currentObjCashRoom = arrcashList.find((e) => e.id === this.state.currentObjSpecialCash.cashRoom_Id)
-                this.state.currentObjFormCash = arrformCashList.find((e) => e.id === this.state.currentObjSpecialCash.formCash_Id) 
-            }
 
+            currentObjSpecialCash = arrspecialCashList.find((e) => e.userId === this.props.data.uid)
+            
+            if (currentObjSpecialCash !== undefined) {
+                currentObjCashRoom = arrcashList.find((e) => e.id === currentObjSpecialCash.cashRoom_Id); 
+                currentObjFormCash = arrformCashList.find((e) => e.id === currentObjSpecialCash.formCash_Id); 
+            }
         }
 
         return ( 
@@ -152,9 +158,9 @@ class Cash extends Component {
                     updateClearCashForm = {this.updateClearCashForm}
                     addRegisterCash = {this.addRegisterCash}
                     changeCashState = {this.changeCashState}
-                    currentObjFormCash = {this.state.currentObjFormCash}
-                    currentObjCashRoom = {this.state.currentObjCashRoom}
-                    currentObjSpecialCash = {this.state.currentObjSpecialCash}
+                    currentObjFormCash = {currentObjFormCash}
+                    currentObjCashRoom = {currentObjCashRoom}
+                    currentObjSpecialCash = {currentObjSpecialCash}
                     data = {this.props.data}
                 />
                 <button
@@ -162,7 +168,7 @@ class Cash extends Component {
                 onClick={() => {
                     logout()
                 }}
-                className="navbar-brand">Logout</button>
+                className="navbar-brand">Cerrar sesión</button>
             </div>
          );
     }
