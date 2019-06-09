@@ -3,43 +3,49 @@ import {getHour} from './../helpers/date.js';
 import './cashComponent.css';
 
 class SpecialCashOne extends Component {
+    
     state = {
         clientAttented : true
     }
-    updateHourAttention = () => {
-        const hourAttention = getHour();
-        this.props.updateHrAtCashForm('-LWRAmCghpfW7PXIv7_P',hourAttention)
-        this.setState({clientAttented:false})
-    }
-    updateClearCashForm = () => {
-        const hourEndAttention = getHour();   
-        const {appointment,comments,date,fromRoom, hourAttention,hourInit,team} = this.props.formCashList;
 
-        let obj = {
-            indicator : "solo caja",
-            date: date,
-            cash: "caja 1",
-            hourInit: hourInit,
-            hourAttention: hourAttention,
-            hourEnd: hourEndAttention,
-            team:team,
-            comment:comments
-        }
-        this.props.addRegisterCash(obj);
-        this.props.changeCashState('-lajsdiwoj');
-        this.setState({clientAttented:true});
-        this.props.updateClearCashForm('-LWRAmCghpfW7PXIv7_P');
-    }
+    // updateHourAttention = () => {
+    //     const hourAttention = getHour();
+    //     this.props.updateHrAtCashForm('-LWRAmCghpfW7PXIv7_P',hourAttention)
+    //     this.setState({clientAttented:false})
+    // }
+
+    // updateClearCashForm = () => {
+    //     const hourEndAttention = getHour();   
+    //     const {appointment,comments,date,fromRoom, hourAttention,hourInit,team} = this.props.formCashList;
+
+    //     let obj = {
+    //         indicator : "solo caja",
+    //         date: date,
+    //         cash: "caja 1",
+    //         hourInit: hourInit,
+    //         hourAttention: hourAttention,
+    //         hourEnd: hourEndAttention,
+    //         team:team,
+    //         comment:comments
+    //     }
+    //     this.props.addRegisterCash(obj);
+    //     this.props.changeCashState('-lajsdiwoj');
+    //     this.setState({clientAttented:true});
+    //     this.props.updateClearCashForm('-LWRAmCghpfW7PXIv7_P');
+    // }
+
     render() {
 
-        if(this.props.cashList === undefined) return null;
+        console.log(this.props)
+
+        // if(this.props.cashList === undefined) return null;
         let clientAttented = this.state.clientAttented;
         let clientAproaching = false;
         const {state} = this.props.cashList;
         if (state == 'Ocupado') {
             clientAproaching = true
         }
-        console.log(this.props)
+        
         
         return (
             <div className="content-specialCash px-5 py-3">

@@ -8,11 +8,13 @@ class Cash extends Component {
     state={
         formCashList: [],
         cashList: [],
+        specialCashList : [],
         userName: ''
     }
         
     dbFormCash = ref.child('FormCaja/');
     dbCashRoom = ref.child('CashRoom/');
+    dbSpecialCash = ref.child('SpecialCash/');
     //actualizar hora de atención del form de caja
     updateHrAtCashForm = (key,hourAttention) => {
         ref.child('FormCaja').child('/'+key).update({
@@ -64,7 +66,6 @@ class Cash extends Component {
             snap.forEach(data=>{
                 let objFormCash = {
                     appointment:  data.val().appointment,
-                    caja_id:   data.val().caja_id,
                     date:   data.val().date,
                     fromRoom:  data.val().fromRoom,
                     hourAttention:  data.val().hourAttention,
@@ -72,7 +73,8 @@ class Cash extends Component {
                     hourInit:   data.val().hourInit,
                     id:  data.val().id,
                     team: data.val().team,
-                    comments: data.val().comments                  
+                    comments: data.val().comments,
+                    key: data.key                  
                 }
                 arrFormCash.push(objFormCash)
                 this.setState({formCashList:arrFormCash})
@@ -89,16 +91,46 @@ class Cash extends Component {
                 title: data.val().title,
                 key: data.key,
                 showComponent: data.val().showComponent,
-                formCash_id: data.val().formCash_id,
                 order: data.val().order
             }
             arrCash.push(cashObj)
             this.setState({cashList:arrCash})
             }) 
         })
+
+        this.dbSpecialCash.on('value', snap => {
+            const arrSpecialCash = [];
+            snap.forEach(data => {
+                let specialCashObj = {
+                    clientIn: data.val().clientIn,
+                    clientOut: data.val().clientOut,
+                    id: data.val().id,
+                    name: data.val().name,
+                    numberOfClients: data.val().numberOfClients,
+                    state: data.val().state,
+                    key: data.key
+                }
+                arrSpecialCash.push(specialCashObj)
+                this.setState({specialCashList: arrSpecialCash})
+            })
+
+        })
     }
 
-    render() { 
+    
+
+    render() {
+
+        let currentCashRoom = {};
+        let currentFormCash = {};
+        let currentSpecialCash = {}
+
+        if(this.state.cashList.length !== 0 && this.state.formCashList.length !== 0 && this.state.specialCashList.length !== 0) {
+            console.log(this.state.cashList)
+            console.log(this.state.formCashList)
+            console.log(this.state.specialCashList)
+        }
+        
         return ( 
             <div className="bg-main">
                 <SpecialCashOne 
@@ -106,9 +138,10 @@ class Cash extends Component {
                 updateClearCashForm = {this.updateClearCashForm}
                 addRegisterCash = {this.addRegisterCash}
                 changeCashState = {this.changeCashState}
-                formCashList = {this.state.formCashList[0]}
-                cashList = {this.state.cashList[1]}
+                formCashList = {this.state.formCashList}
+                cashList = {this.state.cashList}
                 data = {this.props.data}
+                specialCashList = {this.state.specialCashList}
                 />
                 <button
                 style={{border: 'none', background: 'transparent'}}
