@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // components
 import Login from './login/Login';
 import Reception from './reception/Reception';
+import ReceptionPanorama from './reception/ReceptionPanorama';
 import Cash from './cash/CashContainer';
 import Executive from './executive/Executive';
 import Admin from './admin/Admin';
@@ -17,15 +18,27 @@ import { firebaseAuth, ref } from '../services/firebase'
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 function PrivateRouteReception ({component: Component, data, state, ...rest}) {
+  console.log(data)
   return (
     <Route
       {...rest}
-      render={(props) => data.authed === true && data.position === 'recepcionista'
+      render={(props) => data.authed === true && data.position === 'recepcionista' && data.branchOffice === '1'
         ? <Component {...props} responsable={data}/>
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
   )
 }
+
+// function PrivateRouteReceptionPanorama ({component: Component, data, ...rest}) {
+//   return (
+//     <Route
+//       {...rest}
+//       render={(props) => data.authed === true && data.position === 'recepcionista' && data.branchOffice === '2'
+//         ? <Component {...props} />
+//         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+//     />
+//   )
+// }
 
 function PrivateRouteAdmin ({component: Component, data, ...rest}) {
   return (
@@ -92,7 +105,8 @@ class App extends Component {
     userMail: '',
     uid: '',
     position: '',
-    name:''
+    name:'',
+    branchOffice:''
   }
   
   componentDidMount () { 
@@ -108,7 +122,8 @@ class App extends Component {
                 userMail: user.email,
                 uid: user.uid,
                 position: snapshot.val().position,
-                name: snapshot.val().name
+                name: snapshot.val().name,
+                branchOffice: snapshot.val().branchOffice
               })
             }
           })        
@@ -141,6 +156,7 @@ class App extends Component {
                 <PrivateRouteAdmin data={this.state} path={'/admin'} component={Admin} />
                 <PrivateRouteCash data={this.state} path={'/caja'} component={Cash} />
                 <PrivateRouteWaiter data={this.state} path={'/menu'} component={Waiter} />
+                {/* <PrivateRouteReceptionPanorama data={this.state} path='/recepcionPanorama' component={ReceptionPanorama} state={this.state}/> */}
                 <Route component={Error} />
               </Switch>
         </div>

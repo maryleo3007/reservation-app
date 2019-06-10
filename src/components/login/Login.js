@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
 import { login, resetPassword } from './../helpers/authFirebase'
+import {ref} from './../../services/firebase';
 
-function setErrorMsg(error) {
-    return {
-        loginMessage: error
-    }
-}
+import Offices from './../office/Offices';
+
+  function setErrorMsg(error) {
+      return {
+          loginMessage: error
+      }
+  }
 
   export default class Login extends Component {
+    
     state = { 
       loginMessage: null,
+      offices: '',
+      officeValue: ''
     }
+
+    dbOffices = ref.child('/BranchOffice');
   
     // funcion de logueo
     handleSubmit = (e) => {
       e.preventDefault()
       login(this.email.value, this.pw.value)
+        .then( (param) => {
+          console.log('hola')
+          // ref.child(`users/${param.user.uid}/info`).update({branchOffice : this.state.officeValue});
+        })
         .catch((error) => {   
         this.setState(setErrorMsg('Invalid username/password.'))
         })
@@ -27,7 +39,28 @@ function setErrorMsg(error) {
         .then(() => this.setState(setErrorMsg(`Password reset email sent to ${this.email.value}.`)))
         .catch((error) => this.setState(setErrorMsg(`Email address not found.`)))
     }
+
+    getOffice = e => {
+      const {name, value} = e.target;
+      this.setState({[name]:value});
+    }
+
+    getOffices = () => {
+      this.dbOffices.on('value', snap => {
+        if(snap.val() !== null)  {
+            this.setState({
+              offices : snap.val()
+            })
+        }
+      });
+    }
+
+    componentDidMount(){
+      this.getOffices();
+    }
+
     render () {
+      
       return (
         <div className="d-flex container-login">
           <div className="row justify-content-center align-self-center mx-auto bg-white">
@@ -61,9 +94,11 @@ function setErrorMsg(error) {
                     <div className="col-2"><i aria-hidden="true" className="fa fa fa-dot-circle-o"></i></div>
                     <div className="col-10">
                       <div className="form-group">
-                        <select>
-                          <option>Value 1</option>
-                          <option>Value 2</option>
+                        <select name="officeValue" className="form-control" onChange={this.getOffice}>
+                            <option value="">Elije tu departamento</option>
+                            {Object.keys(this.state.offices).map(key => (
+                                <Offices key={key} office = {this.state.offices[key]} />
+                            ))}
                         </select>
                         <label htmlFor="select" className="control-label">Sede</label><i className="bar"></i>
                       </div>
@@ -81,8 +116,7 @@ function setErrorMsg(error) {
              
           </form>
           </div>
-        </div>
-        
+        </div>  
       )
     }
   }

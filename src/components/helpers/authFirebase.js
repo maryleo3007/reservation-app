@@ -6,8 +6,6 @@ export function auth (email, pw) {
 }
 
 export function logout () {
-  console.log('log out correcto');
-  
   return firebaseAuth().signOut()
 }
 
