@@ -59,7 +59,8 @@ class Reception extends Component {
                 key: data.key,
                 showComponent: data.val().showComponent,
                 formCash_id: data.val().formCash_id,
-                order: data.val().order
+                order: data.val().order,
+                userId_open: data.val().userId_open
             }
             arrCash.push(cashObj)
             this.setState({cashList:arrCash})
@@ -92,7 +93,6 @@ class Reception extends Component {
             snap.forEach(data=>{
                 let objFormCash = {
                     appointment:  data.val().appointment,
-                    caja_id:   data.val().caja_id,
                     date:   data.val().date,
                     fromRoom:  data.val().fromRoom,
                     hourAttention:  data.val().hourAttention,
@@ -130,12 +130,6 @@ class Reception extends Component {
         logout()
     }
     /*****funciones para caja */
-    // func cambia estado de sala
-    changeState = (key, state) => {
-        ref.child('Room/').child('/' + key).update({
-            state
-        });
-    }
 
     // agrega registro de formulario
     addRegister = (objRegister) => {
@@ -204,6 +198,8 @@ class Reception extends Component {
     render() {
 
         const showComponent = this.state.showComponent;
+
+        
         return ( <div className = "wrapper bg-main" >
             <Sidebar changeComponent = {this.changeComponent}
                 userImage = {this.state.userImage}
@@ -227,6 +223,7 @@ class Reception extends Component {
                     changeState = {this.changeState}
                     addRegister = {this.addRegister}
                     responsable = {this.state.userName}
+                    datauser = {this.props.responsable}
                     position = {this.props.responsable.position}
                     sidebarState = {this.state.sidebarState}
                 />

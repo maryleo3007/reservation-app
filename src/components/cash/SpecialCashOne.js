@@ -3,49 +3,48 @@ import {getHour} from './../helpers/date.js';
 import './cashComponent.css';
 
 class SpecialCashOne extends Component {
-    
+
     state = {
         clientAttented : true
     }
+    updateHourAttention = () => {
+        
+        const hourAttention = getHour();
+        this.props.updateHrAtCashForm(this.props.currentObjFormCash.key,hourAttention);
+        this.setState({clientAttented:false})
+    }
+    updateClearCashForm = () => {
+        const hourEndAttention = getHour();   
+        const {comments, date, hourAttention, hourInit, team} = this.props.currentObjFormCash;
 
-    // updateHourAttention = () => {
-    //     const hourAttention = getHour();
-    //     this.props.updateHrAtCashForm('-LWRAmCghpfW7PXIv7_P',hourAttention)
-    //     this.setState({clientAttented:false})
-    // }
-
-    // updateClearCashForm = () => {
-    //     const hourEndAttention = getHour();   
-    //     const {appointment,comments,date,fromRoom, hourAttention,hourInit,team} = this.props.formCashList;
-
-    //     let obj = {
-    //         indicator : "solo caja",
-    //         date: date,
-    //         cash: "caja 1",
-    //         hourInit: hourInit,
-    //         hourAttention: hourAttention,
-    //         hourEnd: hourEndAttention,
-    //         team:team,
-    //         comment:comments
-    //     }
-    //     this.props.addRegisterCash(obj);
-    //     this.props.changeCashState('-lajsdiwoj');
-    //     this.setState({clientAttented:true});
-    //     this.props.updateClearCashForm('-LWRAmCghpfW7PXIv7_P');
-    // }
+        let obj = {
+            indicator : "solo caja",
+            date: date,
+            cash: this.props.currentObjCashRoom.title,
+            hourInit: hourInit,
+            hourAttention: hourAttention,
+            hourEnd: hourEndAttention,
+            team:team,
+            comment:comments
+        }
+        this.props.addRegisterCash(obj);
+        this.props.changeCashState(this.props.currentObjCashRoom.key);
+        this.setState({clientAttented:true});
+        this.props.updateClearCashForm(this.props.currentObjFormCash.key);
+    }
 
     render() {
+        if(this.props.currentObjCashRoom === undefined ) return null;
 
-        console.log(this.props)
-
-        // if(this.props.cashList === undefined) return null;
+        let currentObjCashRoom =  {};
         let clientAttented = this.state.clientAttented;
         let clientAproaching = false;
-        const {state} = this.props.cashList;
-        if (state == 'Ocupado') {
-            clientAproaching = true
+        if (Object.keys(this.props.currentObjCashRoom).length !== 0 && this.props.currentObjCashRoom !== undefined) {
+            currentObjCashRoom = this.props.currentObjCashRoom
+            if (currentObjCashRoom.state === 'Ocupado') {
+                clientAproaching = true
+            }
         }
-        
         
         return (
             <div className="content-specialCash px-5 py-3">
@@ -67,7 +66,7 @@ class SpecialCashOne extends Component {
                         <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left content-special-cash h-75">
                             <div className="d-flex h-100">
                                 <div className="justify-content-center align-self-center mx-auto title-form">
-                                    Caja 1
+                                    {this.props.data.name}
 
                                 </div>
                             </div>

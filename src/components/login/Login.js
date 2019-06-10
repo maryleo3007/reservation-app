@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { login,logout, resetPassword } from './../helpers/authFirebase'
+import { login, resetPassword } from './../helpers/authFirebase'
 
 function setErrorMsg(error) {
     return {
@@ -29,35 +29,58 @@ function setErrorMsg(error) {
     }
     render () {
       return (
-        <div className="contaiener-fluid">
-          <div className="col-6">hola</div>
-          <div className="col-6">
-            <h1> Login </h1>
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <label>Email</label>
-                <input className="form-control" ref={(email) => this.email = email} placeholder="Email"/>
-              </div>
-              <div className="form-group">
-                <label>Password</label>
-                <input type="password" className="form-control" placeholder="Password" ref={(pw) => this.pw = pw} />
-              </div>
-              {
-                this.state.loginMessage &&
-                <div className="alert alert-danger" role="alert">
-                  <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                  <span className="">Nombre o contraseña incorrecto</span>
+        <div className="d-flex container-login">
+          <div className="row justify-content-center align-self-center mx-auto bg-white">
+            <h2 className="w-100 text-center text-secondary mt-5"> Login </h2>
+            <hr className="w-75 my-4"/>
+            <form id="form-login"  onSubmit={this.handleSubmit}>
+                <div className="container-fluid">
+                  <div className="row mb-4">
+                    <div className="col-2">
+                      <i aria-hidden="true" className="fa fa-user-o"></i>
+                    </div>
+                    <div className="col-10">
+                      <div className="form-group"> 
+                        <input type="text" required="required" ref={(email) => this.email = email}/>
+                        <label htmlFor="input" className="control-label">Email</label><i className="bar"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row mb-5">
+                    <div className="col-2">
+                      <i aria-hidden="true" className="fa fa-unlock-alt"></i>
+                    </div>
+                    <div className="col-10">
+                      <div className="form-group">
+                        <input type="password" required="required" ref={(pw) => this.pw = pw}/>
+                        <label htmlFor="input" className="control-label">Password</label><i className="bar"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row mb-5">
+                    <div className="col-2"><i aria-hidden="true" className="fa fa fa-dot-circle-o"></i></div>
+                    <div className="col-10">
+                      <div className="form-group">
+                        <select>
+                          <option>Value 1</option>
+                          <option>Value 2</option>
+                        </select>
+                        <label htmlFor="select" className="control-label">Sede</label><i className="bar"></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              }
-              <button type="submit" className="btn btn-primary">Login</button>
-              <button
-                  style={{border: 'none', background: 'transparent'}}
-                  onClick={() => {
-                      logout()
-                  }}
-                  className="navbar-brand">Logout</button>
-            </form>
-          </div> 
+                {
+                  this.state.loginMessage &&
+                  <div className="alert alert-danger" role="alert">
+                    <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span className="">Nombre o contraseña incorrecto</span>
+                  </div>
+                }
+                <button type="submit" className="btn btn-primary w-100 my-3">Ingresar</button>
+             
+          </form>
+          </div>
         </div>
         
       )

@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import {getDateFull, getHour} from '../../../helpers/date.js';
-import {changeTitleState} from '../../../helpers/receptionHelper.js';
 
 class CashForm extends Component {
 
@@ -8,42 +7,48 @@ class CashForm extends Component {
     commentsRef = React.createRef();
 
     customerIncome = () => {
-        
         const objCash = {
             date: getDateFull(),
             hourInit: getHour()
         }
         this.props.changeCashState(this.props.cash.key,'Ocupado');
         this.props.updateDtHrInitCashForm(this.props.cash.formCash_id,objCash);
-        this.props.changeCashComponent(this.props.cash.key,true);
+        // this.props.changeCashComponent(this.props.cash.key,true);
     }
 
     updateTeam = (e) =>{
         e.preventDefault();
         this.props.updateTeamCash(this.props.cash.formCash_id,this.teamRef.current.value)
     }
+    
     updateComements = (e) => {
         e.preventDefault();
         this.props.updateCommentsCash(this.props.cash.formCash_id, this.commentsRef.current.value)
     }
     
     render() {
+
         if(this.props.formCash === undefined) return null; 
         const formCash = this.props.formCash;
+        
         if(formCash === undefined) return null; 
         const cash = this.props.cash;
         let showCustomerIncome = true;
-        let showFormSpecialCash = true;
+        
         if (cash.state === 'Disponible' || cash.state === 'Por confirmar') {
             showCustomerIncome = true;
         } else if(cash.state === 'Ocupado'){
             showCustomerIncome = false;
         }
 
-        console.log("showHideFormArr de"+this.props.showHideFormArr+"de caja"+cash.title)
-
         let showClass = '';
         this.props.showHideFormArr ? showClass = 'd-block form-cash mb-3 bg-white' : showClass = ' d-none'
+        
+        // if (cash.showComponent ) {
+        //     showClass = ' d-none'; 
+        //     // console.log(cash.order)
+            
+        // }
 
         return (
                 <div className={showClass}>

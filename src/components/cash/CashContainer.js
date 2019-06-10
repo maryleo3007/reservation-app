@@ -8,8 +8,8 @@ class Cash extends Component {
     state={
         formCashList: [],
         cashList: [],
-        specialCashList : [],
-        userName: ''
+        userName: '',
+        specialCashList: []
     }
         
     dbFormCash = ref.child('FormCaja/');
@@ -56,8 +56,14 @@ class Cash extends Component {
     changeCashState = (key) => {
         ref.child('CashRoom').child('/'+ key).update({
             state: 'Disponible',
-            showComponent: false
+            userId_open: '',
+            showComponent: true
         });
+        setTimeout(() => {
+            ref.child('CashRoom').child('/'+ key).update({
+                showComponent: false
+            }); 
+        }, 2000);
     }
 
     componentDidMount(){
@@ -106,49 +112,63 @@ class Cash extends Component {
                     clientOut: data.val().clientOut,
                     id: data.val().id,
                     name: data.val().name,
-                    numberOfClients: data.val().numberOfClients,
+                    numberOfClients: data.val().id,
                     state: data.val().state,
-                    key: data.key
+                    userId: data.val().userId,
+                    cashRoom_Id: data.val().cashRoom_Id,
+                    formCash_Id: data.val().formCash_Id,
+                    key: data.key 
                 }
-                arrSpecialCash.push(specialCashObj)
+                arrSpecialCash.push(specialCashObj);
                 this.setState({specialCashList: arrSpecialCash})
             })
-
         })
     }
 
-    
+    render() { 
 
-    render() {
+        //validaciones si las listas devuelven indefinido
+        if(this.state.cashList === undefined || this.state.formCashList === undefined || this.state.specialCashList === undefined) return null;
 
-        let currentCashRoom = {};
-        let currentFormCash = {};
-        let currentSpecialCash = {}
+        //declaracion de variables 
+        let arrcashList = []; let arrformCashList = []; let arrspecialCashList = [];
+        let currentObjSpecialCash = {}; let currentObjCashRoom = {}; let currentObjFormCash = {};
 
-        if(this.state.cashList.length !== 0 && this.state.formCashList.length !== 0 && this.state.specialCashList.length !== 0) {
-            console.log(this.state.cashList)
-            console.log(this.state.formCashList)
-            console.log(this.state.specialCashList)
+        //validacion para obtener la caja especial del usuario q inicio sesión
+        if( this.state.cashList.length !== 0  && 
+            this.state.formCashList.length !== 0  && 
+            this.state.specialCashList.length !== 0 ){
+            
+            arrcashList = this.state.cashList;
+            arrformCashList = this.state.formCashList;
+            arrspecialCashList = this.state.specialCashList;
+
+            currentObjSpecialCash = arrspecialCashList.find((e) => e.userId === this.props.data.uid)
+            
+            if (currentObjSpecialCash !== undefined) {
+                currentObjCashRoom = arrcashList.find((e) => e.id === currentObjSpecialCash.cashRoom_Id); 
+                currentObjFormCash = arrformCashList.find((e) => e.id === currentObjSpecialCash.formCash_Id); 
+            }
         }
-        
+
         return ( 
             <div className="bg-main">
                 <SpecialCashOne 
-                updateHrAtCashForm = {this.updateHrAtCashForm}
-                updateClearCashForm = {this.updateClearCashForm}
-                addRegisterCash = {this.addRegisterCash}
-                changeCashState = {this.changeCashState}
-                formCashList = {this.state.formCashList}
-                cashList = {this.state.cashList}
-                data = {this.props.data}
-                specialCashList = {this.state.specialCashList}
+                    updateHrAtCashForm = {this.updateHrAtCashForm}
+                    updateClearCashForm = {this.updateClearCashForm}
+                    addRegisterCash = {this.addRegisterCash}
+                    changeCashState = {this.changeCashState}
+                    currentObjFormCash = {currentObjFormCash}
+                    currentObjCashRoom = {currentObjCashRoom}
+                    currentObjSpecialCash = {currentObjSpecialCash}
+                    data = {this.props.data}
                 />
                 <button
                 style={{border: 'none', background: 'transparent'}}
                 onClick={() => {
                     logout()
                 }}
-                className="navbar-brand">Logout</button>
+                className="navbar-brand">Cerrar sesión</button>
             </div>
          );
     }

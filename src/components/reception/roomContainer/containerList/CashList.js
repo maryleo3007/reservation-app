@@ -17,6 +17,7 @@ class CashList extends Component {
                         showHideFormArr = {this.props.showHideFormArr[cash.order]}
                         showHideForm = {this.props.showHideForm}
                         changeToGreenOrAmberCash = {this.props.changeToGreenOrAmberCash}
+                        datauser = {this.props.datauser}
                     />
                 )}
             </div>

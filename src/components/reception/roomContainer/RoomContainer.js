@@ -54,14 +54,17 @@ class RoomContainer extends Component {
         }
     }
 
-    changeToGreenOrAmberCash = (key, state) => {
-        if (state === 'Disponible') {
+    changeToGreenOrAmberCash = (key, state, userId_open) => {
+        
+        if (state === 'Disponible' && userId_open === '') {
             this.dbCashRoom.child('/'+ key).update({
-                state: 'Por confirmar'
+                state: 'Por confirmar',
+                userId_open: this.props.datauser.uid
             });
-        } else if (state === 'Por confirmar') {
+        } else if (state === 'Por confirmar' &&  userId_open === this.props.datauser.uid) {
             this.dbCashRoom.child('/'+ key).update({
-                state: 'Disponible'
+                state: 'Disponible',
+                userId_open: ''
             });
         }
     }
@@ -82,7 +85,9 @@ class RoomContainer extends Component {
         const cashArr = this.props.cashs.sort(function(a, b) {
             return a.id - b.id;
         });
-        const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50'
+
+        const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50';
+
         return (
             
             <div className={`room-container container-fluid ${marginLeft}`}>
@@ -104,8 +109,8 @@ class RoomContainer extends Component {
                                     showHideFormArr = {this.state.showHideFormArr}
                                     showHideForm = {this.showHideForm}
                                     changeToGreenOrAmberCash = {this.changeToGreenOrAmberCash}
-                                    changeCashState = {this.props.changeCashState}
                                     changeCashComponent = {this.props.changeCashComponent}
+                                    datauser = {this.props.datauser}
                                 />
                             </div>
                         </div>
