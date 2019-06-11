@@ -18,7 +18,6 @@ import { firebaseAuth, ref } from '../services/firebase'
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 function PrivateRouteReception ({component: Component, data, state, ...rest}) {
-  console.log(data)
   return (
     <Route
       {...rest}
@@ -29,16 +28,16 @@ function PrivateRouteReception ({component: Component, data, state, ...rest}) {
   )
 }
 
-// function PrivateRouteReceptionPanorama ({component: Component, data, ...rest}) {
-//   return (
-//     <Route
-//       {...rest}
-//       render={(props) => data.authed === true && data.position === 'recepcionista' && data.branchOffice === '2'
-//         ? <Component {...props} />
-//         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
-//     />
-//   )
-// }
+function PrivateRouteReceptionPanorama ({component: Component, data, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => data.authed === true && data.position === 'recepcionista' && data.branchOffice === '2'
+        ? <Component {...props} responsable={data}/>
+        : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+    />
+  )
+}
 
 function PrivateRouteAdmin ({component: Component, data, ...rest}) {
   return (
@@ -82,9 +81,12 @@ function PublicRoute ({component: Component, data, ...rest}) {
         if(!data.authed) {
           return <Component {...props} />
         } else {
-            if(data.position ==='recepcionista') {
+          console.log(data)
+            if(data.position ==='recepcionista' && data.branchOffice === '1' ) {
               return <Redirect to='/recepcion' />
-            } else if (data.position ==='administradora') {
+            } else if (data.position ==='recepcionista' && data.branchOffice === '2') {
+              return <Redirect to='/recepcionPanorama' />
+            }else if (data.position ==='administradora') {
               return <Redirect to='/admin' />
             } else if (data.position ==='cajera') {
               return <Redirect to='/caja' />
@@ -134,7 +136,8 @@ class App extends Component {
           user: '',
           uid: '',
           position: '',
-          name:''
+          name:'',
+          branchOffice: ''
         })
       }
     })
@@ -156,7 +159,7 @@ class App extends Component {
                 <PrivateRouteAdmin data={this.state} path={'/admin'} component={Admin} />
                 <PrivateRouteCash data={this.state} path={'/caja'} component={Cash} />
                 <PrivateRouteWaiter data={this.state} path={'/menu'} component={Waiter} />
-                {/* <PrivateRouteReceptionPanorama data={this.state} path='/recepcionPanorama' component={ReceptionPanorama} state={this.state}/> */}
+                <PrivateRouteReceptionPanorama data={this.state} path='/recepcionPanorama' component={ReceptionPanorama} state={this.state}/>
                 <Route component={Error} />
               </Switch>
         </div>

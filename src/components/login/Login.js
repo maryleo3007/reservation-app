@@ -25,8 +25,7 @@ import Offices from './../office/Offices';
       e.preventDefault()
       login(this.email.value, this.pw.value)
         .then( (param) => {
-          console.log('hola')
-          // ref.child(`users/${param.user.uid}/info`).update({branchOffice : this.state.officeValue});
+          ref.child(`users/${param.user.uid}/info`).update({branchOffice : this.state.officeValue});
         })
         .catch((error) => {   
         this.setState(setErrorMsg('Invalid username/password.'))
@@ -95,7 +94,7 @@ import Offices from './../office/Offices';
                     <div className="col-10">
                       <div className="form-group">
                         <select name="officeValue" className="form-control" onChange={this.getOffice}>
-                            <option value="">Elije tu departamento</option>
+                            <option value="">Elije tu oficina</option>
                             {Object.keys(this.state.offices).map(key => (
                                 <Offices key={key} office = {this.state.offices[key]} />
                             ))}
