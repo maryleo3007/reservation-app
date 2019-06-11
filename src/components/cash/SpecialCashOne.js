@@ -5,14 +5,17 @@ import './cashComponent.css';
 class SpecialCashOne extends Component {
 
     state = {
-        clientAttented : true
+        clientAttented : true,
+        stateValue : ''
     }
+    
     updateHourAttention = () => {
         
         const hourAttention = getHour();
         this.props.updateHrAtCashForm(this.props.currentObjFormCash.key,hourAttention);
         this.setState({clientAttented:false})
     }
+
     updateClearCashForm = () => {
         const hourEndAttention = getHour();   
         const {comments, date, hourAttention, hourInit, team} = this.props.currentObjFormCash;
@@ -31,6 +34,10 @@ class SpecialCashOne extends Component {
         this.props.changeCashState(this.props.currentObjCashRoom.key);
         this.setState({clientAttented:true});
         this.props.updateClearCashForm(this.props.currentObjFormCash.key);
+    }
+
+    getStateSpecialCash = (e) => {
+        let value = e.target.value;
     }
 
     render() {
@@ -77,10 +84,12 @@ class SpecialCashOne extends Component {
                             <div className="text-center">Mi estado</div>
                         </div>
                         <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left content-state-cash  h-75">
-                            <div className="d-flex h-100">
-                                <div className="justify-content-center align-self-center mx-auto title-form">
-                                    <span className="box-available rounded-circle px-3 mr-3 myState-cash"></span> <span>Disponible</span>
-                                </div>
+                            <div className="d-flex justify-content-center mt-4">
+                                <span className="box-available rounded-circle pr-3 mr-3 myState-cash"></span>
+                                <select name="stateValue" className="d-inline-block title-form" onChange={this.getStateSpecialCash}>
+                                    <option value="1">Disponible</option>
+                                    <option value="2">Ocupado</option>
+                                </select>
                             </div>
                         </div>
                     </div>

@@ -21,3 +21,7 @@
     cursor: pointer;
     padding: 10px 20px;
 }
+.content-state-cash select {
+    margin-top: -5px;
+    border: none;
+}
