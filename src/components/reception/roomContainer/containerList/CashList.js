@@ -4,15 +4,20 @@ import Cash from './unityContainer/Cash';
 class CashList extends Component {
 
     render() {
-        const arr = this.props.cashs;
+        
         return (
             <div className="cashList">
-                {arr.map(cash => 
+                {this.props.cashs.map(cash => 
                     <Cash
-                        onToggleForm={() =>{this.props.onToggleForm(cash.id)}}
-                        key = {cash.id}
+                        //onToggleForm={() =>{this.props.onToggleForm(cash.id,cash.key)}}
+                        //changeCashComponent = {()=>{this.props.changeCashComponent(cash.key,!cash.showComponent)}}
+                        //changeCashState = {this.props.changeCashState}
+                        key = {cash.key}
                         cash = {cash}
-                        showRoom = {this.props.showRoom}
+                        showHideFormArr = {this.props.showHideFormArr[cash.order]}
+                        showHideForm = {this.props.showHideForm}
+                        changeToGreenOrAmberCash = {this.props.changeToGreenOrAmberCash}
+                        datauser = {this.props.datauser}
                     />
                 )}
             </div>

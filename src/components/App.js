@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // components
 import Login from './login/Login';
 import Reception from './reception/Reception';
+import ReceptionPanorama from './reception/ReceptionPanorama';
 import Cash from './cash/CashContainer';
 import Executive from './executive/Executive';
 import Admin from './admin/Admin';
@@ -20,7 +21,18 @@ function PrivateRouteReception ({component: Component, data, state, ...rest}) {
   return (
     <Route
       {...rest}
-      render={(props) => data.authed === true && data.position === 'recepcionista'
+      render={(props) => data.authed === true && data.position === 'recepcionista' && data.branchOffice === '1'
+        ? <Component {...props} responsable={data}/>
+        : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+    />
+  )
+}
+
+function PrivateRouteReceptionPanorama ({component: Component, data, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => data.authed === true && data.position === 'recepcionista' && data.branchOffice === '2'
         ? <Component {...props} responsable={data}/>
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
@@ -43,7 +55,7 @@ function PrivateRouteCash ({component: Component, data, ...rest}) {
     <Route
       {...rest}
       render={(props) => data.authed === true && data.position === 'cajera'
-        ? <Component {...props} />
+        ? <Component {...props} data={data}/>
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
   )
@@ -69,9 +81,12 @@ function PublicRoute ({component: Component, data, ...rest}) {
         if(!data.authed) {
           return <Component {...props} />
         } else {
-            if(data.position ==='recepcionista') {
+          console.log(data)
+            if(data.position ==='recepcionista' && data.branchOffice === '1' ) {
               return <Redirect to='/recepcion' />
-            } else if (data.position ==='administradora') {
+            } else if (data.position ==='recepcionista' && data.branchOffice === '2') {
+              return <Redirect to='/recepcionPanorama' />
+            }else if (data.position ==='administradora') {
               return <Redirect to='/admin' />
             } else if (data.position ==='cajera') {
               return <Redirect to='/caja' />
@@ -91,21 +106,26 @@ class App extends Component {
     loading: true,
     userMail: '',
     uid: '',
-    position: ''
+    position: '',
+    name:'',
+    branchOffice:''
   }
   
   componentDidMount () { 
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => { 
       if (user) {
         
-        ref.child('users').child(user.uid).child('info').child('position').on('value', (snapshot) => {
-          if(snapshot.val()) {
+        ref.child('users').child(user.uid).child('info').on('value', (snapshot) => { //*modificado* la ruta se modifico desde info, para obtener también el "name" de c/cajera
+          
+        if(snapshot.val()) {
             this.setState({
                 authed: true,
                 loading: false,
                 userMail: user.email,
                 uid: user.uid,
-                position: snapshot.val()
+                position: snapshot.val().position,
+                name: snapshot.val().name,
+                branchOffice: snapshot.val().branchOffice
               })
             }
           })        
@@ -115,7 +135,9 @@ class App extends Component {
           loading: false,
           user: '',
           uid: '',
-          position: ''
+          position: '',
+          name:'',
+          branchOffice: ''
         })
       }
     })
@@ -137,6 +159,7 @@ class App extends Component {
                 <PrivateRouteAdmin data={this.state} path={'/admin'} component={Admin} />
                 <PrivateRouteCash data={this.state} path={'/caja'} component={Cash} />
                 <PrivateRouteWaiter data={this.state} path={'/menu'} component={Waiter} />
+                <PrivateRouteReceptionPanorama data={this.state} path='/recepcionPanorama' component={ReceptionPanorama} state={this.state}/>
                 <Route component={Error} />
               </Switch>
         </div>

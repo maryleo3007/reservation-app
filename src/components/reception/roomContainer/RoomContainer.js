@@ -7,8 +7,6 @@ import {ref} from './../../../services/firebase';
 class RoomContainer extends Component {
 
     state = {
-        shownCashOne:false,
-        shownCashTwo:false,
         roomAvailable: 'Disponible',
         roomToBeConfirmed : 'Por confirmar',
         roomOccupied : 'Ocupado',
@@ -26,20 +24,22 @@ class RoomContainer extends Component {
            9: { showRoom: false},
            10: { showRoom: false},
            11: { showRoom: false},
-           12: { showRoom: false}
+           12: { showRoom: false},
+           13: { showRoom: false},
+           14: { showRoom: false}
         }
     }
 
     dbRoom = ref.child('Room/');
-
-    onToggleForm = (id) => {
-        if (id === 1) {
-            this.setState({shownCashOne: !this.state.shownCashOne})
-        }
-        if (id === 2) {
-            this.setState({shownCashTwo: !this.state.shownCashTwo})
-        }
-    }
+    dbCashRoom = ref.child('CashRoom/');
+    // onToggleForm = (id) => {
+    //     if (id === 1) {
+    //         this.setState({shownCashOne: !this.state.shownCashOne})
+    //     }
+    //     if (id === 2) {
+    //         this.setState({shownCashTwo: !this.state.shownCashTwo})
+    //     }
+    // }
 
     // change state room
     changeToGreenOrAmber = (key, state) => {
@@ -50,6 +50,21 @@ class RoomContainer extends Component {
         } else if (state === 'Por confirmar') {
             this.dbRoom.child('/'+ key).update({
                 state: 'Disponible'
+            });
+        }
+    }
+
+    changeToGreenOrAmberCash = (key, state, userId_open) => {
+        
+        if (state === 'Disponible' && userId_open === '') {
+            this.dbCashRoom.child('/'+ key).update({
+                state: 'Por confirmar',
+                userId_open: this.props.datauser.uid
+            });
+        } else if (state === 'Por confirmar' &&  userId_open === this.props.datauser.uid) {
+            this.dbCashRoom.child('/'+ key).update({
+                state: 'Disponible',
+                userId_open: ''
             });
         }
     }
@@ -66,18 +81,20 @@ class RoomContainer extends Component {
     }
     
     render() {
+        
         const cashArr = this.props.cashs.sort(function(a, b) {
             return a.id - b.id;
         });
 
-        const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50'
+        const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50';
+
         return (
             
             <div className={`room-container container-fluid ${marginLeft}`}>
                 <div className="row mt-3">
-                    <div className="col-8">
+                    <div className="col-7">
                         <div className="roomsList-container bg-white p-3">
-                            <div className="container bg-white container-fluid">
+                            <div className="container-fluid">
                                 <RoomList
                                     rooms = {this.props.rooms} 
                                     responsable = {this.props.responsable} 
@@ -89,21 +106,29 @@ class RoomContainer extends Component {
                             <div className="cashRoomlist-container col-lg-3 col-md-3">
                                 <CashList
                                     cashs = {cashArr}
-                                    onToggleForm = {this.onToggleForm}
+                                    showHideFormArr = {this.state.showHideFormArr}
+                                    showHideForm = {this.showHideForm}
+                                    changeToGreenOrAmberCash = {this.changeToGreenOrAmberCash}
+                                    changeCashComponent = {this.props.changeCashComponent}
+                                    datauser = {this.props.datauser}
                                 />
                             </div>
                         </div>
                     </div>
-                    <div className="col-4 pl-0">
-                        <div className="bg-white pl-2">
+                    <div className="col-5 pl-0">
+                        <div className="pl-2">
                             <FormsContainer 
                                 rooms = {this.props.rooms}
                                 objRegister = {this.props.objRegister} 
                                 addRegister = {this.props.addRegister}
                                 responsable = {this.props.responsable}
                                 cashs = {cashArr}
-                                shownCashOne = {this.state.shownCashOne}
-                                shownCashTwo = {this.state.shownCashTwo}
+                                formCashList = {this.props.formCashList}
+                                changeCashState = {this.props.changeCashState}
+                                updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
+                                updateTeamCash = {this.props.updateTeamCash}
+                                updateCommentsCash = {this.props.updateCommentsCash}
+                                changeCashComponent = {this.props.changeCashComponent}
                                 showHideFormArr = {this.state.showHideFormArr}
                                 showHideForm = {this.showHideForm}
                                 position = {this.props.position}

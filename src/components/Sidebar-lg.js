@@ -41,28 +41,28 @@ class SidebarLg extends Component {
                 </div>
                     
                 <div className="">
-                    <img alt="" className="img-user img-fluidd-block mt-5 rounded-circle ml-4" src={userImg}/>
-                    <div className="text-center user ">
-                        <p className="mt-2"><b>{userName}</b></p>
-                        <p className="text-capitalize">{position}</p>
+                    <img alt="" className="img-user img-fluidd-block mt-5 rounded-circle ml-5" src={userImg}/>
+                    <div className="text-center user mt-3">
+                        <span className="mt-2"><b>{userName}</b></span>
+                        <p className="text-capitalize"><small>{position}</small></p>
                     </div>
                 </div>
                 <div className="nav flex-column tabs-options border-top">
-                    <a className={classNameRooms} onClick={this.changeReception}>
+                    <button className={classNameRooms} onClick={this.changeReception}>
                         <i aria-hidden="true" className="fa fa-pencil pr-2"></i> Atender Cliente 
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
-                    </a>
-                    <a className={classNameRegisterRooms} onClick={this.changeRegisterRooms}>
+                    </button>
+                    <button className={classNameRegisterRooms} onClick={this.changeRegisterRooms}>
                         <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro Salas
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
-                    </a>
-                    <a className={classNameRegisterCash} onClick={this.changeRegisterCash}>
+                    </button>
+                    <button className={classNameRegisterCash} onClick={this.changeRegisterCash}>
                         <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro Cajas
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
-                    </a>
+                    </button>
                 </div>
                 <div className="log-out d-flex align-items-end">
-                    <a className="nav-link" onClick={this.props.logOut}><i aria-hidden="true" className="fa fa-sign-out"></i>Salir</a>
+                    <button className="nav-link" onClick={this.props.logOut}><i aria-hidden="true" className="fa fa-sign-out"></i>Salir</button>
                 </div>
             </nav>
         );

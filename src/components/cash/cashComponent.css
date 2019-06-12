@@ -1,0 +1,27 @@
+.h-90{
+    height: 100px;
+}
+.h-300{
+    height: 380px;
+}
+.bg-title{
+    background-color: #2c79be;
+    font-size: 18px;
+    color: #ffffff;
+}
+.myState-cash{
+    height: 25px;
+    width: 25px;
+}
+.btn-specialCash{
+    background-color: #2c79be;
+    font-size: 20pxpx;
+    color: #ffffff;
+    border: 0px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+.content-state-cash select {
+    margin-top: -5px;
+    border: none;
+}
