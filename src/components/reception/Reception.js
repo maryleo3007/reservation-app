@@ -129,7 +129,6 @@ class Reception extends Component {
         e.preventDefault()
         logout()
     }
-    /*****funciones para caja */
 
     // agrega registro de formulario
     addRegister = (objRegister) => {

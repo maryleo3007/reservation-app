@@ -36,6 +36,7 @@ function PrivateRouteReceptionPanorama ({component: Component, data, ...rest}) {
         ? <Component {...props} responsable={data}/>
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
+    
   )
 }
 
