@@ -59,11 +59,12 @@ class Cash extends Component {
             userId_open: '',
             showComponent: true
         });
-        setTimeout(() => {
-            ref.child('CashRoom').child('/'+ key).update({
-                showComponent: false
-            }); 
-        }, 2000);
+    }
+    //cambia a estado de caja a ausente
+    changeStateSpecialCash = (key, state) => {
+        ref.child('CashRoom').child('/'+ key).update({
+            state
+        });
     }
 
     componentDidMount(){
@@ -158,6 +159,7 @@ class Cash extends Component {
                     updateClearCashForm = {this.updateClearCashForm}
                     addRegisterCash = {this.addRegisterCash}
                     changeCashState = {this.changeCashState}
+                    changeStateSpecialCash = {this.changeStateSpecialCash}
                     currentObjFormCash = {currentObjFormCash}
                     currentObjCashRoom = {currentObjCashRoom}
                     currentObjSpecialCash = {currentObjSpecialCash}

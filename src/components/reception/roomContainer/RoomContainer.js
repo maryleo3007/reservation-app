@@ -32,6 +32,7 @@ class RoomContainer extends Component {
 
     dbRoom = ref.child('Room/');
     dbCashRoom = ref.child('CashRoom/');
+    dbFormCash = ref.child('FormCaja/');
     // onToggleForm = (id) => {
     //     if (id === 1) {
     //         this.setState({shownCashOne: !this.state.shownCashOne})
@@ -54,18 +55,24 @@ class RoomContainer extends Component {
         }
     }
 
-    changeToGreenOrAmberCash = (key, state, userId_open) => {
+    changeToGreenOrAmberCash = (key, state, userId_open, keyFormCash) => {
         
         if (state === 'Disponible' && userId_open === '') {
             this.dbCashRoom.child('/'+ key).update({
                 state: 'Por confirmar',
                 userId_open: this.props.datauser.uid
             });
+            this.dbFormCash.child('/'+keyFormCash).update({
+                userId_open: this.props.datauser.uid
+            })
         } else if (state === 'Por confirmar' &&  userId_open === this.props.datauser.uid) {
             this.dbCashRoom.child('/'+ key).update({
                 state: 'Disponible',
                 userId_open: ''
             });
+            this.dbFormCash.child('/'+keyFormCash).update({
+                userId_open: ''
+            })
         }
     }
 

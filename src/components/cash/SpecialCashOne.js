@@ -38,6 +38,12 @@ class SpecialCashOne extends Component {
 
     getStateSpecialCash = (e) => {
         let value = e.target.value;
+        if (this.props.currentObjCashRoom.state === 'Disponible' || this.props.currentObjCashRoom.state === 'No disponible') {
+            this.props.changeStateSpecialCash(this.props.currentObjCashRoom.key, value);
+        }
+        else{
+            alert('no puede cambiar de estado cuando la caja esta en ocupado o por confirmar')
+        }
     }
 
     render() {
@@ -46,11 +52,15 @@ class SpecialCashOne extends Component {
         let currentObjCashRoom =  {};
         let clientAttented = this.state.clientAttented;
         let clientAproaching = false;
+        let selectDisabled = true;
         if (Object.keys(this.props.currentObjCashRoom).length !== 0 && this.props.currentObjCashRoom !== undefined) {
             currentObjCashRoom = this.props.currentObjCashRoom
             if (currentObjCashRoom.state === 'Ocupado') {
                 clientAproaching = true
             }
+            if (currentObjCashRoom.state === 'Disponible' || currentObjCashRoom.state === 'No disponible') {
+                selectDisabled = false;
+            } 
         }
         
         return (
@@ -74,7 +84,6 @@ class SpecialCashOne extends Component {
                             <div className="d-flex h-100">
                                 <div className="justify-content-center align-self-center mx-auto title-form">
                                     {this.props.data.name}
-
                                 </div>
                             </div>
                         </div>
@@ -86,9 +95,9 @@ class SpecialCashOne extends Component {
                         <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left content-state-cash  h-75">
                             <div className="d-flex justify-content-center mt-4">
                                 <span className="box-available rounded-circle pr-3 mr-3 myState-cash"></span>
-                                <select name="stateValue" className="d-inline-block title-form" onChange={this.getStateSpecialCash}>
-                                    <option value="1">Disponible</option>
-                                    <option value="2">Ocupado</option>
+                                <select name="stateValue" className="d-inline-block title-form" onChange={this.getStateSpecialCash} disabled={selectDisabled ? true : null}>
+                                    <option value="Disponible">Disponible</option>
+                                    <option value="No disponible">Ausente</option>
                                 </select>
                             </div>
                         </div>
