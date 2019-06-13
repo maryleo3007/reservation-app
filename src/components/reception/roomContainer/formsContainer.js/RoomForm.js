@@ -387,18 +387,19 @@ class RoomForm extends Component {
         let div3Buttons = this.props.divs.div3Buttons ? 'd-block' : 'd-none'
         let buttonExecutive = this.props.divs.buttonExecutive ? 'd-block' : 'd-none'
         return (
-            <div className={`form-container ${showform} py-4 px-5 bg-white`}>
-            
-                <div className='text-center'>
-                    <span>{this.props.room.title}</span>
+            <div className={`form-container ${showform} py-4 px-5 bg-white mb-3`}>
+                <div className={`${divTrash} button-trash`}>
+                        <button type='reset' className='btn' onClick={(e)=>{this.resetForm(e); this.changeToBeConfirmed(e)}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                </div>            
+                <div className='text-center mt-4'>
+                    <span class='title-form-room'>{this.props.room.title}</span>
                 </div>
                 <div className='text-center'>
-                    <span>{this.props.room.state}</span>
+                    <span class='title-form-state'>{this.props.room.state}</span>
                 </div>
+                <hr className='m-0 mb-4'/>
                 <form onSubmit={this.addRegister} id={this.props.room.key}>
-                <div>
-                <hr/>
-                
+                <div>               
                 <Modal isOpen={this.state.modal} toggle={this.toggle} autoFocus={this.state.modal} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
                 <ModalBody>
@@ -416,15 +417,14 @@ class RoomForm extends Component {
                     <input type="hidden" className="form-control" placeholder="" ref={this.area}/>
                     <input type="hidden" className="form-control" placeholder="" ref={this.floor}/>
                     <div className="form-group">
-                    <div className={`${divTrash}`}>
-                        <button type='reset' onClick={(e)=>{this.resetForm(e); this.changeToBeConfirmed(e)}}>Tachito</button>
-                    </div>
+                    
                     <div className={`${buttonPlay}`}>
                         <span>Ingreso del cliente</span>
-                        <button className='ml-2' onClick={(e) => {this.updateHourStart(e); this.updateCollaborator(e); this.updateDate(e); this.changeOccupied(e); this.showHourHidePlay(this.state.objectFb.divs)}}>Play</button>
+                        <button className='ml-2 btn button-play' onClick={(e) => {this.updateHourStart(e); this.updateCollaborator(e); this.updateDate(e); this.changeOccupied(e); this.showHourHidePlay(this.state.objectFb.divs)}}><i class="fa fa-play" aria-hidden="true"></i></button>
                     </div>
                     <div className={`${divHourStart}`}>
-                        <p>{this.state.objectFb.hourStart}</p>
+                        <span>Ingreso del cliente</span>
+                        <span className='ml-2 start-hour-user'>{this.state.objectFb.hourStart}</span>
                         <input type="text" className="d-none" placeholder="hora de atención" ref={this.startTime} defaultValue={this.state.objectFb.hourStart}/>
                     </div>  
                     </div>
@@ -464,16 +464,15 @@ class RoomForm extends Component {
                             <span className='ml-5'>No</span>
                         </div>
                         <input type="text"  className="form-control d-none" placeholder="" ref={this.appointment} defaultValue={this.state.objectFb.appoinment}/>
-                    </div>
-                    
+                    </div>                    
                     <div className="form-group">
                         <label>Comentario</label>
-                        <input className="form-control" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
+                        <input className="form-control h-commentary" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
                         defaultValue={this.state.objectFb.comment}/>
                     </div>
                     <div className="form-group">
-                        <input className="form-check-input" type="checkbox" checked={this.state.objectFb.useChecked} onChange={(e)=>this.useCashCheckbox(e)}/>
-                        <label className="form-check-label">
+                        <input className="ml-1 form-check-input" type="checkbox" checked={this.state.objectFb.useChecked} onChange={(e)=>this.useCashCheckbox(e)}/>
+                        <label className="ml-4 form-check-label">
                         Solo para uso de caja
                         </label>
                         <input type="text" className="d-none" placeholder="" ref={this.box} defaultValue={this.state.objectFb.use}/>
@@ -487,9 +486,8 @@ class RoomForm extends Component {
                     <div className={`${div3Buttons}`}>
                         <button className={`${buttonExecutive}`} onClick={(e) => {this.updateHourExecutive(e); this.hideButtonExecutive(this.state.objectFb.divs)}}>Ejecutivo</button>
                         <Button color="danger" onClick={()=>this.toggle()}>Caja</Button>
-                        <button type="submit" className="btn btn-primary">Submit</button>                   
-                    </div>
-                    
+                        <button type="submit" className="btn btn-primary">Submit</button>               
+                    </div>                    
                 </form>
             </div>
          );

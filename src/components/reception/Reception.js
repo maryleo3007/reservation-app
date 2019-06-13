@@ -8,6 +8,7 @@ import RoomContainer from './roomContainer/RoomContainer';
 import Sidebar from './../Sidebar';
 import RegisterCash from './registerContainer/registerCash';
 import RegisterRooms from './registerContainer/registerRooms';
+import './../../rooms.css'
 
 class Reception extends Component {
 
