@@ -115,8 +115,8 @@ class RoomContainer extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-5 pl-0">
-                        <div className="pl-2">
+                    <div className="col-5 px-5 py-2">
+                        <div>
                             <FormsContainer 
                                 rooms = {this.props.rooms}
                                 objRegister = {this.props.objRegister} 

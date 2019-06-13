@@ -47,6 +47,13 @@ class Reception extends Component {
             })
     }
 
+    // función cambia estado de sala
+    changeState = (key, state) => {
+        ref.child('Room/').child('/' + key).update({
+            state
+        });
+    } 
+
     componentDidMount() {
         this.dbCashRoom.on('value', snap => {
             const arrCash = [];

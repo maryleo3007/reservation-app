@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {ref} from './../../../../services/firebase'
 import CashForm from './CashForm';
+import RoomForm from './RoomForm';
 
 class FormsContainer extends Component {
     
@@ -56,7 +57,7 @@ class FormsContainer extends Component {
         if(this.props.formCashList === undefined) return null;
         return ( 
             <div>
-                {/* {this.props.rooms.map(room => 
+                 {this.props.rooms.map(room => 
                     <RoomForm
                         key = {room.id}
                         room = {room}
@@ -71,7 +72,7 @@ class FormsContainer extends Component {
                         changeState = {this.props.changeState}
                         divs = {this.state.divsObj[room.id].divs}
                     />
-                )} */}
+                )}
                 {
                     this.props.cashs.map( cash =>
                         <CashForm

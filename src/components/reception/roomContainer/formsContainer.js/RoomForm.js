@@ -387,16 +387,17 @@ class RoomForm extends Component {
         let div3Buttons = this.props.divs.div3Buttons ? 'd-block' : 'd-none'
         let buttonExecutive = this.props.divs.buttonExecutive ? 'd-block' : 'd-none'
         return (
-            <div className={`form-container ${showform}`}>
+            <div className={`form-container ${showform} py-4 px-5 bg-white`}>
             
-                <div>
+                <div className='text-center'>
                     <span>{this.props.room.title}</span>
                 </div>
-                <div>
+                <div className='text-center'>
                     <span>{this.props.room.state}</span>
                 </div>
                 <form onSubmit={this.addRegister} id={this.props.room.key}>
                 <div>
+                <hr/>
                 
                 <Modal isOpen={this.state.modal} toggle={this.toggle} autoFocus={this.state.modal} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
@@ -419,7 +420,8 @@ class RoomForm extends Component {
                         <button type='reset' onClick={(e)=>{this.resetForm(e); this.changeToBeConfirmed(e)}}>Tachito</button>
                     </div>
                     <div className={`${buttonPlay}`}>
-                        <button onClick={(e) => {this.updateHourStart(e); this.updateCollaborator(e); this.updateDate(e); this.changeOccupied(e); this.showHourHidePlay(this.state.objectFb.divs)}}>Play</button>
+                        <span>Ingreso del cliente</span>
+                        <button className='ml-2' onClick={(e) => {this.updateHourStart(e); this.updateCollaborator(e); this.updateDate(e); this.changeOccupied(e); this.showHourHidePlay(this.state.objectFb.divs)}}>Play</button>
                     </div>
                     <div className={`${divHourStart}`}>
                         <p>{this.state.objectFb.hourStart}</p>
@@ -433,31 +435,34 @@ class RoomForm extends Component {
                     <div className="form-group">
                         <input type="text" className="d-none" placeholder="" ref={this.date}  defaultValue={this.state.objectFb.date}/>
                     </div>
-                    <div className="form-group">
-                        <label>Persona</label>
+                    <div className="form-group row">
+                        <label className='col-3'>Persona</label>
                         <Select
                             ref={this.person}
                             value={this.state.objectFb.person}
                             onChange={(e)=> this.selectPerson(e)}
                             options={this.props.optionPerson}
                             key={this.props.optionPerson.value}
+                            className='col-9'
                         />
                     </div>
-                    <div className="form-group">
-                        <label>Equipo</label>
+                    <div className="form-group row">
+                        <label className='col-3'>Equipo</label>
                         <Select
                             value={this.state.objectFb.team}
                             onChange={this.handleChange}
                             options={this.props.optionTeam}
+                            className='col-9'
                         />
                     </div>
-                    <div className="form-group">
-                        <label>Cita</label><br/>
-                        <input className="form-check-input" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)} value='si' checked={this.state.objectFb.appoinmentBooleanY}/>
-                        <span>si</span> <br/>
-                        <input className="form-check-input" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)}  value="no" checked={this.state.objectFb.appoinmentBooleanN} />
-                        <span>No</span>
-
+                    <div className="form-group row">
+                        <label className='col-3'>Cita</label><br/>
+                        <div className='col-9 pl-5'>
+                            <input className="form-check-input" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)} value='si' checked={this.state.objectFb.appoinmentBooleanY}/>
+                            <span className='ml-1'>si</span>
+                            <input className="form-check-input ml-4" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)}  value="no" checked={this.state.objectFb.appoinmentBooleanN} />
+                            <span className='ml-5'>No</span>
+                        </div>
                         <input type="text"  className="form-control d-none" placeholder="" ref={this.appointment} defaultValue={this.state.objectFb.appoinment}/>
                     </div>
                     
