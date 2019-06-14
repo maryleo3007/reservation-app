@@ -53,7 +53,7 @@ class Cash extends Component {
         })
     }
     //cambia estado de caja
-    changeCashState = (key) => {
+    changeCashStateAvailable = (key) => {
         ref.child('CashRoom').child('/'+ key).update({
             state: 'Disponible',
             userId_open: '',
@@ -61,8 +61,14 @@ class Cash extends Component {
         });
     }
     //cambia a estado de caja a ausente
-    changeStateSpecialCash = (key, state) => {
+    changeStateCash = (key, state) => {
         ref.child('CashRoom').child('/'+ key).update({
+            state
+        });
+    }
+    //cambia estado de caja especial
+    changeStateSpecialCash = (key, state) => {
+        ref.child('SpecialCash').child('/'+key).update({
             state
         });
     }
@@ -158,11 +164,12 @@ class Cash extends Component {
                     updateHrAtCashForm = {this.updateHrAtCashForm}
                     updateClearCashForm = {this.updateClearCashForm}
                     addRegisterCash = {this.addRegisterCash}
-                    changeCashState = {this.changeCashState}
-                    changeStateSpecialCash = {this.changeStateSpecialCash}
+                    changeCashStateAvailable = {this.changeCashStateAvailable}
+                    changeStateCash = {this.changeStateCash}
                     currentObjFormCash = {currentObjFormCash}
                     currentObjCashRoom = {currentObjCashRoom}
                     currentObjSpecialCash = {currentObjSpecialCash}
+                    changeStateSpecialCash = {this.changeStateSpecialCash}
                     data = {this.props.data}
                 />
                 <button
