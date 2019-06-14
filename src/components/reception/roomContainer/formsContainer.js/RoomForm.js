@@ -303,6 +303,13 @@ class RoomForm extends Component {
                     const use = 'Uso de sala para caja'
                     this.updateUse(use)
                     this.changeRoomOnHold()
+                }else if (this.state.checked === false){
+                    this.dbFormSala.update({
+                        useChecked : false
+                    });
+                    const use = 'Solo uso de sala'
+                    this.updateUse(use)
+                    this.changeOccupied()
                 }
             }       
         )  
