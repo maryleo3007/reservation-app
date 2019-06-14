@@ -48,5 +48,26 @@
 }
 
 .start-hour-user {
+    font-size: 25px;
+}
 
+.buttons-form div{
+    width: 33%;
+    max-width: 80px;;
+    border-radius: 3px;
+    border: 1px solid #427fb4;
+    margin: 5px;
+    padding: 10px 5px 5px 5px !important;
+}
+
+.buttons-form div p{
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #a09d9d;
+
+}
+
+.buttons-form div p i{
+    font-size: 21px;
+    color: #2c79be;
 }

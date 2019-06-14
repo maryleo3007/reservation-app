@@ -39,8 +39,8 @@ class RoomForm extends Component {
     responsableRegistry = React.createRef();
     box = React.createRef();
 
-    changeAvailable = (e) => {
-        e.preventDefault();
+    changeAvailable = () => {
+        // e.preventDefault();
         this.props.changeState(this.props.room.key, this.state.available)            
     }
 
@@ -152,15 +152,15 @@ class RoomForm extends Component {
       this.props.addRegister(objResgister)
     }
 
-    addRegister = (e) => {
-        e.preventDefault();
+    addRegister = () => {
+        // e.preventDefault();
         this.objResgister(this.state.objectFb.useChecked, 'Solo uso de sala')
         this.updateFormDafault();
-        e.currentTarget.reset();
+        // e.currentTarget.reset();
         this.setState({
             checked: false
         })
-        this.changeAvailable(e);
+        this.changeAvailable();
         this.props.showHideForm(this.props.room.id);
         this.setExecutiveForRoom(' ')
     };
@@ -181,7 +181,7 @@ class RoomForm extends Component {
         this.setState({
             checked: false
         })
-        this.changeAvailable(e);
+        this.changeAvailable();
         this.updateFormDafault();
         this.props.showHideForm(this.props.room.id);
     }
@@ -249,8 +249,7 @@ class RoomForm extends Component {
         });
     }
 
-    updateHourExecutive = (e) => {
-        e.preventDefault();
+    updateHourExecutive = () => {
         const hourExecutive = getCurrenHour()
         this.dbFormSala.update({
             hourExecutive
@@ -425,7 +424,7 @@ class RoomForm extends Component {
                     <span class='title-form-state'>{this.props.room.state}</span>
                 </div>
                 <hr className='m-0 mb-4'/>
-                <form onSubmit={this.addRegister} id={this.props.room.key}>
+                <form id={this.props.room.key}>
                 <div>               
                 <Modal isOpen={this.state.modal} toggle={this.toggle} autoFocus={this.state.modal} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
@@ -511,9 +510,20 @@ class RoomForm extends Component {
                         <input type="text" className="d-none" placeholder="" ref={this.executiveHour} defaultValue={this.state.objectFb.hourExecutive}/>
                     </div>
                     <div className={`${div3Buttons}`}>
-                        <button className={`${buttonExecutive}`} onClick={(e) => {this.updateHourExecutive(e); this.hideButtonExecutive(this.state.objectFb.divs)}}>Ejecutivo</button>
-                        <Button color="danger" onClick={()=>this.toggle()}>Caja</Button>
-                        <button type="submit" className="btn btn-primary">Submit</button>               
+                        <div className='d-flex justify-content-around buttons-form'>
+                            <div className={`${buttonExecutive} btn`} onClick={() => {this.updateHourExecutive(); this.hideButtonExecutive(this.state.objectFb.divs)}}>
+                                <p><i class="fa fa-user-o" aria-hidden="true"></i></p>
+                                <p>ejecutivo</p>
+                            </div>
+                            <div onClick={()=>this.toggle()} className='btn'>
+                                <p><i class="fa fa-dashcube" aria-hidden="true"></i></p>
+                                <p>Caja</p>    
+                            </div>
+                            <div onClick={()=>this.addRegister()} className='btn'>
+                                <p><i class="fa fa-sign-out" aria-hidden="true"></i></p>  
+                                <p>Salida</p>    
+                            </div>
+                        </div>                                     
                     </div>                    
                 </form>
             </div>
