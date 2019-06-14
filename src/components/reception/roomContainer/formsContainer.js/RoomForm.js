@@ -184,6 +184,7 @@ class RoomForm extends Component {
         this.changeAvailable();
         this.updateFormDafault();
         this.props.showHideForm(this.props.room.id);
+        this.setExecutiveForRoom(' ')
     }
 
     updateRoomResponsable = (key, responsable) => {
