@@ -16,6 +16,7 @@ class RoomForm extends Component {
         checked: false,
         modal: false,
         close: true
+        
 
     }
 
