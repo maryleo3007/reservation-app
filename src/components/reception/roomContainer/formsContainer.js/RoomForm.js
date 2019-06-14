@@ -20,6 +20,8 @@ class RoomForm extends Component {
     }
 
     dbFormSala = ref.child('FormSala/'+this.props.room.id);
+    dbRoom = ref.child('Room/'+this.props.room.key);
+
 
     // refs 
 
@@ -60,7 +62,20 @@ class RoomForm extends Component {
         this.props.changeState(this.props.room.key, this.state.roomOnHold)              
     }
 
+    setTimeStartForRoom = (time) => {
+        this.dbRoom.update({
+            time
+        })
+    }
+
+    setExecutiveForRoom = (executive) => {
+        this.dbRoom.update({
+            executive: executive
+        })        
+    }
+
     updateFormDafault = () => {
+
         this.dbFormSala.update({
             appoinment: '',
             appoinmentBooleanN: false,
@@ -147,6 +162,7 @@ class RoomForm extends Component {
         })
         this.changeAvailable(e);
         this.props.showHideForm(this.props.room.id);
+        this.setExecutiveForRoom(' ')
     };
 
     resetForm =(e) => {
@@ -182,12 +198,13 @@ class RoomForm extends Component {
         });
     }
 
-    updateHourStart = (e) => {
+    updateHourStart = (e, key) => {
         e.preventDefault();
         const hourStart = getCurrenHour()
         this.dbFormSala.update({
             hourStart
         });
+        this.setTimeStartForRoom(hourStart)
     }
 
     updateCollaborator = (e) => {
@@ -268,6 +285,7 @@ class RoomForm extends Component {
     selectPerson = (selectedOption, e) => {
         this.updatePerson(selectedOption)
         this.updateTeam(selectedOption.team)
+        this.setExecutiveForRoom(selectedOption.value)
     }
 
     handleChange = (selectedOption) => {
@@ -353,6 +371,8 @@ class RoomForm extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
+        
         this.dbFormSala.on('value', snap => {
                 let objectFb = {
                     appoinment: snap.val().appoinment,
@@ -389,7 +409,7 @@ class RoomForm extends Component {
         return (
             <div className={`form-container ${showform} py-4 px-5 bg-white mb-3`}>
                 <div className={`${divTrash} button-trash`}>
-                        <button type='reset' className='btn' onClick={(e)=>{this.resetForm(e); this.changeToBeConfirmed(e)}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        <button type='reset' className='btn' onClick={(e)=>{this.resetForm(e); this.changeToBeConfirmed(e);this.setExecutiveForRoom(' ')}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                 </div>            
                 <div className='text-center mt-4'>
                     <span class='title-form-room'>{this.props.room.title}</span>

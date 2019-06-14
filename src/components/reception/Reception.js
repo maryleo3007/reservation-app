@@ -219,7 +219,8 @@ class Reception extends Component {
                 sidebarState = {this.state.sidebarState}/>: showComponent === 'registerCash' ?
                 <RegisterCash 
                 sidebarState = {this.state.sidebarState}/> : 
-                <RoomContainer rooms = {this.state.roomList}
+                <RoomContainer
+                    rooms={this.state.roomList}
                     cashs = {this.state.cashList}
                     objRegister = {this.state.objRegister}
                     changeCashState = {this.changeCashState}
