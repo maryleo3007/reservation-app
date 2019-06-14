@@ -38,7 +38,8 @@ class RoomList extends Component {
                     <div className='col-3 p-0 min-height-15'>
                         <Room
                             room={this.props.rooms[0]}
-                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[0].key ,this.props.rooms[0].state)}}
+                            changeToGreenOrAmber = {() =>{console.log('-');
+                            }}
                             responsable = {this.props.responsable}
                             showHideFormArr = {this.props.showHideFormArr[1]}
                             showHideForm = {this.props.showHideForm}

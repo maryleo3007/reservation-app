@@ -8,6 +8,7 @@ import RoomContainer from './roomContainer/RoomContainer';
 import Sidebar from './../Sidebar';
 import RegisterCash from './registerContainer/registerCash';
 import RegisterRooms from './registerContainer/registerRooms';
+import './../../rooms.css'
 
 class Reception extends Component {
 
@@ -46,6 +47,13 @@ class Reception extends Component {
                 sidebarState: change
             })
     }
+
+    // función cambia estado de sala
+    changeState = (key, state) => {
+        ref.child('Room/').child('/' + key).update({
+            state
+        });
+    } 
 
     componentDidMount() {
         this.dbCashRoom.on('value', snap => {
@@ -210,7 +218,8 @@ class Reception extends Component {
                 sidebarState = {this.state.sidebarState}/>: showComponent === 'registerCash' ?
                 <RegisterCash 
                 sidebarState = {this.state.sidebarState}/> : 
-                <RoomContainer rooms = {this.state.roomList}
+                <RoomContainer
+                    rooms={this.state.roomList}
                     cashs = {this.state.cashList}
                     objRegister = {this.state.objRegister}
                     changeCashState = {this.changeCashState}
