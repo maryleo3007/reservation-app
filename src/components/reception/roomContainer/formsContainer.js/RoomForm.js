@@ -427,18 +427,23 @@ class RoomForm extends Component {
                 <hr className='m-0 mb-4'/>
                 <form id={this.props.room.key}>
                 <div>               
-                <Modal isOpen={this.state.modal} toggle={this.toggle} autoFocus={this.state.modal} className={this.props.className}>
-                <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-                <ModalBody>
-                    <Button onClick={()=>this.toggle()}>Cerrar</Button>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </ModalBody>
-                <ModalFooter>
-                    <button color="primary" onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
-                    <Button color="secondary" onClick={this.toggle}>Cancelar</Button>
-                </ModalFooter>
-                </Modal>
-            </div>
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} autoFocus={this.state.modal} className={`${this.props.className} modal-room-to-form`}>
+                    <ModalHeader toggle={this.toggle}></ModalHeader>
+                    <ModalBody className='text-center question-modal'>
+                        {/* <Button onClick={()=>this.toggle()}>Cerrar</Button> */}
+                        <span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
+                        <select class="custom-select d-inline w-auto">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                        <span> ?</span>                        
+                    </ModalBody>
+                    <ModalFooter className='modal-buttons'>
+                        <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
+                        <Button className='btn' onClick={this.toggle}>Cancelar</Button>
+                    </ModalFooter>
+                    </Modal>
+                </div>
                 {/* inputs hidden */}
                     <input type="hidden" className="form-control" placeholder="" ref={this.room}/>
                     <input type="hidden" className="form-control" placeholder="" ref={this.area}/>

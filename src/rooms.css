@@ -63,11 +63,50 @@
 .buttons-form div p{
     font-size: 12px;
     margin-bottom: 5px;
-    color: #a09d9d;
+    color: #837f7f;
 
 }
 
 .buttons-form div p i{
     font-size: 21px;
     color: #2c79be;
+}
+
+.modal-room-to-form .modal-content .modal-header{
+    border-bottom: 1px solid #ffffff !important;
+}
+
+.question-modal {
+    font-size: 22px;
+    margin: auto 35px;
+}
+
+.modal-buttons {
+    border-top: 1px solid #ffffff !important;
+    display: flex !important;
+    justify-content: space-around !important;
+    margin: auto 35px 40px 35px;
+}
+
+.modal-buttons button:nth-child(1){
+    width: 120px;
+    border-radius: 2px;
+    background-color: #427fb4;
+    color: #ffffff;
+}
+
+.modal-buttons button:nth-child(2){
+    width: 120px;
+    border-radius: 2px;
+    background-color: #fff;
+    color: #837f7f;
+    border: 1px solid #427fb4;
+}
+
+.modal-buttons button:nth-child(2):focus{
+    box-shadow: 0;
+}
+
+.modal-buttons button:nth-child(2):active{
+    background-color: #fff !important;
 }
