@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {getDateFull, getHour} from '../../../helpers/date.js';
+import {ref} from './../../../../services/firebase';
 
 class CashForm extends Component {
 
@@ -24,6 +25,18 @@ class CashForm extends Component {
     updateComements = (e) => {
         e.preventDefault();
         this.props.updateCommentsCash(this.props.cash.formCash_id, this.commentsRef.current.value)
+    }
+    //limpia el formulario de caja
+    resetFormCash = (e) => {
+        e.preventDefault();
+        const objCash = {
+            date:'',
+            hourInit: ''
+        }
+        this.props.updateTeamCash(this.props.cash.formCash_id,'');
+        this.props.updateCommentsCash(this.props.cash.formCash_id, '');
+        this.props.updateDtHrInitCashForm(this.props.cash.formCash_id, objCash);
+        this.props.changeCashState(this.props.cash.key,'Por confirmar');
     }
     
     render() {
@@ -52,6 +65,7 @@ class CashForm extends Component {
 
         return (
                 <div className={showClass}>
+                    {showCustomerIncome?'':<button onClick={this.resetFormCash} className="btn-trash-form"><i className="fa fa-trash" aria-hidden="true"></i></button>}
                     <div>
                         <div className="text-center title-form">{cash.title}</div>
                         <div className="text-center state-form">{cash.state }</div>

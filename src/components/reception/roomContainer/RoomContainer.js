@@ -64,6 +64,9 @@ class RoomContainer extends Component {
             });
             this.dbFormCash.child('/'+keyFormCash).update({
                 userId_open: this.props.datauser.uid
+            });
+            this.dbCashRoom.child('/'+key).update({
+                userId_open: this.props.datauser.uid
             })
         } else if (state === 'Por confirmar' &&  userId_open === this.props.datauser.uid) {
             this.dbCashRoom.child('/'+ key).update({
@@ -71,6 +74,9 @@ class RoomContainer extends Component {
                 userId_open: ''
             });
             this.dbFormCash.child('/'+keyFormCash).update({
+                userId_open: ''
+            })
+            this.dbCashRoom.child('/'+key).update({
                 userId_open: ''
             })
         }

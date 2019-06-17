@@ -201,7 +201,7 @@ class Reception extends Component {
             comments
         })
     }
-
+    
     render() {
 
         const showComponent = this.state.showComponent;
