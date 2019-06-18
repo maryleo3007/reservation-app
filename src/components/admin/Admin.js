@@ -5,7 +5,9 @@ import { getCutName } from './../helpers/receptionHelper';
 
 
 //components
-import RegisterContainer from './registerContainer/RegisterContainer';
+import RegisterCash from './../reception/registerContainer/registerCash';
+import RoomsHeadquarters from './registerContainer/RoomsHeadquarters';
+import RegisterRooms from './../reception/registerContainer/registerRooms';
 import Sidebar from './../Sidebar';
 
 class Admin extends Component {
@@ -142,7 +144,9 @@ class Admin extends Component {
                         logOut = {this.logOut}
                         changeSidebar = {this.changeSidebar}
                         sidebarState = {this.state.sidebarState}/>
-                    {/* <RegisterContainer/> */}
+                    <RegisterRooms showComponent={this.state.showComponent} sidebarState = {this.state.sidebarState}/>
+                    <RegisterCash showComponent={this.state.showComponent} sidebarState = {this.state.sidebarState}/>
+                    <RoomsHeadquarters showComponent={this.state.showComponent} sidebarState = {this.state.sidebarState}/>
                 </div> 
                 {/* <div>
                     <p>Administradora</p>
@@ -154,9 +158,6 @@ class Admin extends Component {
                     }}
                     className="navbar-brand">Logout</button>
                 </div> */}
-                <p>salas muestra todas las salas</p>
-                <p>muestra todo el registro de salas</p>
-                <p>muestra todo el registro de cajas</p>
             </div>
          );
     }
