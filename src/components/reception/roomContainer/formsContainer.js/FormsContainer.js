@@ -71,6 +71,7 @@ class FormsContainer extends Component {
                         optionTeam = {this.state.optionTeam}
                         changeState = {this.props.changeState}
                         divs = {this.state.divsObj[room.id].divs}
+                        datauser = {this.props.datauser}
                     />
                 )}
                 {
