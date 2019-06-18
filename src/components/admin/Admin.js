@@ -12,7 +12,7 @@ class Admin extends Component {
 
     dbCashRoom = ref.child('CashRoom/');
     dbRoom = ref.child('Room/');
-    // dbUsers = ref.child('users/').child(this.props.responsable.uid).child('/info');
+    dbUsers = ref.child('users/').child(this.props.responsable.uid).child('/info');
     dbFormCash = ref.child('FormCaja/');
 
     state = {
@@ -111,32 +111,38 @@ class Admin extends Component {
             })
         })
 
-        // ref.child('users').child(this.props.responsable.uid).child('info').child('name').on('value', (snapshot) => {
-        //     if (snapshot.val()) {
-        //         this.setState({
-        //             userName: snapshot.val()
-        //         })
-        //     }
-        // })
+        ref.child('users').child(this.props.responsable.uid).child('info').child('name').on('value', (snapshot) => {
+            if (snapshot.val()) {
+                this.setState({
+                    userName: snapshot.val()
+                })
+            }
+        })
 
         
-        // let name = getCutName(this.props.responsable.userMail); 
+        let name = getCutName(this.props.responsable.userMail); 
+        console.log(name);
         
-        // this.storage = storage.ref('/users').child(`${name}.jpg`).getDownloadURL().then(url => {
-        //     this.setState({
-        //         userImage: url
-        //     })
-        // })
+        
+        this.storage = storage.ref('/users').child(`${name}.jpg`).getDownloadURL().then(url => {
+            this.setState({
+                userImage: url
+            })
+        })
     }
 
     render() { 
         return (
             <div> 
                 <div className="admin-content">
-                    <Sidebar
+                    <Sidebar changeComponent = {this.changeComponent}
+                        userImage = {this.state.userImage}
+                        userName = {this.state.userName}
+                        userData = {this.props.responsable}
                         logOut = {this.logOut}
-                        />
-                    <RegisterContainer />
+                        changeSidebar = {this.changeSidebar}
+                        sidebarState = {this.state.sidebarState}/>
+                    {/* <RegisterContainer/> */}
                 </div> 
                 {/* <div>
                     <p>Administradora</p>

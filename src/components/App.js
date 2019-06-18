@@ -44,7 +44,7 @@ function PrivateRouteAdmin ({component: Component, data, ...rest}) {
     <Route
       {...rest}
       render={(props) => data.authed === true && data.position === 'administradora'
-        ? <Component {...props} />
+        ? <Component {...props} responsable={data}/>
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
   )
