@@ -12,13 +12,15 @@ class Admin extends Component {
 
     dbCashRoom = ref.child('CashRoom/');
     dbRoom = ref.child('Room/');
-    dbUsers = ref.child('Users/').child(this.props.responsable.uid).child('/info');
+    // dbUsers = ref.child('users/').child(this.props.responsable.uid).child('/info');
     dbFormCash = ref.child('FormCaja/');
 
     state = {
+        showComponent: 'rooms',
         cashList: [],
         roomList: [],
         objRegister: {},
+        showRoom: false,
         userImage: {},
         userName: "",
         shownCashOne:false,
@@ -109,32 +111,34 @@ class Admin extends Component {
             })
         })
 
-        ref.child('users').child(this.props.responsable.uid).child('info').child('name').on('value', (snapshot) => {
-            if (snapshot.val()) {
-                this.setState({
-                    userName: snapshot.val()
-                })
-            }
-        })
+        // ref.child('users').child(this.props.responsable.uid).child('info').child('name').on('value', (snapshot) => {
+        //     if (snapshot.val()) {
+        //         this.setState({
+        //             userName: snapshot.val()
+        //         })
+        //     }
+        // })
 
         
-        let name = getCutName(this.props.responsable.userMail); 
+        // let name = getCutName(this.props.responsable.userMail); 
         
-        this.storage = storage.ref('/users').child(`${name}.jpg`).getDownloadURL().then(url => {
-            this.setState({
-                userImage: url
-            })
-        })
+        // this.storage = storage.ref('/users').child(`${name}.jpg`).getDownloadURL().then(url => {
+        //     this.setState({
+        //         userImage: url
+        //     })
+        // })
     }
 
     render() { 
         return (
             <div> 
                 <div className="admin-content">
-                    <Sidebar logOut={this.logOut}/>
+                    <Sidebar
+                        logOut = {this.logOut}
+                        />
                     <RegisterContainer />
                 </div> 
-                <div>
+                {/* <div>
                     <p>Administradora</p>
                     
                     <button
@@ -143,7 +147,10 @@ class Admin extends Component {
                         logout()
                     }}
                     className="navbar-brand">Logout</button>
-                </div>
+                </div> */}
+                <p>salas muestra todas las salas</p>
+                <p>muestra todo el registro de salas</p>
+                <p>muestra todo el registro de cajas</p>
             </div>
          );
     }
