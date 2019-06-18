@@ -55,6 +55,10 @@ class FormsContainer extends Component {
     }
     render() { 
         if(this.props.formCashList === undefined) return null;
+        if(this.props.cashs === undefined) return null;
+
+        let countCashAvailable = this.props.cashs.filter(x => x.state === 'Disponible').length
+        
         return ( 
             <div>
                  {this.props.rooms.map(room => 
@@ -71,6 +75,7 @@ class FormsContainer extends Component {
                         optionTeam = {this.state.optionTeam}
                         changeState = {this.props.changeState}
                         divs = {this.state.divsObj[room.id].divs}
+                        countCashAvailable = {countCashAvailable}
                     />
                 )}
                 {

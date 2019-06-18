@@ -407,6 +407,9 @@ class RoomForm extends Component {
     }
 
     render() {
+
+        console.log(this.props.countCashAvailable)
+
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         let buttonPlay = this.props.divs.butonPlay ? 'd-block' : 'd-none'
         let divTrash =  this.props.divs.divTrash ? 'd-block' : 'd-none'
@@ -430,16 +433,26 @@ class RoomForm extends Component {
                     <Modal isOpen={this.state.modal} toggle={this.toggle} autoFocus={this.state.modal} className={`${this.props.className} modal-room-to-form`}>
                     <ModalHeader toggle={this.toggle}></ModalHeader>
                     <ModalBody className='text-center question-modal'>
-                        {/* <Button onClick={()=>this.toggle()}>Cerrar</Button> */}
-                        <span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
-                        <select class="custom-select d-inline w-auto">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select>
-                        <span> ?</span>                        
+                        {
+                            this.props.countCashAvailable === 0 ?
+                            <p><b>En estos momentos no se encuentra caja disponible</b></p>:
+                            <div><span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
+                            <select class="custom-select d-inline w-auto">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                            <span> ?</span></div> 
+                        }
+                                               
                     </ModalBody>
                     <ModalFooter className='modal-buttons'>
-                        <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
+                    {
+                            this.props.countCashAvailable === 0 ? 
+                            <button className='btn' onClick={(e)=>{this.toggle(e)}}>Esperar turno</button>:
+                            <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
+
+                    }
+                        
                         <Button className='btn' onClick={this.toggle}>Cancelar</Button>
                     </ModalFooter>
                     </Modal>
