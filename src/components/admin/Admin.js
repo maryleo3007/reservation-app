@@ -146,7 +146,24 @@ class Admin extends Component {
                         sidebarState = {this.state.sidebarState}/>
                     <RegisterRooms showComponent={this.state.showComponent} sidebarState = {this.state.sidebarState}/>
                     <RegisterCash showComponent={this.state.showComponent} sidebarState = {this.state.sidebarState}/>
-                    <RoomsHeadquarters showComponent={this.state.showComponent} sidebarState = {this.state.sidebarState}/>
+                    <RoomsHeadquarters 
+                    showComponent={this.state.showComponent}
+                    rooms={this.state.roomList}
+                    cashs = {this.state.cashList}
+                    objRegister = {this.state.objRegister}
+                    changeCashState = {this.changeCashState}
+                    changeCashComponent = {this.changeCashComponent}
+                    updateDtHrInitCashForm = {this.updateDtHrInitCashForm}
+                    formCashList = {this.state.formCashList}
+                    updateTeamCash = {this.updateTeamCash}
+                    updateCommentsCash = {this.updateCommentsCash}
+                    changeState = {this.changeState}
+                    addRegister = {this.addRegister}
+                    responsable = {this.state.userName}
+                    datauser = {this.props.responsable}
+                    position = {this.props.responsable.position}
+                    sidebarState = {this.state.sidebarState}
+                    />
                 </div> 
                 {/* <div>
                     <p>Administradora</p>
