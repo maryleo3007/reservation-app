@@ -141,6 +141,7 @@ class RoomContainer extends Component {
                                 updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
                                 updateTeamCash = {this.props.updateTeamCash}
                                 updateCommentsCash = {this.props.updateCommentsCash}
+                                updateIndicatorCash = {this.props.updateIndicatorCash}
                                 changeCashComponent = {this.props.changeCashComponent}
                                 showHideFormArr = {this.state.showHideFormArr}
                                 showHideForm = {this.showHideForm}

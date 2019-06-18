@@ -16,6 +16,7 @@ class Reception extends Component {
     dbRoom = ref.child('Room/');
     dbUsers = ref.child('Users/').child(this.props.responsable.uid).child('/info');
     dbFormCash = ref.child('FormCaja/');
+    dbClients = ref.child('Clients');
 
     state = {
         showComponent: 'rooms',
@@ -29,6 +30,7 @@ class Reception extends Component {
         shownCashTwo:false,
         formCashList:[],
         sidebarState: true,
+        numberOfClients: 0
     };
 
     // mostrar componente de salas o registros
@@ -115,6 +117,12 @@ class Reception extends Component {
             })
         })
 
+        this.dbClients.on('value', snap => {
+            this.setState({
+                numberOfClients: snap.val().numberOfClients
+            })
+        })
+
         ref.child('users').child(this.props.responsable.uid).child('info').child('name').on('value', (snapshot) => {
             if (snapshot.val()) {
                 this.setState({
@@ -182,11 +190,22 @@ class Reception extends Component {
     }
 
     //actualizar hora de inicio y fecha de registro del form de caja
+    updateNumOfClients = () => {
+        if (this.state.numberOfClients > 0) {
+            let discountnumberOfClients = --this.state.numberOfClients;
+            ref.child('Clients').update({
+                numberOfClients: discountnumberOfClients
+            })
+        }
+        else return null
+    }
+
     updateDtHrInitCashForm = (key,obj) => {
         ref.child('FormCaja').child('/'+key).update({
             date: obj.date,
             hourInit:obj.hourInit
         })
+        this.updateNumOfClients();
     }
     /*********funciones para formularios de caja*********** */
     //actualizar equipo de formulario de caja
@@ -201,12 +220,18 @@ class Reception extends Component {
             comments
         })
     }
-    
+
+    updateIndicatorCash = (key, indicator) => {
+        ref.child('FormCaja').child('/'+key).update({
+            indicator
+        })
+    }
+
     render() {
 
         const showComponent = this.state.showComponent;
 
-        
+
         return ( <div className = "wrapper bg-main" >
             <Sidebar changeComponent = {this.changeComponent}
                 userImage = {this.state.userImage}
@@ -228,6 +253,7 @@ class Reception extends Component {
                     formCashList = {this.state.formCashList}
                     updateTeamCash = {this.updateTeamCash}
                     updateCommentsCash = {this.updateCommentsCash}
+                    updateIndicatorCash = {this.props.updateIndicatorCash}
                     changeState = {this.changeState}
                     addRegister = {this.addRegister}
                     responsable = {this.state.userName}

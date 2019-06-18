@@ -8,8 +8,7 @@ const Cash = (props) => {
     const functions = () => {
         if (state !== 'No disponible') {
             props.changeToGreenOrAmberCash(key,state, userId_open, formCash_id);
-            console.log(userId_open)
-            console.log(props.datauser.uid)
+            
             if((state === 'Por confirmar' && userId_open !== props.datauser.uid)){
                 console.log('no puede abrir pq esta en estado sin confirmar')
             }else{

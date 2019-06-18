@@ -53,8 +53,11 @@ class SpecialCashOne extends Component {
 
         if(this.props.currentObjCashRoom === undefined ) return null;
         if(this.props.currentObjSpecialCash === undefined ) return null;
+        if(this.props.client.numberOfClients === undefined) return null;
 
         let currentObjCashRoom =  {}; let clientAttented = this.state.clientAttented; let clientAproaching = false; let selectDisabled = true;
+        let numberOfClients = this.props.client.numberOfClients;
+
         if (Object.keys(this.props.currentObjCashRoom).length !== 0 && this.props.currentObjCashRoom !== undefined) {
             currentObjCashRoom = this.props.currentObjCashRoom
             if (currentObjCashRoom.state === 'Ocupado') {
@@ -64,7 +67,7 @@ class SpecialCashOne extends Component {
                 selectDisabled = false;
             } 
         }
-        
+
         return (
             <div className="content-specialCash px-5 py-3">
                 <div className="container">
@@ -74,7 +77,7 @@ class SpecialCashOne extends Component {
                         </div>
                         <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left  content-wait-clients h-75">
                             <div className="d-flex h-100">
-                                <div className="justify-content-center align-self-center mx-auto title-form">4 clientes</div>
+                                <div className="justify-content-center align-self-center mx-auto title-form">{numberOfClients} clientes</div>
                             </div>
                         </div>
                     </div>

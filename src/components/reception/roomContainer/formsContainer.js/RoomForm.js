@@ -3,6 +3,7 @@ import {ref} from './../../../../services/firebase';
 import {getCurrenHour, getCurrentDate} from '../../../helpers/roomHelpers'
 import Select from 'react-select';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { getDateFull, getHour} from '../../../helpers/date.js';
 
 class RoomForm extends Component {
 
@@ -15,14 +16,15 @@ class RoomForm extends Component {
         objectFb: {},
         checked: false,
         modal: false,
-        close: true
-        
-
+        close: true,
+        numberOfClients: 0,
+        cashOrderSelect: 0,
+        cashObj: {}
     }
 
     dbFormSala = ref.child('FormSala/'+this.props.room.id);
     dbRoom = ref.child('Room/'+this.props.room.key);
-
+    dbnumClients = ref.child('Clients/');
 
     // refs 
 
@@ -178,6 +180,11 @@ class RoomForm extends Component {
         
         e.preventDefault();
 
+        const objCash = {
+            date: getDateFull(),
+            hourInit: getHour()
+        }
+        
         this.objResgister(this.state.objectFb.useChecked, 'Uso de sala y caja');
         this.setState({
             checked: false
@@ -185,6 +192,11 @@ class RoomForm extends Component {
         this.changeAvailable();
         this.updateFormDafault();
         this.props.showHideForm(this.props.room.id);
+        //update for cash
+        this.props.showHideForm(parseInt(this.state.cashOrderSelect));
+        
+        this.props.changeCashState(this.state.cashObj.key,'Ocupado');
+        this.props.updateDtHrInitCashForm(this.state.cashObj.formCash_id,objCash);
     }
 
     updateRoomResponsable = (key, responsable) => {
@@ -378,8 +390,7 @@ class RoomForm extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
-        
+
         this.dbFormSala.on('value', snap => {
                 let objectFb = {
                     appoinment: snap.val().appoinment,
@@ -403,13 +414,36 @@ class RoomForm extends Component {
                 this.setState({
                     objectFb
                 })
-        })        
+        }) 
+        
+        this.dbnumClients.on('value' , snap => {
+            this.setState({
+                numberOfClients : snap.val().numberOfClients
+            })
+        })
+    }
+    //cash functions
+    addNumClientsCash = (e) => {
+        let addnumberOfClients = this.state.numberOfClients;
+        e.preventDefault();
+        this.dbnumClients.update({
+            numberOfClients: ++addnumberOfClients
+        })
+    }
+
+    getCashOrder = e => {
+        let cashCurrentObj;
+        const {name, value} = e.target;
+        this.setState({[name]:value});
+        
+        cashCurrentObj = this.props.cashList.filter(x => x.order === parseInt(value));
+        this.setState({cashObj: cashCurrentObj[0]})
+
     }
 
     render() {
-
-        console.log(this.props.countCashAvailable)
-
+        if(this.props.cashList === undefined) return null;
+ 
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         let buttonPlay = this.props.divs.butonPlay ? 'd-block' : 'd-none'
         let divTrash =  this.props.divs.divTrash ? 'd-block' : 'd-none'
@@ -437,9 +471,10 @@ class RoomForm extends Component {
                             this.props.countCashAvailable === 0 ?
                             <p><b>En estos momentos no se encuentra caja disponible</b></p>:
                             <div><span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
-                            <select class="custom-select d-inline w-auto">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
+                            <select class="custom-select d-inline w-auto" name="cashOrderSelect" onChange={this.getCashOrder}>
+                                {this.props.cashList.map((cash) => (
+                                    <option key={cash.id} value={cash.order}>{cash.id}</option>
+                                ))}
                             </select>
                             <span> ?</span></div> 
                         }
@@ -448,7 +483,7 @@ class RoomForm extends Component {
                     <ModalFooter className='modal-buttons'>
                     {
                             this.props.countCashAvailable === 0 ? 
-                            <button className='btn' onClick={(e)=>{this.toggle(e)}}>Esperar turno</button>:
+                            <button className='btn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(e)}}>Esperar turno</button>:
                             <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
 
                     }
