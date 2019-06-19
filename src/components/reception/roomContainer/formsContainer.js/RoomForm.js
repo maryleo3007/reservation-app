@@ -194,9 +194,9 @@ class RoomForm extends Component {
         this.props.showHideForm(this.props.room.id);
         //update for cash
         this.props.showHideForm(parseInt(this.state.cashOrderSelect));
-        
         this.props.changeCashState(this.state.cashObj.key,'Ocupado');
         this.props.updateDtHrInitCashForm(this.state.cashObj.formCash_id,objCash);
+        this.handleIndicatorCash(this.state.cashObj.formCash_id)    
     }
 
     updateRoomResponsable = (key, responsable) => {
@@ -387,6 +387,12 @@ class RoomForm extends Component {
           close: !this.state.close
         },
         );
+    }
+
+    handleIndicatorCash = (key) => {
+        (this.state.checked)?
+            this.props.updateIndicatorCash(key,'Esperó en sala'):
+            this.props.updateIndicatorCash(key,'Luego de cita a caja')
     }
 
     componentDidMount() {

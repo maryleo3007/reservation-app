@@ -19,10 +19,10 @@ class SpecialCashOne extends Component {
 
     updateClearCashForm = () => {
         const hourEndAttention = getHour();   
-        const {comments, date, hourAttention, hourInit, team} = this.props.currentObjFormCash;
+        const {comments, date, hourAttention, hourInit, team, appointment} = this.props.currentObjFormCash;
 
         let obj = {
-            indicator : "solo caja",
+            indicator : appointment,
             date: date,
             cash: this.props.currentObjCashRoom.title,
             hourInit: hourInit,

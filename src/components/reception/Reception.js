@@ -221,9 +221,9 @@ class Reception extends Component {
         })
     }
 
-    updateIndicatorCash = (key, indicator) => {
+    updateIndicatorCash = (key, appointment) => {
         ref.child('FormCaja').child('/'+key).update({
-            indicator
+            appointment
         })
     }
 
@@ -253,7 +253,7 @@ class Reception extends Component {
                     formCashList = {this.state.formCashList}
                     updateTeamCash = {this.updateTeamCash}
                     updateCommentsCash = {this.updateCommentsCash}
-                    updateIndicatorCash = {this.props.updateIndicatorCash}
+                    updateIndicatorCash = {this.updateIndicatorCash}
                     changeState = {this.changeState}
                     addRegister = {this.addRegister}
                     responsable = {this.state.userName}

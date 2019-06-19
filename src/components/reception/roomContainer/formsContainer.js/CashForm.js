@@ -14,6 +14,7 @@ class CashForm extends Component {
         }
         this.props.changeCashState(this.props.cash.key,'Ocupado');
         this.props.updateDtHrInitCashForm(this.props.cash.formCash_id,objCash);
+        this.props.updateIndicatorCash(this.props.cash.formCash_id,'Sólo caja')
         // this.props.changeCashComponent(this.props.cash.key,true);
     }
 

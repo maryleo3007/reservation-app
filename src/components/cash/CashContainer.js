@@ -57,8 +57,7 @@ class Cash extends Component {
     //cambia estado de caja
     changeCashStateAvailable = (key) => {
         ref.child('CashRoom').child('/'+ key).update({
-            state: 'Disponible',
-            userId_open: '',
+            state: 'Por confirmar',
             showComponent: true
         });
     }
