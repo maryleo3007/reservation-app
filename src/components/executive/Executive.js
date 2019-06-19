@@ -8,7 +8,7 @@ class ExecutiveCapital extends Component {
     dbRoom = ref.child('Room/');
 
     state = {
-        roomList: [],
+        roomList: undefined,
     };
 
     componentDidMount(){
@@ -29,51 +29,87 @@ class ExecutiveCapital extends Component {
                 this.setState({
                     roomList: arrRooms
                 })
+        console.log(this.state.roomList);
+        console.log(this.state.roomList.length);
+        
+
             })
         }) 
+        
     }
 
-    render() { 
-        return ( 
-            <div className='container-fluid bg-light h-100 p-3'>
+    showRooms=()=>{
+        const rooms = this.state.roomList 
+        if(rooms[11] === undefined ) return null
+        else {
+            const bgRoom8 = rooms[8].state === 'Ocupado' ? 'unavailable' : 'intermediate' 
+            return(
+                <div className='container-fluid bg-light h-100 p-3'>
                 <div className='bg-white main'>
                     <div>
                         Logo y hora
                     </div>
                     <div className='container-fluid px-5'>
                         <div className='row mt-5'>
-                            <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border border-top border-blue height-18 d-flex align-items-center justify-content-center text-center">
-                                <p>holi</p>
+                            <div class={`${bgRoom8} available col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border border-top border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
+                                <div>
+                                    <span className='name-room'>{rooms[8].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                             <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center">
-                                <p>holi</p>
+                                <div>
+                                    <span className='name-room'>{rooms[7].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                             <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center unavailable text-light border-selected intermediate">
-                                <p>holi</p>
+                                <div>
+                                    <span className='name-room'>{rooms[6].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                             <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center unavailable text-light border-selected intermediate">
-                                <p>holi</p>
+                                <div>
+                                    <span className='name-room'>{rooms[5].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                             <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center">
-                                <p>holi</p>
+                                <div>
+                                    <span className='name-room'>{rooms[4].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                             <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center">
-                                <p>holi</p>
+                                <div>
+                                    <span className='name-room'>{rooms[3].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                         </div>
                         <div className='row'>
                             <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-left border-lr-blue border-right border-bottom border-blue height-18 d-flex align-items-center justify-content-center text-center">
-                                <p>holi</p>
+                                <div>
+                                    <span className='name-room'>{rooms[9].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                             <div class="col-lg-2 bg-light col-xl-2 col-xs-2 col-sm-2 col-md-2 border  border-bottom-0 border-right-0 border-blue height-18 offset-md-left-medium mt-medium d-flex align-items-center d-flex justify-content-center text-center">
                             </div>
                             <div class="col-lg-2 bg-light col-xl-2 col-xs-2 col-sm-2 col-md-2 border-top border-bottom-0 border-right border-blue height-18 mt-medium">
                             </div>
                             <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 offset-md-right-medium mt-medium d-flex align-items-center justify-content-center text-center">
-                                <p>holis</p>
+                                <div>
+                                    <span className='name-room'>{rooms[10].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                             <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-left border-lr-blue border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center unavailable text-light border-selected">
-                                <p>holis</p>
+                                <div>
+                                    <span className='name-room'>{rooms[2].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                         </div>
                         <div className='row'>
@@ -84,17 +120,26 @@ class ExecutiveCapital extends Component {
                             <div class="col-lg-2 bg-light col-xl-2 col-xs-2 col-sm-2 col-md-2 border-right border-bottom border-blue height-18 d-flex align-items-center d-flex justify-content-center text-center">
                             </div>
                             <div className='col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-right border-bottom border-blue height-18 offset-md-right-medium d-flex align-items-center justify-content-center text-center'>
-                                <p>holiss</p>
+                                <div>
+                                    <span className='name-room'>{rooms[11].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                             <div className='col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-left border-bottom border-right border-blue border-lr-blue height-18 mt-medium-negative d-flex align-items-center justify-content-center text-center'>
-                                <p>holiss</p>
+                                <div>
+                                    <span className='name-room'>{rooms[1].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                         </div>
                         <div className='row'>
                             <div className='col-lg-2 bg-light col-xl-2 col-xs-2 col-sm-2 col-md-2 border-bottom border-left border-right border-top-0 border-blue height-18 mt-medium-negative'>
                             </div>
                             <div className='offset-lg-8 offset-xl-8 offset-xs-8 offset-sm-8 offset-md-8 col-lg-2 bg-light col-xl-2 col-xs-2 col-sm-2 col-md-2 border-bottom border-top-0 border-left border-right border-blue height-18 mt-medium-negative d-flex align-items-center d-flex justify-content-center text-center'>
-                                <p>holiiiss</p>
+                                <div>
+                                    <span className='name-room'>{rooms[0].title}</span>
+                                    <br/>
+                                </div>
                             </div>
                         </div>
                         <div className='row'>
@@ -109,6 +154,24 @@ class ExecutiveCapital extends Component {
                     </div>
                 </div>
             </div>
+            )
+        }
+    }
+
+
+    render() { 
+
+        let rooms = this.state.roomList
+        console.log(rooms);
+        
+
+        if(rooms === undefined) return null;
+
+        return ( 
+            
+            <React.Fragment>
+                {this.showRooms()}
+            </React.Fragment>
          );
     }
 }

@@ -51,6 +51,10 @@
     height: 2vh;
 }
 
+.name-room {
+    font-size: 1.3rem;
+}
+
 /* selected */
 
 .border-selected {
@@ -64,12 +68,12 @@
 
 /* available */
 .available {
-    background-color: rgb(241,241,242);
+    background-color: rgb(241,241,242) !important;
 }
 
 
 /* ti be comfirmed */
 
 .intermediate {
-    background-color: rgb(233,214,107);
+    background-color: rgb(233,214,107) !important;
 }
