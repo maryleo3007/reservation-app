@@ -200,6 +200,7 @@ class RoomForm extends Component {
         this.changeAvailable();
         this.updateFormDafault();
         this.props.showHideForm(this.props.room.id);
+        this.setExecutiveForRoom(' ')
         //update for cash
         this.props.showHideForm(parseInt(this.state.cashOrderSelect));
         this.props.changeCashState(this.state.cashObj.key,'Ocupado');
@@ -465,141 +466,150 @@ class RoomForm extends Component {
         let div3Buttons = this.props.divs.div3Buttons ? 'd-block' : 'd-none'
         let buttonExecutive = this.props.divs.buttonExecutive ? 'd-block' : 'd-none'
         return (
-            <div className={`form-container ${showform} py-4 px-5 bg-white mb-3`}>
-                <div className={`${divTrash} button-trash`}>
-                        <button type='reset' className='btn' onClick={(e)=>{this.resetForm(e); this.changeToBeConfirmed(e);this.setExecutiveForRoom(' ')}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                </div>            
-                <div className='text-center mt-4'>
-                    <span class='title-form-room'>{this.props.room.title}</span>
-                </div>
-                <div className='text-center'>
-                    <span class='title-form-state'>{this.props.room.state}</span>
-                </div>
-                <hr className='m-0 mb-4'/>
-                <form id={this.props.room.key}>
-                <div>               
-                    <Modal isOpen={this.state.modal} toggle={this.toggle} autoFocus={this.state.modal} className={`${this.props.className} modal-room-to-form`}>
-                    <ModalHeader toggle={this.toggle}></ModalHeader>
-                    <ModalBody className='text-center question-modal'>
+            <div>
+                {this.props.room.state === 'Disponible' ? (
+                    ''
+                )
+                : (
+                    <div className={`form-container ${showform} py-4 px-5 bg-white mb-3`}>
+                    <div className={`${divTrash} button-trash`}>
+                            <button type='reset' className='btn' onClick={(e)=>{this.resetForm(e); this.changeToBeConfirmed(e);this.setExecutiveForRoom(' ')}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </div>            
+                    <div className='text-center mt-4'>
+                        <span class='title-form-room'>{this.props.room.title}</span>
+                    </div>
+                    <div className='text-center'>
+                        <span class='title-form-state'>{this.props.room.state}</span>
+                    </div>
+                    <hr className='m-0 mb-4'/>
+                    <form id={this.props.room.key}>
+                    <div>               
+                        <Modal isOpen={this.state.modal} toggle={this.toggle} autoFocus={this.state.modal} className={`${this.props.className} modal-room-to-form`}>
+                        <ModalHeader toggle={this.toggle}></ModalHeader>
+                        <ModalBody className='text-center question-modal'>
+                            {
+                                this.props.countCashAvailable === 0 ?
+                                <p><b>En estos momentos no se encuentra caja disponible</b></p>:
+                                <div><span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
+                                <select class="custom-select d-inline w-auto" name="cashOrderSelect" onChange={this.getCashOrder}>
+                                    {this.props.cashList.map((cash) => (
+                                        <option key={cash.id} value={cash.order}>{cash.id}</option>
+                                    ))}
+                                </select>
+                                <span> ?</span></div> 
+                            }
+                                                   
+                        </ModalBody>
+                        <ModalFooter className='modal-buttons'>
                         {
-                            this.props.countCashAvailable === 0 ?
-                            <p><b>En estos momentos no se encuentra caja disponible</b></p>:
-                            <div><span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
-                            <select class="custom-select d-inline w-auto" name="cashOrderSelect" onChange={this.getCashOrder}>
-                                {this.props.cashList.map((cash) => (
-                                    <option key={cash.id} value={cash.order}>{cash.id}</option>
-                                ))}
-                            </select>
-                            <span> ?</span></div> 
+                                this.props.countCashAvailable === 0 ? 
+                                <button className='btn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(e); this.changeRoomOnHold()}}>Esperar turno</button>:
+                                <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
+    
                         }
-                                               
-                    </ModalBody>
-                    <ModalFooter className='modal-buttons'>
-                    {
-                            this.props.countCashAvailable === 0 ? 
-                            <button className='btn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(e); this.changeRoomOnHold()}}>Esperar turno</button>:
-                            <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
-
-                    }
+                            
+                            <Button className='btn' onClick={this.toggle}>Cancelar</Button>
+                        </ModalFooter>
+                        </Modal>
+                    </div>
+                    {/* inputs hidden */}
+                        <input type="hidden" className="form-control" placeholder="" ref={this.room}/>
+                        <input type="hidden" className="form-control" placeholder="" ref={this.area}/>
+                        <input type="hidden" className="form-control" placeholder="" ref={this.floor}/>
+    
+                        <div className="form-group">
                         
-                        <Button className='btn' onClick={this.toggle}>Cancelar</Button>
-                    </ModalFooter>
-                    </Modal>
-                </div>
-                {/* inputs hidden */}
-                    <input type="hidden" className="form-control" placeholder="" ref={this.room}/>
-                    <input type="hidden" className="form-control" placeholder="" ref={this.area}/>
-                    <input type="hidden" className="form-control" placeholder="" ref={this.floor}/>
-
-                    <div className="form-group">
-                    
-                    <div className={`${buttonPlay}`}>
-                        <span>Ingreso del cliente</span>
-                        <button className='ml-2 btn button-play' onClick={(e) => {this.updateHourStart(e); this.updateCollaborator(e); this.updateDate(e); this.changeOccupied(e); this.showHourHidePlay(this.state.objectFb.divs)}}><i class="fa fa-play" aria-hidden="true"></i></button>
-                    </div>
-                    <div className={`${divHourStart}`}>
-                        <span>Ingreso del cliente</span>
-                        <span className='ml-2 start-hour-user'>{this.state.objectFb.hourStart}</span>
-                        <input type="text" className="d-none" placeholder="hora de atención" ref={this.startTime} defaultValue={this.state.objectFb.hourStart}/>
-                    </div>  
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="d-none" placeholder="" ref={this.responsableRegistry} defaultValue={this.state.objectFb.collaborator}/>
-
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="d-none" placeholder="" ref={this.branchOffice} defaultValue={this.props.datauser.branchOffice}/>
-
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="d-none" placeholder="" ref={this.date}  defaultValue={this.state.objectFb.date}/>
-                    </div>
-                    <div className="form-group row">
-                        <label className='col-3'>Persona</label>
-                        <Select
-                            ref={this.person}
-                            value={this.state.objectFb.person}
-                            onChange={(e)=> this.selectPerson(e)}
-                            options={this.props.optionPerson}
-                            key={this.props.optionPerson.value}
-                            className='col-9'
-                        />
-                    </div>
-                    <div className="form-group row">
-                        <label className='col-3'>Equipo</label>
-                        <Select
-                            value={this.state.objectFb.team}
-                            onChange={this.handleChange}
-                            options={this.props.optionTeam}
-                            className='col-9'
-                        />
-                    </div>
-                    <div className="form-group row">
-                        <label className='col-3'>Cita</label><br/>
-                        <div className='col-9 pl-5'>
-                            <input className="form-check-input" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)} value='si' checked={this.state.objectFb.appoinmentBooleanY}/>
-                            <span className='ml-1'>si</span>
-                            <input className="form-check-input ml-4" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)}  value="no" checked={this.state.objectFb.appoinmentBooleanN} />
-                            <span className='ml-5'>No</span>
+                        <div className={`${buttonPlay}`}>
+                            <span>Ingreso del cliente</span>
+                            <button className='ml-2 btn button-play' onClick={(e) => {this.updateHourStart(e); this.updateCollaborator(e); this.updateDate(e); this.changeOccupied(e); this.showHourHidePlay(this.state.objectFb.divs)}}><i class="fa fa-play" aria-hidden="true"></i></button>
                         </div>
-                        <input type="text"  className="form-control d-none" placeholder="" ref={this.appointment} defaultValue={this.state.objectFb.appoinment}/>
-                    </div>                    
-                    <div className="form-group">
-                        <label>Comentario</label>
-                        <input className="form-control h-commentary" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
-                        defaultValue={this.state.objectFb.comment}/>
-                    </div>
-                    <div className="form-group">
-                        <input className="ml-1 form-check-input" type="checkbox" checked={this.state.objectFb.useChecked} onChange={(e)=>this.useCashCheckbox(e)}/>
-                        <label className="ml-4 form-check-label">
-                        Solo para uso de caja
-                        </label>
-                        <input type="text" className="d-none" placeholder="" ref={this.box} defaultValue={this.state.objectFb.use}/>
-                    </div>
-                    <div className="form-group">
-                        <input type="text"  className="d-none" placeholder="" ref={this.finalHour}/>
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="d-none" placeholder="" ref={this.executiveHour} defaultValue={this.state.objectFb.hourExecutive}/>
-                    </div>
-                    <div className={`${div3Buttons}`}>
-                        <div className='d-flex justify-content-around buttons-form'>
-                            <div className={`${buttonExecutive} btn`} onClick={() => {this.updateHourExecutive(); this.hideButtonExecutive(this.state.objectFb.divs)}}>
-                                <p><i class="fa fa-user-o" aria-hidden="true"></i></p>
-                                <p>ejecutivo</p>
+                        <div className={`${divHourStart}`}>
+                            <span>Ingreso del cliente</span>
+                            <span className='ml-2 start-hour-user'>{this.state.objectFb.hourStart}</span>
+                            <input type="text" className="d-none" placeholder="hora de atención" ref={this.startTime} defaultValue={this.state.objectFb.hourStart}/>
+                        </div>  
+                        </div>
+                        <div className="form-group">
+                            <input type="text" className="d-none" placeholder="" ref={this.responsableRegistry} defaultValue={this.state.objectFb.collaborator}/>
+    
+                        </div>
+                        <div className="form-group">
+                            <input type="text" className="d-none" placeholder="" ref={this.branchOffice} defaultValue={this.props.datauser.branchOffice}/>
+    
+                        </div>
+                        <div className="form-group">
+                            <input type="text" className="d-none" placeholder="" ref={this.date}  defaultValue={this.state.objectFb.date}/>
+                        </div>
+                        <div className="form-group row">
+                            <label className='col-3'>Persona</label>
+                            <Select
+                                ref={this.person}
+                                value={this.state.objectFb.person}
+                                onChange={(e)=> this.selectPerson(e)}
+                                options={this.props.optionPerson}
+                                key={this.props.optionPerson.value}
+                                className='col-9'
+                            />
+                        </div>
+                        <div className="form-group row">
+                            <label className='col-3'>Equipo</label>
+                            <Select
+                                value={this.state.objectFb.team}
+                                onChange={this.handleChange}
+                                options={this.props.optionTeam}
+                                className='col-9'
+                            />
+                        </div>
+                        <div className="form-group row">
+                            <label className='col-3'>Cita</label><br/>
+                            <div className='col-9 pl-5'>
+                                <input className="form-check-input" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)} value='si' checked={this.state.objectFb.appoinmentBooleanY}/>
+                                <span className='ml-1'>si</span>
+                                <input className="form-check-input ml-4" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)}  value="no" checked={this.state.objectFb.appoinmentBooleanN} />
+                                <span className='ml-5'>No</span>
                             </div>
-                            <div onClick={()=>this.toggle()} className='btn'>
-                                <p><i class="fa fa-dashcube" aria-hidden="true"></i></p>
-                                <p>Caja</p>    
-                            </div>
-                            <div onClick={()=>this.addRegister()} className='btn'>
-                                <p><i class="fa fa-sign-out" aria-hidden="true"></i></p>  
-                                <p>Salida</p>    
-                            </div>
-                        </div>                                     
-                    </div>                    
-                </form>
+                            <input type="text"  className="form-control d-none" placeholder="" ref={this.appointment} defaultValue={this.state.objectFb.appoinment}/>
+                        </div>                    
+                        <div className="form-group">
+                            <label>Comentario</label>
+                            <input className="form-control h-commentary" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
+                            defaultValue={this.state.objectFb.comment}/>
+                        </div>
+                        <div className="form-group">
+                            <input className="ml-1 form-check-input" type="checkbox" checked={this.state.objectFb.useChecked} onChange={(e)=>this.useCashCheckbox(e)}/>
+                            <label className="ml-4 form-check-label">
+                            Solo para uso de caja
+                            </label>
+                            <input type="text" className="d-none" placeholder="" ref={this.box} defaultValue={this.state.objectFb.use}/>
+                        </div>
+                        <div className="form-group">
+                            <input type="text"  className="d-none" placeholder="" ref={this.finalHour}/>
+                        </div>
+                        <div className="form-group">
+                            <input type="text" className="d-none" placeholder="" ref={this.executiveHour} defaultValue={this.state.objectFb.hourExecutive}/>
+                        </div>
+                        <div className={`${div3Buttons}`}>
+                            <div className='d-flex justify-content-around buttons-form'>
+                                <div className={`${buttonExecutive} btn`} onClick={() => {this.updateHourExecutive(); this.hideButtonExecutive(this.state.objectFb.divs)}}>
+                                    <p><i class="fa fa-user-o" aria-hidden="true"></i></p>
+                                    <p>ejecutivo</p>
+                                </div>
+                                <div onClick={()=>this.toggle()} className='btn'>
+                                    <p><i class="fa fa-dashcube" aria-hidden="true"></i></p>
+                                    <p>Caja</p>    
+                                </div>
+                                <div onClick={()=>this.addRegister()} className='btn'>
+                                    <p><i class="fa fa-sign-out" aria-hidden="true"></i></p>  
+                                    <p>Salida</p>    
+                                </div>
+                            </div>                                     
+                        </div>                    
+                    </form>
+                </div>    
+                )
+                }
             </div>
+            
          );
     }
 }
