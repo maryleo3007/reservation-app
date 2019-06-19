@@ -42,7 +42,7 @@ class ExecutiveCapital extends Component {
         const rooms = this.state.roomList 
         if(rooms[11] === undefined ) return null
         else {
-            const bgRoom8 = rooms[8].state === 'Ocupado' ? 'unavailable' : 'intermediate' 
+            const bgRoom8 = rooms[8].state === 'Ocupado' ? 'intermediate' : '' 
             return(
                 <div className='container-fluid bg-light h-100 p-3'>
                 <div className='bg-white main'>
