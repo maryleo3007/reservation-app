@@ -57,7 +57,7 @@ class RoomContainer extends Component {
 
     changeToGreenOrAmberCash = (key, state, userId_open, keyFormCash) => {
         
-        if (state === 'Disponible' && userId_open === '') {
+        if (state === 'Disponible') {
             this.dbCashRoom.child('/'+ key).update({
                 state: 'Por confirmar',
                 userId_open: this.props.datauser.uid
@@ -68,7 +68,7 @@ class RoomContainer extends Component {
             this.dbCashRoom.child('/'+key).update({
                 userId_open: this.props.datauser.uid
             })
-        } else if (state === 'Por confirmar' &&  userId_open === this.props.datauser.uid) {
+        } else if (state === 'Por confirmar') {
             this.dbCashRoom.child('/'+ key).update({
                 state: 'Disponible',
                 userId_open: ''

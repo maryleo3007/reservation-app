@@ -230,8 +230,6 @@ class Reception extends Component {
 
     render() {
 
-        const showComponent = this.state.showComponent;
-
         return ( <div className = "wrapper bg-main" >
             <Sidebar changeComponent = {this.changeComponent}
                 userImage = {this.state.userImage}

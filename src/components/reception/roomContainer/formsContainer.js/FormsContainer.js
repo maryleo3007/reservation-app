@@ -75,12 +75,12 @@ class FormsContainer extends Component {
                         optionTeam = {this.state.optionTeam}
                         changeState = {this.props.changeState}
                         divs = {this.state.divsObj[room.id].divs}
-                        datauser = {this.props.datauser}
                         countCashAvailable = {countCashAvailable}
                         cashList = {this.props.cashs}
                         changeCashState = {this.props.changeCashState}
                         updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
                         updateIndicatorCash = {this.props.updateIndicatorCash}
+                        datauser = {this.props.datauser}
                     />
                 )}
                 {
@@ -89,7 +89,7 @@ class FormsContainer extends Component {
                             key = {cash.id}
                             cash = {cash}
                             formCash = {this.props.formCashList.find( formCash => formCash.id === cash.id)}
-                            showHideFormArr = {this.props.showHideFormArr[cash.order].showRoom}
+                            showHideFormArr = {this.props.showHideFormArr}
                             showHideForm = {this.props.showHideForm}
                             changeCashState = {this.props.changeCashState}
                             changeCashComponent = {this.props.changeCashComponent}
