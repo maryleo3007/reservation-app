@@ -56,7 +56,8 @@ class RoomsHeadquarters extends Component {
 
         return (
             <div className={`${marginLeft} ${show}`}>
-                <p className='btn' onClick={()=>{this.chageHeadquarters1()}}>Oficina principal</p> <p onClick={()=>{this.chageHeadquarters2()}} className='btn'>Oficina Patio Panorama</p>
+                <p className='btn btn-primary' onClick={()=>{this.chageHeadquarters1()}}>Oficina principal</p> 
+                <p onClick={()=>{this.chageHeadquarters2()}} className='btn btn-primary'>Oficina Patio Panorama</p>
                 <div>
                     {this.state.headquarters === 'Oficina principal Inteligo' ? (
                         <div className={`room-container container-fluid`}>

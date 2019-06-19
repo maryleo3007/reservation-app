@@ -9,11 +9,11 @@ const Cash = (props) => {
         if (state !== 'No disponible') {
             props.changeToGreenOrAmberCash(key,state, userId_open, formCash_id);
             
-            if((state === 'Por confirmar' && userId_open !== props.datauser.uid)){
-                console.log('no puede abrir pq esta en estado sin confirmar')
-            }else{
-                props.showHideForm(order);
-            }
+            // if((state === 'Por confirmar' && userId_open !== props.datauser.uid)){
+            //     console.log('no puede abrir pq esta en estado sin confirmar')
+            // }else{
+            //     props.showHideForm(order);
+            // }
             props.showHideForm(order);
         }
     }
