@@ -262,7 +262,7 @@ class Reception extends Component {
                     position = {this.props.responsable.position}
                     sidebarState = {this.state.sidebarState}
                 />
-            } </div> 
+        </div> 
         )
     }
 }

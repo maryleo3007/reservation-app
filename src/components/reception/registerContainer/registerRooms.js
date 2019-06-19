@@ -3,7 +3,7 @@ import {ref} from './../../../services/firebase';
 
 class RegisterRooms extends Component {
     state = { 
-        arrRegisterRooms: ''
+        arrRegisterRooms: undefined
      }
 
     dbRegisterRoom = ref.child('roomRegister/');
@@ -28,6 +28,7 @@ class RegisterRooms extends Component {
                     room: data.val().room,
                     startTime: data.val().startTime,
                     team: data.val().team,
+                    branchOffice: data.val().branchOffice
                 }
                 arrRegisterRooms.push(roomObj);
                 this.setState({
@@ -40,13 +41,14 @@ class RegisterRooms extends Component {
     render() { 
         const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50'
         const show = this.props.showComponent ===  'registerRooms' ? 'd-block' : 'd-none'
+        if(this.state.arrRegisterRooms === undefined) return null;
         
         return ( 
             <div className={`${marginLeft} ${show} table-hover table-striped w-auto p-4`}>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col" className='title-table'>Fecha</th>
+                            <th scope="col" className='title-table'>Sala</th>
                             <th scope="col" className='title-table'>Responsable</th>
                             <th scope="col" className='title-table'>Fecha</th>
                             <th scope="col" className='title-table'>Hora de Ingreso del cliente</th>
@@ -54,44 +56,30 @@ class RegisterRooms extends Component {
                             <th scope="col" className='title-table'>Hora de Salida del Cliente</th>
                             <th scope="col" className='title-table'>Equipo</th>
                             <th scope="col" className='title-table'>Persona</th>
-                            <th scope="col" className='title-table'>Uso de caja</th>
+                            <th scope="col" className='title-table'>Uso de caja y sala</th>
                             <th scope="col" className='title-table'>Cita</th>
-                            <th scope="col" className='title-table'>Uso de sala</th>
                             <th scope="col" className='title-table'>Oficina</th>
-                            <th scope="col" className='title-table'>Comentarios</th>
+                            <th scope="col" className='title-table'>Comentario</th>
                         </tr>
                     </thead>
                     <tbody>
+                    {this.state.arrRegisterRooms.map(register => 
                         <tr>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>Mark</td>
+                            <td className='title-table'>{register.room}</td>
+                            <td className='title-table'>{register.responsableRegistry}</td>
+                            <td className='title-table'>{register.date}</td>
+                            <td className='title-table'>{register.startTime}</td>
+                            <td className='title-table'>{register.executiveHour}</td>
+                            <td className='title-table'>{register.finalHour}</td>
+                            <td className='title-table'>{register.team}</td>
+                            <td className='title-table'>{register.person}</td>
+                            <td className='title-table'>{register.box}</td>
+                            <td className='title-table'>{register.appointment}</td>
+                            <td className='title-table'>{register.branchOffice}</td>
+                            <td className='title-table'>{register.commentary}</td>
                         </tr>
-                        <tr>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>Mark</td>
-                        </tr>
+                    )}
+                        
                     </tbody>
                 </table>
             </div>
