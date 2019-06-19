@@ -66,7 +66,6 @@ class RegisterCash extends Component {
                             <td className='title-table'>{register.comment}</td>
                         </tr>
                     )}
-                        
                     </tbody>
                 </table>
             </div>
