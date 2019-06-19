@@ -5,7 +5,8 @@ import Login from './login/Login';
 import Reception from './reception/Reception';
 import ReceptionPanorama from './reception/ReceptionPanorama';
 import Cash from './cash/CashContainer';
-import Executive from './executive/Executive';
+import ExecutiveCapital from './executive/Executive';
+import ExecutivePPanorama from './executive/ExecutivePPanorama';
 import Admin from './admin/Admin';
 import Waiter from './waiter/Waiter';
 import Error from './error/Error';
@@ -80,9 +81,10 @@ function PublicRoute ({component: Component, data, ...rest}) {
       {...rest}
       render={(props) => {
         if(!data.authed) {
+          console.log(props);
+          
           return <Component {...props} />
         } else {
-          console.log(data)
             if(data.position ==='recepcionista' && data.branchOffice === '1' ) {
               return <Redirect to='/recepcion' />
             } else if (data.position ==='recepcionista' && data.branchOffice === '2') {
@@ -155,7 +157,8 @@ class App extends Component {
               <Switch>
                 <PublicRoute exact data={this.state} path='/' component={Login} />
                 <PublicRoute data={this.state} path='/register' component={Register} />
-                <PublicRoute data={this.state} path='/ejecutivo' component={Executive} />
+                <PublicRoute data={this.state} path='/ejecutivo-capital' component={ExecutiveCapital} />
+                <PublicRoute data={this.state} path='/ejecutivo-ppanorama' component={ExecutivePPanorama} />
                 <PrivateRouteReception data={this.state} path='/recepcion' component={Reception} state={this.state}/>
                 <PrivateRouteAdmin data={this.state} path={'/admin'} component={Admin} />
                 <PrivateRouteCash data={this.state} path={'/caja'} component={Cash} />

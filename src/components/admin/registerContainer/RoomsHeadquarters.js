@@ -45,6 +45,18 @@ class RoomsHeadquarters extends Component {
         })
     }
 
+    changeToGreenOrAmber=()=>{
+   
+    }
+
+    showHideForm=()=>{
+
+    }
+
+    changeToGreenOrAmberCash=()=>{
+
+    }
+
     render() {
 
         const cashArr = this.props.cashs.sort(function(a, b) {
