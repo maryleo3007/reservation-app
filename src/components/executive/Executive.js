@@ -1,7 +1,38 @@
 import React, { Component } from 'react';
+import {ref} from './../../services/firebase';
+
 import './executive.css'
 
 class ExecutiveCapital extends Component {
+
+    dbRoom = ref.child('Room/');
+
+    state = {
+        roomList: [],
+    };
+
+    componentDidMount(){
+        this.dbRoom.on('value', snap => {
+            const arrRooms = [];
+            snap.forEach(data => {
+                let roomObj = {
+                    id: data.val().id,
+                    state: data.val().state,
+                    time: data.val().time,
+                    title: data.val().title,
+                    floor: data.val().floor,
+                    executive: data.val().executive,
+                    responsable: data.val().responsable,
+                    key: data.key,
+                }
+                arrRooms.push(roomObj);
+                this.setState({
+                    roomList: arrRooms
+                })
+            })
+        }) 
+    }
+
     render() { 
         return ( 
             <div className='container-fluid bg-light h-100 p-3'>
