@@ -134,6 +134,10 @@ body {
   position: absolute;
   top: 10px;
   right: 10px;
+  color: #c6c6c6;
+  background: transparent;
+  border: 1px solid #c6c6c6;
+  cursor: pointer;
 }
 .title-form{
   font-size: 28px;

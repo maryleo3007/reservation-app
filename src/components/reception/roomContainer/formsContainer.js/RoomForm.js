@@ -18,7 +18,7 @@ class RoomForm extends Component {
         modal: false,
         close: true,
         numberOfClients: 0,
-        cashOrderSelect: 0,
+        cashOrderSelect: 13,
         cashObj: {}
     }
 
@@ -174,6 +174,8 @@ class RoomForm extends Component {
         this.changeAvailable();
         this.props.showHideForm(this.props.room.id);
         this.setExecutiveForRoom(' ')
+        //set por cash
+        this.setInitialCashObj();
     };
 
     resetForm =(e) => {
@@ -182,6 +184,8 @@ class RoomForm extends Component {
         this.setState({
             checked: false
         })
+        //reset for cash ojb
+        this.setInitialCashObj();
     }
 
     roomToCash =(e) => {
@@ -436,6 +440,9 @@ class RoomForm extends Component {
                 numberOfClients : snap.val().numberOfClients
             })
         })
+        
+        //set initial cash obj
+        this.setInitialCashObj();
     }
     //cash functions
     addNumClientsCash = (e) => {
@@ -452,8 +459,13 @@ class RoomForm extends Component {
         this.setState({[name]:value});
         
         cashCurrentObj = this.props.cashList.filter(x => x.order === parseInt(value));
-        this.setState({cashObj: cashCurrentObj[0]})
+        this.setState({cashObj: cashCurrentObj[0]});
+    }
 
+    setInitialCashObj = () => {
+        let cashInitObj;
+        cashInitObj = this.props.cashList.filter(x => x.order === 13);
+        this.setState({cashObj: cashInitObj[0]});
     }
 
     render() {
@@ -493,7 +505,7 @@ class RoomForm extends Component {
                                 <div><span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
                                 <select class="custom-select d-inline w-auto" name="cashOrderSelect" onChange={this.getCashOrder}>
                                     {this.props.cashList.map((cash) => (
-                                        <option key={cash.id} value={cash.order}>{cash.id}</option>
+                                        <option key={cash.id} value={cash.order} disabled={cash.state === 'Ocupado' ? true : null}>{cash.id}</option>
                                     ))}
                                 </select>
                                 <span> ?</span></div> 

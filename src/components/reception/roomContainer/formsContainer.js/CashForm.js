@@ -4,6 +4,10 @@ import {ref} from './../../../../services/firebase';
 
 class CashForm extends Component {
 
+    state = {
+        optionTeamList: []
+    }
+
     teamRef= React.createRef();
     commentsRef = React.createRef();
 
@@ -39,9 +43,19 @@ class CashForm extends Component {
         this.props.updateDtHrInitCashForm(this.props.cash.formCash_id, objCash);
         this.props.changeCashState(this.props.cash.key,'Por confirmar');
     }
+
+    componentDidMount () {
+        ref.child('/OptionTeam').on('value', snap => {
+            if(snap.val() !== null)  {
+                this.setState({
+                    optionTeamList : snap.val()
+                })
+            }
+        })
+    }
     
     render() {
-
+        
         if(this.props.formCash === undefined) return null; 
         const formCash = this.props.formCash;
         
@@ -49,6 +63,9 @@ class CashForm extends Component {
         const cash = this.props.cash;
         let showCustomerIncome = true; let showClass = '';
         
+        if (cash.state === 'Disponible') {
+            this.props.showHideFormArr[cash.order].showRoom = false;
+        }
         if (cash.state === 'Disponible' || cash.state === 'Por confirmar') {
             showCustomerIncome = true;
         } else if(cash.state === 'Ocupado'){
@@ -56,15 +73,8 @@ class CashForm extends Component {
         }
 
         
-        this.props.showHideFormArr ? showClass = 'd-block form-cash mb-3 bg-white' : showClass = ' d-none'
-        
-        // if (cash.showComponent ) {
-        //     showClass = ' d-none'; 
-        //     // console.log(cash.order)
-            
-        // }
-        console.log(cash.state )
-        console.log(this.props.showHideFormArr)
+        this.props.showHideFormArr[cash.order].showRoom ? showClass = 'd-block form-cash mb-3 bg-white' : showClass = ' d-none'
+        //showHideFormArr = {this.props.showHideFormArr[cash.order].showRoom}
 
         return (
                 <div>{cash.state === 'Disponible' ? (''):
