@@ -1,16 +1,99 @@
 import React, { Component } from 'react';
+import {ref} from './../../../services/firebase';
 
 class RegisterRooms extends Component {
-    state = {  }
+    state = { 
+        arrRegisterRooms: ''
+     }
+
+    dbRegisterRoom = ref.child('roomRegister/');
+
+    componentDidMount() {
+        this.dbRegisterRoom.on('value', snap => {
+            const arrRegisterRooms = [];
+            snap.forEach(data => {
+                let roomObj = {
+                    appointment: data.val().appointment,
+                    area: data.val().area,
+                    box: data.val().box,
+                    commentary: data.val().commentary,
+                    date: data.val().date,
+                    executiveHour: data.val().executiveHour,
+                    finalHour: data.val().finalHour,
+                    floor: data.floor,
+                    id: data.val().id,
+                    idRegRoom: data.val().idRegRoom,
+                    person: data.val().person,
+                    responsableRegistry: data.val().responsableRegistry,
+                    room: data.val().room,
+                    startTime: data.val().startTime,
+                    team: data.val().team,
+                }
+                arrRegisterRooms.push(roomObj);
+                this.setState({
+                    arrRegisterRooms
+                })
+            })
+        })
+    }
+    
     render() { 
         const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50'
         const show = this.props.showComponent ===  'registerRooms' ? 'd-block' : 'd-none'
         
         return ( 
-            <div className={`${marginLeft} ${show}`}>
-                <p>Desde registro de salas</p>
-                <p>Lorem Ipsum es simplemente
-                     el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p>
+            <div className={`${marginLeft} ${show} table-hover table-striped w-auto p-4`}>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" className='title-table'>Fecha</th>
+                            <th scope="col" className='title-table'>Responsable</th>
+                            <th scope="col" className='title-table'>Fecha</th>
+                            <th scope="col" className='title-table'>Hora de Ingreso del cliente</th>
+                            <th scope="col" className='title-table'>Hora de ingreso del AF</th>
+                            <th scope="col" className='title-table'>Hora de Salida del Cliente</th>
+                            <th scope="col" className='title-table'>Equipo</th>
+                            <th scope="col" className='title-table'>Persona</th>
+                            <th scope="col" className='title-table'>Uso de caja</th>
+                            <th scope="col" className='title-table'>Cita</th>
+                            <th scope="col" className='title-table'>Uso de sala</th>
+                            <th scope="col" className='title-table'>Oficina</th>
+                            <th scope="col" className='title-table'>Comentarios</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Mark</td>
+                        </tr>
+                        <tr>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>Mark</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
          );
     }
