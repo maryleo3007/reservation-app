@@ -16,6 +16,7 @@ class Reception extends Component {
     dbRoom = ref.child('Room/');
     dbUsers = ref.child('Users/').child(this.props.responsable.uid).child('/info');
     dbFormCash = ref.child('FormCaja/');
+    dbClients = ref.child('Clients');
 
     state = {
         showComponent: 'rooms',
@@ -29,6 +30,7 @@ class Reception extends Component {
         shownCashTwo:false,
         formCashList:[],
         sidebarState: true,
+        numberOfClients: 0
     };
 
     // mostrar componente de salas o registros
@@ -115,6 +117,12 @@ class Reception extends Component {
             })
         })
 
+        this.dbClients.on('value', snap => {
+            this.setState({
+                numberOfClients: snap.val().numberOfClients
+            })
+        })
+
         ref.child('users').child(this.props.responsable.uid).child('info').child('name').on('value', (snapshot) => {
             if (snapshot.val()) {
                 this.setState({
@@ -137,7 +145,6 @@ class Reception extends Component {
         e.preventDefault()
         logout()
     }
-    /*****funciones para caja */
 
     // agrega registro de formulario
     addRegister = (objRegister) => {
@@ -184,11 +191,22 @@ class Reception extends Component {
     }
 
     //actualizar hora de inicio y fecha de registro del form de caja
+    updateNumOfClients = () => {
+        if (this.state.numberOfClients > 0) {
+            let discountnumberOfClients = --this.state.numberOfClients;
+            ref.child('Clients').update({
+                numberOfClients: discountnumberOfClients
+            })
+        }
+        else return null
+    }
+
     updateDtHrInitCashForm = (key,obj) => {
         ref.child('FormCaja').child('/'+key).update({
             date: obj.date,
             hourInit:obj.hourInit
         })
+        this.updateNumOfClients();
     }
     /*********funciones para formularios de caja*********** */
     //actualizar equipo de formulario de caja
@@ -201,6 +219,12 @@ class Reception extends Component {
     updateCommentsCash = (key,comments) => {
         ref.child('FormCaja').child('/'+key).update({
             comments
+        })
+    }
+
+    updateIndicatorCash = (key, appointment) => {
+        ref.child('FormCaja').child('/'+key).update({
+            appointment
         })
     }
 
@@ -230,6 +254,7 @@ class Reception extends Component {
                     formCashList = {this.state.formCashList}
                     updateTeamCash = {this.updateTeamCash}
                     updateCommentsCash = {this.updateCommentsCash}
+                    updateIndicatorCash = {this.updateIndicatorCash}
                     changeState = {this.changeState}
                     addRegister = {this.addRegister}
                     responsable = {this.state.userName}

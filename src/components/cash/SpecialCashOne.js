@@ -6,7 +6,8 @@ class SpecialCashOne extends Component {
 
     state = {
         clientAttented : true,
-        stateValue : ''
+        stateValue : '',
+        availableClass : ''
     }
     
     updateHourAttention = () => {
@@ -18,10 +19,10 @@ class SpecialCashOne extends Component {
 
     updateClearCashForm = () => {
         const hourEndAttention = getHour();   
-        const {comments, date, hourAttention, hourInit, team} = this.props.currentObjFormCash;
+        const {comments, date, hourAttention, hourInit, team, appointment} = this.props.currentObjFormCash;
 
         let obj = {
-            indicator : "solo caja",
+            indicator : appointment,
             date: date,
             cash: this.props.currentObjCashRoom.title,
             hourInit: hourInit,
@@ -31,28 +32,42 @@ class SpecialCashOne extends Component {
             comment:comments
         }
         this.props.addRegisterCash(obj);
-        this.props.changeCashState(this.props.currentObjCashRoom.key);
+        this.props.changeCashStateAvailable(this.props.currentObjCashRoom.key);
         this.setState({clientAttented:true});
         this.props.updateClearCashForm(this.props.currentObjFormCash.key);
     }
 
     getStateSpecialCash = (e) => {
+        // let dataVal= e.target.options[e.target.selectedIndex].dataset
         let value = e.target.value;
+        this.props.changeStateSpecialCash(this.props.currentObjSpecialCash.key, value)
+        if (this.props.currentObjCashRoom.state === 'Disponible' || this.props.currentObjCashRoom.state === 'No disponible') {
+            this.props.changeStateCash(this.props.currentObjCashRoom.key, value);
+        }
+        else{
+            alert('no puede cambiar de estado cuando la caja esta en ocupado o por confirmar')
+        }
     }
 
     render() {
-        if(this.props.currentObjCashRoom === undefined ) return null;
 
-        let currentObjCashRoom =  {};
-        let clientAttented = this.state.clientAttented;
-        let clientAproaching = false;
+        if(this.props.currentObjCashRoom === undefined ) return null;
+        if(this.props.currentObjSpecialCash === undefined ) return null;
+        if(this.props.client.numberOfClients === undefined) return null;
+
+        let currentObjCashRoom =  {}; let clientAttented = this.state.clientAttented; let clientAproaching = false; let selectDisabled = true;
+        let numberOfClients = this.props.client.numberOfClients;
+
         if (Object.keys(this.props.currentObjCashRoom).length !== 0 && this.props.currentObjCashRoom !== undefined) {
             currentObjCashRoom = this.props.currentObjCashRoom
             if (currentObjCashRoom.state === 'Ocupado') {
                 clientAproaching = true
             }
+            if (currentObjCashRoom.state === 'Disponible' || currentObjCashRoom.state === 'No disponible') {
+                selectDisabled = false;
+            } 
         }
-        
+
         return (
             <div className="content-specialCash px-5 py-3">
                 <div className="container">
@@ -62,7 +77,7 @@ class SpecialCashOne extends Component {
                         </div>
                         <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left  content-wait-clients h-75">
                             <div className="d-flex h-100">
-                                <div className="justify-content-center align-self-center mx-auto title-form">4 clientes</div>
+                                <div className="justify-content-center align-self-center mx-auto title-form">{numberOfClients} clientes</div>
                             </div>
                         </div>
                     </div>
@@ -74,7 +89,6 @@ class SpecialCashOne extends Component {
                             <div className="d-flex h-100">
                                 <div className="justify-content-center align-self-center mx-auto title-form">
                                     {this.props.data.name}
-
                                 </div>
                             </div>
                         </div>
@@ -85,10 +99,10 @@ class SpecialCashOne extends Component {
                         </div>
                         <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left content-state-cash  h-75">
                             <div className="d-flex justify-content-center mt-4">
-                                <span className="box-available rounded-circle pr-3 mr-3 myState-cash"></span>
-                                <select name="stateValue" className="d-inline-block title-form" onChange={this.getStateSpecialCash}>
-                                    <option value="1">Disponible</option>
-                                    <option value="2">Ocupado</option>
+                                <span className={`${this.props.currentObjSpecialCash.state === 'Disponible' ? 'box-available' : 'box-unAvailable'} rounded-circle pr-3 mr-3 myState-cash`}></span>
+                                <select name="stateValue" className="d-inline-block title-form" onChange={this.getStateSpecialCash} disabled={selectDisabled ? true : null} value={this.props.currentObjSpecialCash.state}>
+                                    <option value="Disponible">Disponible</option>
+                                    <option value="No disponible">No disponible</option>
                                 </select>
                             </div>
                         </div>

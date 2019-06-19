@@ -3,6 +3,7 @@ import {ref} from './../../../../services/firebase';
 import {getCurrenHour, getCurrentDate} from '../../../helpers/roomHelpers'
 import Select from 'react-select';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { getDateFull, getHour} from '../../../helpers/date.js';
 
 class RoomForm extends Component {
 
@@ -15,13 +16,15 @@ class RoomForm extends Component {
         objectFb: {},
         checked: false,
         modal: false,
-        close: true
-
+        close: true,
+        numberOfClients: 0,
+        cashOrderSelect: 0,
+        cashObj: {}
     }
 
     dbFormSala = ref.child('FormSala/'+this.props.room.id);
     dbRoom = ref.child('Room/'+this.props.room.key);
-
+    dbnumClients = ref.child('Clients/');
 
     // refs 
 
@@ -185,6 +188,11 @@ class RoomForm extends Component {
         
         e.preventDefault();
 
+        const objCash = {
+            date: getDateFull(),
+            hourInit: getHour()
+        }
+        
         this.objResgister(this.state.objectFb.useChecked, 'Uso de sala y caja');
         this.setState({
             checked: false
@@ -192,7 +200,11 @@ class RoomForm extends Component {
         this.changeAvailable();
         this.updateFormDafault();
         this.props.showHideForm(this.props.room.id);
-        this.setExecutiveForRoom(' ')
+        //update for cash
+        this.props.showHideForm(parseInt(this.state.cashOrderSelect));
+        this.props.changeCashState(this.state.cashObj.key,'Ocupado');
+        this.props.updateDtHrInitCashForm(this.state.cashObj.formCash_id,objCash);
+        this.handleIndicatorCash(this.state.cashObj.formCash_id)    
     }
 
     updateRoomResponsable = (key, responsable) => {
@@ -385,9 +397,14 @@ class RoomForm extends Component {
         );
     }
 
+    handleIndicatorCash = (key) => {
+        (this.state.checked)?
+            this.props.updateIndicatorCash(key,'Esperó en sala'):
+            this.props.updateIndicatorCash(key,'Luego de cita a caja')
+    }
+
     componentDidMount() {
-        console.log(this.props);
-        
+
         this.dbFormSala.on('value', snap => {
                 let objectFb = {
                     appoinment: snap.val().appoinment,
@@ -411,10 +428,36 @@ class RoomForm extends Component {
                 this.setState({
                     objectFb
                 })
-        })        
+        }) 
+        
+        this.dbnumClients.on('value' , snap => {
+            this.setState({
+                numberOfClients : snap.val().numberOfClients
+            })
+        })
+    }
+    //cash functions
+    addNumClientsCash = (e) => {
+        let addnumberOfClients = this.state.numberOfClients;
+        e.preventDefault();
+        this.dbnumClients.update({
+            numberOfClients: ++addnumberOfClients
+        })
+    }
+
+    getCashOrder = e => {
+        let cashCurrentObj;
+        const {name, value} = e.target;
+        this.setState({[name]:value});
+        
+        cashCurrentObj = this.props.cashList.filter(x => x.order === parseInt(value));
+        this.setState({cashObj: cashCurrentObj[0]})
+
     }
 
     render() {
+        if(this.props.cashList === undefined) return null;
+ 
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         let buttonPlay = this.props.divs.butonPlay ? 'd-block' : 'd-none'
         let divTrash =  this.props.divs.divTrash ? 'd-block' : 'd-none'
@@ -438,16 +481,27 @@ class RoomForm extends Component {
                     <Modal isOpen={this.state.modal} toggle={this.toggle} autoFocus={this.state.modal} className={`${this.props.className} modal-room-to-form`}>
                     <ModalHeader toggle={this.toggle}></ModalHeader>
                     <ModalBody className='text-center question-modal'>
-                        {/* <Button onClick={()=>this.toggle()}>Cerrar</Button> */}
-                        <span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
-                        <select class="custom-select d-inline w-auto">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select>
-                        <span> ?</span>                        
+                        {
+                            this.props.countCashAvailable === 0 ?
+                            <p><b>En estos momentos no se encuentra caja disponible</b></p>:
+                            <div><span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
+                            <select class="custom-select d-inline w-auto" name="cashOrderSelect" onChange={this.getCashOrder}>
+                                {this.props.cashList.map((cash) => (
+                                    <option key={cash.id} value={cash.order}>{cash.id}</option>
+                                ))}
+                            </select>
+                            <span> ?</span></div> 
+                        }
+                                               
                     </ModalBody>
                     <ModalFooter className='modal-buttons'>
-                        <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
+                    {
+                            this.props.countCashAvailable === 0 ? 
+                            <button className='btn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(e); this.changeRoomOnHold()}}>Esperar turno</button>:
+                            <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
+
+                    }
+                        
                         <Button className='btn' onClick={this.toggle}>Cancelar</Button>
                     </ModalFooter>
                     </Modal>
