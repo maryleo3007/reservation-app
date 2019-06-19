@@ -163,7 +163,8 @@ class Reception extends Component {
             team: objRegister.team,
             responsableRegistry: objRegister.responsableRegistry,
             box: objRegister.box,
-            id: objRegister.id
+            id: objRegister.id,
+            branchOffice: objRegister.branchOffice
         })
 
         const newRegisterkey = addRegister.key
@@ -231,7 +232,6 @@ class Reception extends Component {
 
         const showComponent = this.state.showComponent;
 
-
         return ( <div className = "wrapper bg-main" >
             <Sidebar changeComponent = {this.changeComponent}
                 userImage = {this.state.userImage}
@@ -239,11 +239,12 @@ class Reception extends Component {
                 userData = {this.props.responsable}
                 logOut = {this.logOut}
                 changeSidebar = {this.changeSidebar}
-                sidebarState = {this.state.sidebarState}/> {showComponent === 'registerRooms' ?<RegisterRooms
-                sidebarState = {this.state.sidebarState}/>: showComponent === 'registerCash' ?
-                <RegisterCash 
-                sidebarState = {this.state.sidebarState}/> : 
+                sidebarState = {this.state.sidebarState}/> 
+                
+                <RegisterRooms showComponent={this.state.showComponent} sidebarState = {this.state.sidebarState}/>
+                <RegisterCash showComponent={this.state.showComponent} sidebarState = {this.state.sidebarState}/>
                 <RoomContainer
+                    showComponent={this.state.showComponent}
                     rooms={this.state.roomList}
                     cashs = {this.state.cashList}
                     objRegister = {this.state.objRegister}

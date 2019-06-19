@@ -41,6 +41,7 @@ class RoomForm extends Component {
     team = React.createRef();
     responsableRegistry = React.createRef();
     box = React.createRef();
+    branchOffice = React.createRef();
 
     changeAvailable = () => {
         // e.preventDefault();
@@ -118,6 +119,7 @@ class RoomForm extends Component {
         this.floor.current.value = this.props.room.floor;
         this.area.current.value = this.props.position;
         this.finalHour.current.value = getCurrenHour()
+
         if (this.commentary.current.value === '') {
             this.commentary.current.value = 'No hay comentarios'
         }
@@ -127,12 +129,17 @@ class RoomForm extends Component {
         if(!bool){
             this.updateUse(msg)
             this.box.current.value = msg 
-            console.log(this.box.current.value);
         } else {
             this.box.current.value = this.state.objectFb.use
-            console.log(this.box.current.value);
-
         }
+        let branchOffice = '';
+
+        if (this.props.datauser.branchOffice === '1') {
+            branchOffice = 'Oficina principal Inteligo'
+        } else if (this.props.datauser.branchOffice === '2') {
+            branchOffice = 'Oficina Patio Panorama Surco'
+        }
+
         // objeto del auto
         const objResgister = {
             startTime: this.startTime.current.value,
@@ -148,7 +155,8 @@ class RoomForm extends Component {
             team: this.state.objectFb.team.value,
             responsableRegistry: this.responsableRegistry.current.value,
             box: this.box.current.value,
-            id: this.props.room.id
+            id: this.props.room.id,
+            branchOffice: branchOffice
         };
   
       // reset form
@@ -192,6 +200,7 @@ class RoomForm extends Component {
         this.changeAvailable();
         this.updateFormDafault();
         this.props.showHideForm(this.props.room.id);
+        this.setExecutiveForRoom(' ')
         //update for cash
         this.props.showHideForm(parseInt(this.state.cashOrderSelect));
         this.props.changeCashState(this.state.cashObj.key,'Ocupado');
@@ -502,6 +511,7 @@ class RoomForm extends Component {
                     <input type="hidden" className="form-control" placeholder="" ref={this.room}/>
                     <input type="hidden" className="form-control" placeholder="" ref={this.area}/>
                     <input type="hidden" className="form-control" placeholder="" ref={this.floor}/>
+
                     <div className="form-group">
                     
                     <div className={`${buttonPlay}`}>
@@ -516,6 +526,10 @@ class RoomForm extends Component {
                     </div>
                     <div className="form-group">
                         <input type="text" className="d-none" placeholder="" ref={this.responsableRegistry} defaultValue={this.state.objectFb.collaborator}/>
+
+                    </div>
+                    <div className="form-group">
+                        <input type="text" className="d-none" placeholder="" ref={this.branchOffice} defaultValue={this.props.datauser.branchOffice}/>
 
                     </div>
                     <div className="form-group">

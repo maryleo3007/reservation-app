@@ -5,7 +5,7 @@ class RegisterContainer extends Component {
     render() {
         return (
             <div className="class-name">
-                content
+                contenido de administradora
             </div>
         );
     }

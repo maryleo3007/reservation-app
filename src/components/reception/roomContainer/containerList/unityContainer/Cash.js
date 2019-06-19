@@ -14,6 +14,7 @@ const Cash = (props) => {
             }else{
                 props.showHideForm(order);
             }
+            props.showHideForm(order);
         }
     }
     const showClass = changeState(state);

@@ -100,10 +100,12 @@ class RoomContainer extends Component {
         });
 
         const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50';
+        const show = this.props.showComponent ===  'rooms' ? 'd-block' : 'd-none'
+
 
         return (
             
-            <div className={`room-container container-fluid ${marginLeft}`}>
+            <div className={`room-container container-fluid ${marginLeft} ${show}`}>
                 <div className="row mt-3">
                     <div className="col-7">
                         <div className="roomsList-container bg-white p-3">
@@ -147,6 +149,7 @@ class RoomContainer extends Component {
                                 showHideForm = {this.showHideForm}
                                 position = {this.props.position}
                                 changeState = {this.props.changeState}
+                                datauser = {this.props.datauser}
                             />
                         </div>
                     </div>
