@@ -67,9 +67,11 @@ class RoomsHeadquarters extends Component {
         const show = this.props.showComponent ===  'rooms' ? 'd-block' : 'd-none'
 
         return (
-            <div className={`${marginLeft} ${show}`}>
-                <p className='btn btn-primary' onClick={()=>{this.chageHeadquarters1()}}>Oficina principal</p> 
-                <p onClick={()=>{this.chageHeadquarters2()}} className='btn btn-primary'>Oficina Patio Panorama</p>
+            <div className={`${marginLeft} ${show} bg-light`}>
+                <div className='d-flex ml-5 w-75 justify-content-around align-items-center pt-3'>
+                    <span className='btn selected' onClick={()=>{this.chageHeadquarters1()}}>Oficina principal</span> 
+                    <span onClick={()=>{this.chageHeadquarters2()}} className='btn not-selected'>Oficina Patio Panorama</span>
+                </div>
                 <div>
                     {this.state.headquarters === 'Oficina principal Inteligo' ? (
                         <div className={`room-container container-fluid`}>
