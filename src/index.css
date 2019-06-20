@@ -384,3 +384,13 @@ body {
   width: 230px;
   border-radius: 0px;
 }
+
+/* login for big creen */
+@media (min-width: 1500px) { 
+  .container-login div.mx-auto {
+    width: 550px
+  }
+  .container-login div.mx-auto form#form-login{
+    width: 450px
+  }
+ }
