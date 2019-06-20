@@ -43,7 +43,7 @@ class ExecutiveCapital extends Component {
         const rooms = this.state.roomList 
         if(rooms[11] === undefined ) return null
         else {
-            const bgRoom1 = rooms[1].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
+            const bgRoom1 = rooms[1].state === 'Ocupado' ? 'unavailable text-light' : 'available' 
             const bgRoom2 = rooms[2].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
             const bgRoom3 = rooms[3].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
             const bgRoom4 = rooms[4].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
