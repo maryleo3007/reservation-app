@@ -80,6 +80,7 @@ class FormsContainer extends Component {
                         changeCashState = {this.props.changeCashState}
                         updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
                         updateIndicatorCash = {this.props.updateIndicatorCash}
+                        updateNumOfClients = {this.props.updateNumOfClients}
                         datauser = {this.props.datauser}
                     />
                 )}
@@ -97,6 +98,7 @@ class FormsContainer extends Component {
                             updateTeamCash = {this.props.updateTeamCash}
                             updateCommentsCash = {this.props.updateCommentsCash}
                             updateIndicatorCash = {this.props.updateIndicatorCash}
+                            optionTeam = {this.state.optionTeam}
                         />
                     )
                 }

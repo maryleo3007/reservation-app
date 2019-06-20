@@ -209,7 +209,8 @@ class RoomForm extends Component {
         this.props.showHideForm(parseInt(this.state.cashOrderSelect));
         this.props.changeCashState(this.state.cashObj.key,'Ocupado');
         this.props.updateDtHrInitCashForm(this.state.cashObj.formCash_id,objCash);
-        this.handleIndicatorCash(this.state.cashObj.formCash_id)    
+        this.handleIndicatorCash(this.state.cashObj.formCash_id);
+        this.props.updateNumOfClients();
     }
 
     updateRoomResponsable = (key, responsable) => {

@@ -35,6 +35,7 @@ class SpecialCashOne extends Component {
         this.props.changeCashStateAvailable(this.props.currentObjCashRoom.key);
         this.setState({clientAttented:true});
         this.props.updateClearCashForm(this.props.currentObjFormCash.key);
+        this.props.updateNumOfClients();
     }
 
     getStateSpecialCash = (e) => {
