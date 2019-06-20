@@ -42,7 +42,6 @@ class CashForm extends Component {
     }
     
     handleChange = (selectedOption) => {
-        console.log(selectedOption)
         this.updateTeam(selectedOption)
     }
 
