@@ -86,36 +86,90 @@ class ExecutiveCapital extends Component {
                                 <div>
                                     <span className='name-room'>{rooms[8].title}</span>
                                     <br/>
+                                    {
+                                        rooms[8].state === 'Ocupado' ? (
+                                            <div>
+                                                <span>{rooms[8].time}</span>
+                                                <br/>
+                                                <span>{rooms[8].executive}</span>
+                                            </div>
+                                        ) : ''
+                                    }                                   
                                 </div>
                             </div>
                             <div className={`${bgRoom7} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[7].title}</span>
                                     <br/>
+                                    {
+                                        rooms[7].state === 'Ocupado' ? (
+                                            <div>
+                                                <span>{rooms[7].time}</span>
+                                                <br/>
+                                                <span>{rooms[7].executive}</span>
+                                            </div>
+                                        ) : ''
+                                    }
                                 </div>
                             </div>
                             <div className={`${bgRoom6} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[6].title}</span>
                                     <br/>
+                                    {
+                                        rooms[6].state === 'Ocupado' ? (
+                                            <div>
+                                                <span>{rooms[6].time}</span>
+                                                <br/>
+                                                <span>{rooms[6].executive}</span>
+                                            </div>
+                                        ) : ''
+                                    }
                                 </div>
                             </div>
                             <div className={`${bgRoom5} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[5].title}</span>
                                     <br/>
+                                    {
+                                        rooms[5].state === 'Ocupado' ? (
+                                            <div>
+                                                <span>{rooms[5].time}</span>
+                                                <br/>
+                                                <span>{rooms[5].executive}</span>
+                                            </div>
+                                        ) : ''
+                                    }
                                 </div>
                             </div>
                             <div className={`${bgRoom4} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[4].title}</span>
                                     <br/>
+                                    {
+                                        rooms[4].state === 'Ocupado' ? (
+                                            <div>
+                                                <span>{rooms[4].time}</span>
+                                                <br/>
+                                                <span>{rooms[4].executive}</span>
+                                            </div>
+                                        ) : ''
+                                    }
                                 </div>
                             </div>
                             <div className={`${bgRoom3} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[3].title}</span>
                                     <br/>
+                                    {
+                                        rooms[3].state === 'Ocupado' ? (
+                                            <div>
+                                                <span>{rooms[3].time}</span>
+                                                <br/>
+                                                <span>{rooms[3].executive}</span>
+                                            </div>
+                                        ) : ''
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -124,6 +178,15 @@ class ExecutiveCapital extends Component {
                                 <div>
                                     <span className='name-room'>{rooms[9].title}</span>
                                     <br/>
+                                    {
+                                        rooms[9].state === 'Ocupado' ? (
+                                            <div>
+                                                <span>{rooms[9].time}</span>
+                                                <br/>
+                                                <span>{rooms[9].executive}</span>
+                                            </div>
+                                        ) : ''
+                                    }
                                 </div>
                             </div>
                             <div className={`col-lg-2 bg-light col-xl-2 col-xs-2 col-sm-2 col-md-2 border  border-bottom-0 border-right-0 border-blue height-18 offset-md-left-medium mt-medium d-flex align-items-center d-flex justify-content-center text-center`}>
@@ -134,12 +197,30 @@ class ExecutiveCapital extends Component {
                                 <div>
                                     <span className='name-room'>{rooms[10].title}</span>
                                     <br/>
+                                    {
+                                        rooms[10].state === 'Ocupado' ? (
+                                            <div>
+                                                <span>{rooms[10].time}</span>
+                                                <br/>
+                                                <span>{rooms[10].executive}</span>
+                                            </div>
+                                        ) : ''
+                                    }
                                 </div>
                             </div>
                             <div className={`${bgRoom2} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-left border-lr-blue border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[2].title}</span>
                                     <br/>
+                                    {
+                                        rooms[2].state === 'Ocupado' ? (
+                                            <div>
+                                                <span>{rooms[2].time}</span>
+                                                <br/>
+                                                <span>{rooms[2].executive}</span>
+                                            </div>
+                                        ) : ''
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -154,12 +235,30 @@ class ExecutiveCapital extends Component {
                                 <div>
                                     <span className='name-room'>{rooms[11].title}</span>
                                     <br/>
+                                    {
+                                        rooms[11].state === 'Ocupado' ? (
+                                            <div>
+                                                <span>{rooms[11].time}</span>
+                                                <br/>
+                                                <span>{rooms[11].executive}</span>
+                                            </div>
+                                        ) : ''
+                                    }
                                 </div>
                             </div>
                             <div className={`${bgRoom1} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-left border-bottom border-right border-blue border-lr-blue height-18 mt-medium-negative d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[1].title}</span>
                                     <br/>
+                                    {
+                                        rooms[1].state === 'Ocupado' ? (
+                                            <div>
+                                                <span>{rooms[1].time}</span>
+                                                <br/>
+                                                <span>{rooms[1].executive}</span>
+                                            </div>
+                                        ) : ''
+                                    }
                                 </div>
                             </div>
                         </div>
