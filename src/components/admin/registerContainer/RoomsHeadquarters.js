@@ -66,10 +66,16 @@ class RoomsHeadquarters extends Component {
         const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50';
         const show = this.props.showComponent ===  'rooms' ? 'd-block' : 'd-none'
 
+        const buttonTabsP = this.state.headquarters === 'Oficina principal Inteligo' ? 'selected' : 'not-selected'
+        const buttonTabsPP = this.state.headquarters === 'Oficina Patio Panorama Surco' ? 'selected' : 'not-selected'
+
+
         return (
-            <div className={`${marginLeft} ${show}`}>
-                <p className='btn btn-primary' onClick={()=>{this.chageHeadquarters1()}}>Oficina principal</p> 
-                <p onClick={()=>{this.chageHeadquarters2()}} className='btn btn-primary'>Oficina Patio Panorama</p>
+            <div className={`${marginLeft} ${show} bg-light`}>
+                <div className='d-flex ml-5 w-75 justify-content-around align-items-center pt-3'>
+                    <span className={`${buttonTabsP} btn`} onClick={()=>{this.chageHeadquarters1()}}>Oficina principal</span> 
+                    <span onClick={()=>{this.chageHeadquarters2()}} className={`${buttonTabsPP} btn`}>Oficina Patio Panorama</span>
+                </div>
                 <div>
                     {this.state.headquarters === 'Oficina principal Inteligo' ? (
                         <div className={`room-container container-fluid`}>

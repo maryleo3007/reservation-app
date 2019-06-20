@@ -574,9 +574,9 @@ class RoomForm extends Component {
                         </div>
                         <div className="form-group row">
                             <label className='col-3'>Cita</label><br/>
-                            <div className='col-9 pl-5'>
+                            <div className='col-9 pl-5 checkbox-container'>
                                 <input className="form-check-input" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)} value='si' checked={this.state.objectFb.appoinmentBooleanY}/>
-                                <span className='ml-1'>si</span>
+                                <span className='ml-1'>Si</span>
                                 <input className="form-check-input ml-4" type="radio" name="exampleRadios" onClick={(e) => this.apoinmentCheckbox(e)}  value="no" checked={this.state.objectFb.appoinmentBooleanN} />
                                 <span className='ml-5'>No</span>
                             </div>
@@ -587,9 +587,9 @@ class RoomForm extends Component {
                             <input className="form-control h-commentary" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
                             defaultValue={this.state.objectFb.comment}/>
                         </div>
-                        <div className="form-group">
-                            <input className="ml-1 form-check-input" type="checkbox" checked={this.state.objectFb.useChecked} onChange={(e)=>this.useCashCheckbox(e)}/>
-                            <label className="ml-4 form-check-label">
+                        <div className="form-group checkbox-container">
+                            <input className="form-check-input" type="checkbox" checked={this.state.objectFb.useChecked} onChange={(e)=>this.useCashCheckbox(e)}/>
+                            <label className="ml-3 form-check-label">
                             Solo para uso de caja
                             </label>
                             <input type="text" className="d-none" placeholder="" ref={this.box} defaultValue={this.state.objectFb.use}/>

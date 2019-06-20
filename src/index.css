@@ -328,7 +328,7 @@ body {
   background-color: #F0F0F0;
 }
 .container-login>.row{
-  height: 72vh;
+  height: 83vh;
 }
 
 .log-out{
@@ -363,4 +363,44 @@ body {
   font-size: 13px;
 }
 
+/* buttons tabs admin */
 
+.selected {
+  background-color: #2c79be;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  width: 230px;
+  border-radius: 0px;
+}
+
+.selected:hover {
+  color: #eef1f5;
+}
+
+.not-selected {
+  background-color: rgb(230, 230, 231);
+  color: #888E9F;
+  font-size: 18px;
+  width: 230px;
+  border-radius: 0px;
+}
+
+/* login for big creen */
+@media (min-width: 1500px) { 
+  .container-login>.row{
+    height: 70vh;
+  }
+
+  .container-login div.mx-auto {
+    width: 550px
+  }
+
+  .container-login div.mx-auto h2{
+    font-size: 55px !important;
+    margin-top: 30px !important;
+    height: 0px !important;
+  }
+  .container-login div.mx-auto form#form-login{
+    width: 450px
+  }
+ }

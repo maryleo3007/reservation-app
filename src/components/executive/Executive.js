@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {ref} from './../../services/firebase';
+import logo from './../../assets/logo.png'
 
 import './executive.css'
 
@@ -42,46 +43,63 @@ class ExecutiveCapital extends Component {
         const rooms = this.state.roomList 
         if(rooms[11] === undefined ) return null
         else {
-            const bgRoom8 = rooms[8].state === 'Ocupado' ? 'unavailable' : 'intermediate' 
+            const bgRoom1 = rooms[1].state === 'Ocupado' ? 'unavailable text-light' : 'available' 
+            const bgRoom2 = rooms[2].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
+            const bgRoom3 = rooms[3].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
+            const bgRoom4 = rooms[4].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
+            const bgRoom5 = rooms[5].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
+            const bgRoom6 = rooms[6].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
+            const bgRoom7 = rooms[7].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
+            const bgRoom8 = rooms[8].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
+            const bgRoom9 = rooms[9].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
+            const bgRoom10 = rooms[10].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
+            const bgRoom11 = rooms[11].state === 'Ocupado' ? 'unavailable text-light border-selected' : 'available' 
+
             return(
                 <div className='container-fluid bg-light h-100 p-3'>
                 <div className='bg-white main'>
-                    <div>
-                        Logo y hora
+                    <div className='mx-3 pt-1 d-flex justify-content-between align-items-center'>
+                        <div>
+                            <img className='logo-inteligo' src={logo} alt='Logo Inteligo'/>
+                        </div>
+                        <div>
+                            <span>12:20 p.m</span>
+                        </div>
                     </div>
+                    <hr className='my-1'/>
                     <div className='container-fluid px-5'>
                         <div className='row mt-5'>
-                            <div class={`${bgRoom8} available col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border border-top border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
+                            <div class={`${bgRoom8} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border border-top border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[8].title}</span>
                                     <br/>
                                 </div>
                             </div>
-                            <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center">
+                            <div class={`${bgRoom7} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[7].title}</span>
                                     <br/>
                                 </div>
                             </div>
-                            <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center unavailable text-light border-selected intermediate">
+                            <div class={`${bgRoom6} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[6].title}</span>
                                     <br/>
                                 </div>
                             </div>
-                            <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center unavailable text-light border-selected intermediate">
+                            <div class={`${bgRoom5} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[5].title}</span>
                                     <br/>
                                 </div>
                             </div>
-                            <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center">
+                            <div class={`${bgRoom4} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[4].title}</span>
                                     <br/>
                                 </div>
                             </div>
-                            <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center">
+                            <div class={`${bgRoom3} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[3].title}</span>
                                     <br/>
@@ -89,23 +107,23 @@ class ExecutiveCapital extends Component {
                             </div>
                         </div>
                         <div className='row'>
-                            <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-left border-lr-blue border-right border-bottom border-blue height-18 d-flex align-items-center justify-content-center text-center">
+                            <div class={`${bgRoom9} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-left border-lr-blue border-right border-bottom border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[9].title}</span>
                                     <br/>
                                 </div>
                             </div>
-                            <div class="col-lg-2 bg-light col-xl-2 col-xs-2 col-sm-2 col-md-2 border  border-bottom-0 border-right-0 border-blue height-18 offset-md-left-medium mt-medium d-flex align-items-center d-flex justify-content-center text-center">
+                            <div class={`col-lg-2 bg-light col-xl-2 col-xs-2 col-sm-2 col-md-2 border  border-bottom-0 border-right-0 border-blue height-18 offset-md-left-medium mt-medium d-flex align-items-center d-flex justify-content-center text-center`}>
                             </div>
                             <div class="col-lg-2 bg-light col-xl-2 col-xs-2 col-sm-2 col-md-2 border-top border-bottom-0 border-right border-blue height-18 mt-medium">
                             </div>
-                            <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 offset-md-right-medium mt-medium d-flex align-items-center justify-content-center text-center">
+                            <div class={`${bgRoom10} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-top border-bottom border-right border-blue height-18 offset-md-right-medium mt-medium d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[10].title}</span>
                                     <br/>
                                 </div>
                             </div>
-                            <div class="col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-left border-lr-blue border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center unavailable text-light border-selected">
+                            <div class={`${bgRoom2} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-left border-lr-blue border-bottom border-right border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[2].title}</span>
                                     <br/>
@@ -119,13 +137,13 @@ class ExecutiveCapital extends Component {
                             </div>
                             <div class="col-lg-2 bg-light col-xl-2 col-xs-2 col-sm-2 col-md-2 border-right border-bottom border-blue height-18 d-flex align-items-center d-flex justify-content-center text-center">
                             </div>
-                            <div className='col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-right border-bottom border-blue height-18 offset-md-right-medium d-flex align-items-center justify-content-center text-center'>
+                            <div className={`${bgRoom11} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-right border-bottom border-blue height-18 offset-md-right-medium d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[11].title}</span>
                                     <br/>
                                 </div>
                             </div>
-                            <div className='col-lg-2 available col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-left border-bottom border-right border-blue border-lr-blue height-18 mt-medium-negative d-flex align-items-center justify-content-center text-center'>
+                            <div className={`${bgRoom1} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border-left border-bottom border-right border-blue border-lr-blue height-18 mt-medium-negative d-flex align-items-center justify-content-center text-center`}>
                                 <div>
                                     <span className='name-room'>{rooms[1].title}</span>
                                     <br/>

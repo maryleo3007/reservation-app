@@ -1,4 +1,4 @@
-.border-blue {
+div.border-blue {
     border-color: #30497B !important;
 }
 
@@ -53,6 +53,11 @@
 
 .name-room {
     font-size: 1.3rem;
+}
+
+.logo-inteligo {
+    height: 27px;
+    width: 110px;
 }
 
 /* selected */
