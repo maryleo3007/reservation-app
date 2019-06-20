@@ -55,6 +55,11 @@
     font-size: 1.3rem;
 }
 
+.logo-inteligo {
+    height: 27px;
+    width: 110px;
+}
+
 /* selected */
 
 .border-selected {
