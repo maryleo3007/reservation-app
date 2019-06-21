@@ -4,7 +4,7 @@ import CashPP from './unityContainer/CashPP';
 class CashListPP extends Component {
     render() {
         return (
-            <div className="cashList">
+            <div className="cashList d-flex justify-content-center">
                 {this.props.cashs.map(cash => 
                     <CashPP
                         //onToggleForm={() =>{this.props.onToggleForm(cash.id,cash.key)}}

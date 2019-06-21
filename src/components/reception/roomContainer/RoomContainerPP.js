@@ -107,9 +107,13 @@ class RoomContainerPP extends Component {
                                     changeToGreenOrAmber = {this.changeToGreenOrAmber}
                                     showHideFormArr = {this.state.showHideFormArr}
                                     showHideForm = {this.showHideForm}
+                                    cashs = {this.props.cashs}
+                                    changeToGreenOrAmberCash = {this.changeToGreenOrAmberCash}
+                                    changeCashComponent = {this.props.changeCashComponent}
+                                    datauser = {this.props.datauser}
                                 />
                             </div>
-                            <div className="cashRoomlist-container col-lg-3 col-md-3">
+                            {/* <div className="cashRoomlist-container col-lg-3 col-md-3">
                                 <CashListPP
                                     cashs = {cashArr}
                                     showHideFormArr = {this.state.showHideFormArr}
@@ -118,7 +122,7 @@ class RoomContainerPP extends Component {
                                     changeCashComponent = {this.props.changeCashComponent}
                                     datauser = {this.props.datauser}
                                 />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="col-5 px-5 py-2">
@@ -128,7 +132,7 @@ class RoomContainerPP extends Component {
                                 objRegister = {this.props.objRegister} 
                                 addRegister = {this.props.addRegister}
                                 responsable = {this.props.responsable}
-                                cashs = {cashArr}
+                                cashs = {this.props.cashs}
                                 formCashList = {this.props.formCashList}
                                 changeCashState = {this.props.changeCashState}
                                 updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
