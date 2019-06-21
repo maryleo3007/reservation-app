@@ -411,7 +411,13 @@ body {
  }
 
  .w-4pp {
-   width: 4%
+   width: 8%;
+   background-color: #e7e7e7;
+ }
+
+ .w-4pp i {
+   font-size: 30px;
+   color: #505253;
  }
 
  .col-pp {
@@ -419,5 +425,5 @@ body {
     flex: 0 0 11.5%;
  }
  .marginl-pp {
-   margin-left: 61.5%;
+   margin-left: 65.5%;
  }

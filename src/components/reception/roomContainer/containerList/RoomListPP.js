@@ -75,22 +75,6 @@ class RoomListPP extends Component {
                         />
                     </div>
                     <div className='col-pp p-0 min-height-15'>
-                        <RoomPP
-                            room={this.props.rooms[5]}
-                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[5].key ,this.props.rooms[5].state)}}
-                            responsable = {this.props.responsable}
-                            showHideFormArr = {this.props.showHideFormArr[6]}
-                            showHideForm = {this.props.showHideForm}
-                        />
-                    </div>
-                    <div className='col-pp p-0 min-height-15'>
-                        {/* <RoomPP
-                            room={this.props.rooms[4]}
-                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[4].key ,this.props.rooms[4].state)}}
-                            responsable = {this.props.responsable}
-                            showHideFormArr = {this.props.showHideFormArr[5]}
-                            showHideForm = {this.props.showHideForm}
-                        /> */}
                         <CashPP
                             //onToggleForm={() =>{this.props.onToggleForm(cash.id,cash.key)}}
                             //changeCashComponent = {()=>{this.props.changeCashComponent(cash.key,!cash.showComponent)}}
@@ -104,13 +88,6 @@ class RoomListPP extends Component {
                         />
                     </div>
                     <div className='col-pp p-0 min-height-15'>
-                        {/* <RoomPP
-                            room={this.props.rooms[5]}
-                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[5].key ,this.props.rooms[5].state)}}
-                            responsable = {this.props.responsable}
-                            showHideFormArr = {this.props.showHideFormArr[6]}
-                            showHideForm = {this.props.showHideForm}
-                        /> */}
                         <CashPP
                             //onToggleForm={() =>{this.props.onToggleForm(cash.id,cash.key)}}
                             //changeCashComponent = {()=>{this.props.changeCashComponent(cash.key,!cash.showComponent)}}
@@ -123,8 +100,17 @@ class RoomListPP extends Component {
                             datauser = {this.props.datauser}
                         />
                     </div>
-                    <div className='w-4pp p-0 min-height-15 bg-gray'>
-                        
+                    <div className='col-pp p-0 min-height-15'>
+                        <RoomPP
+                            room={this.props.rooms[5]}
+                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[5].key ,this.props.rooms[5].state)}}
+                            responsable = {this.props.responsable}
+                            showHideFormArr = {this.props.showHideFormArr[6]}
+                            showHideForm = {this.props.showHideForm}
+                        />
+                    </div>
+                    <div className='w-4pp p-0 min-height-1 d-flex justify-content-center align-items-center'>
+                        <i class="fa fa-user-o" aria-hidden="true"></i>
                     </div>
                     <div className='col-pp p-0 min-height-15'>
                         <RoomPP

@@ -98,7 +98,7 @@ class RoomContainerPP extends Component {
         return (
             <div className={`room-container container-fluid ${marginLeft} ${show}`}>
                 <div className="row mt-3">
-                    <div className="col-7">
+                    <div className="col-8">
                         <div className="roomsList-container bg-white p-3">
                             <div className="container-fluid">
                                 <RoomListPP
@@ -125,7 +125,7 @@ class RoomContainerPP extends Component {
                             </div> */}
                         </div>
                     </div>
-                    <div className="col-5 px-5 py-2">
+                    <div className="col-4 px-5 py-2">
                         <div>
                             <FormsContainerPP 
                                 rooms = {this.props.rooms}
