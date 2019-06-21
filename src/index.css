@@ -404,3 +404,20 @@ body {
     width: 450px
   }
  }
+
+
+ .hvh-50 {
+   height: 30vh;
+ }
+
+ .w-4pp {
+   width: 4%
+ }
+
+ .col-pp {
+    max-width: 12%;
+    flex: 0 0 12%;
+ }
+ .marginl-pp {
+   margin-left: 64%;
+ }

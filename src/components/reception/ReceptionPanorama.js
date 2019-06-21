@@ -260,7 +260,7 @@ class ReceptionPanorama extends Component {
                     position = {this.props.responsable.position}
                     sidebarState = {this.state.sidebarState}
                 />
-            } </div>
+            </div>
         )
     }
 }

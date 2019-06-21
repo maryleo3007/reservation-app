@@ -9,7 +9,7 @@ class RoomListPP extends Component {
         else {
         return (
             <div className="room-list">
-                <div className='row'>
+                {/* <div className='row'>
                     <div className='col-3 p-0 min-height-15'>
                         <RoomPP
                             room={this.props.rooms[3]}
@@ -47,8 +47,8 @@ class RoomListPP extends Component {
                             showHideForm = {this.props.showHideForm}
                         />
                     </div>
-                </div>
-                <div className='row'>
+                </div> */}
+                {/* <div className='row'>
                     <div className='col-3 p-0 min-height-15'>
                         <RoomPP
                             room={this.props.rooms[4]}
@@ -69,9 +69,10 @@ class RoomListPP extends Component {
                             showHideForm = {this.props.showHideForm}
                         />
                     </div>
-                </div>
+                </div> */}
+                <div className='hvh-50'></div>
                 <div className='row'>
-                    <div className='col-3 p-0 min-height-15'>
+                    <div className='col-pp p-0 min-height-15'>
                         <RoomPP
                             room={this.props.rooms[6]}
                             changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[6].key ,this.props.rooms[6].state)}}
@@ -82,7 +83,25 @@ class RoomListPP extends Component {
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col-3 p-0 min-height-15'>
+                    <div className='col-pp p-0 min-height-15'>
+                        <RoomPP
+                            room={this.props.rooms[7]}
+                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[7].key ,this.props.rooms[7].state)}}
+                            responsable = {this.props.responsable}
+                            showHideFormArr = {this.props.showHideFormArr[8]}
+                            showHideForm = {this.props.showHideForm}
+                        />
+                    </div>
+                    <div className='marginl-pp col-pp p-0 min-height-15'>
+                        <RoomPP
+                            room={this.props.rooms[7]}
+                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[7].key ,this.props.rooms[7].state)}}
+                            responsable = {this.props.responsable}
+                            showHideFormArr = {this.props.showHideFormArr[8]}
+                            showHideForm = {this.props.showHideForm}
+                        />
+                    </div>
+                    <div className='col-pp p-0 min-height-15'>
                         <RoomPP
                             room={this.props.rooms[7]}
                             changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[7].key ,this.props.rooms[7].state)}}
@@ -93,7 +112,7 @@ class RoomListPP extends Component {
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col-3 p-0 min-height-15'>
+                    <div className='col-pp p-0 min-height-15'>
                         <RoomPP
                             room={this.props.rooms[8]}
                             changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[8].key ,this.props.rooms[8].state)}}
@@ -102,7 +121,7 @@ class RoomListPP extends Component {
                             showHideForm = {this.props.showHideForm}
                         />
                     </div>
-                    <div className='col-3 p-0 min-height-15'>
+                    <div className='col-pp p-0 min-height-15'>
                         <RoomPP
                             room={this.props.rooms[9]}
                             changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[9].key ,this.props.rooms[9].state)}}
@@ -111,24 +130,69 @@ class RoomListPP extends Component {
                             showHideForm = {this.props.showHideForm}
                         />
                     </div>
-                    {/* <div className='col-3 p-0 min-height-15'>
+                    <div className='col-pp p-0 min-height-15'>
                         <RoomPP
-                            room={this.props.rooms[10]}
-                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[10].key ,this.props.rooms[10].state)}}
+                            room={this.props.rooms[9]}
+                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[9].key ,this.props.rooms[9].state)}}
                             responsable = {this.props.responsable}
-                            showHideFormArr = {this.props.showHideFormArr[11]}
+                            showHideFormArr = {this.props.showHideFormArr[10]}
                             showHideForm = {this.props.showHideForm}
                         />
                     </div>
-                    <div className='col-3 p-0 min-height-15'>
+                    <div className='col-pp p-0 min-height-15'>
                         <RoomPP
-                            room={this.props.rooms[11]}
-                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[11].key ,this.props.rooms[11].state)}}
+                            room={this.props.rooms[9]}
+                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[9].key ,this.props.rooms[9].state)}}
                             responsable = {this.props.responsable}
-                            showHideFormArr = {this.props.showHideFormArr[12]}
+                            showHideFormArr = {this.props.showHideFormArr[10]}
                             showHideForm = {this.props.showHideForm}
                         />
-                    </div> */}
+                    </div>
+                    <div className='col-pp p-0 min-height-15'>
+                        <RoomPP
+                            room={this.props.rooms[9]}
+                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[9].key ,this.props.rooms[9].state)}}
+                            responsable = {this.props.responsable}
+                            showHideFormArr = {this.props.showHideFormArr[10]}
+                            showHideForm = {this.props.showHideForm}
+                        />
+                    </div>
+                    <div className='w-4pp p-0 min-height-15 bg-gray'>
+                        <RoomPP
+                            room={this.props.rooms[9]}
+                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[9].key ,this.props.rooms[9].state)}}
+                            responsable = {this.props.responsable}
+                            showHideFormArr = {this.props.showHideFormArr[10]}
+                            showHideForm = {this.props.showHideForm}
+                        />
+                    </div>
+                    <div className='col-pp p-0 min-height-15'>
+                        <RoomPP
+                            room={this.props.rooms[9]}
+                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[9].key ,this.props.rooms[9].state)}}
+                            responsable = {this.props.responsable}
+                            showHideFormArr = {this.props.showHideFormArr[10]}
+                            showHideForm = {this.props.showHideForm}
+                        />
+                    </div>
+                    <div className='col-pp p-0 min-height-15'>
+                        <RoomPP
+                            room={this.props.rooms[9]}
+                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[9].key ,this.props.rooms[9].state)}}
+                            responsable = {this.props.responsable}
+                            showHideFormArr = {this.props.showHideFormArr[10]}
+                            showHideForm = {this.props.showHideForm}
+                        />
+                    </div>
+                    <div className='col-pp p-0 min-height-15'>
+                        <RoomPP
+                            room={this.props.rooms[9]}
+                            changeToGreenOrAmber = {() =>{this.props.changeToGreenOrAmber(this.props.rooms[9].key ,this.props.rooms[9].state)}}
+                            responsable = {this.props.responsable}
+                            showHideFormArr = {this.props.showHideFormArr[10]}
+                            showHideForm = {this.props.showHideForm}
+                        />
+                    </div>
                 </div>
             </div>
         )
