@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {ref} from './../../../services/firebase';
+// import DatePicker from 'react-bootstrap-date-picker';
 
 class RegisterCash extends Component {
     state = { 
@@ -20,7 +21,7 @@ class RegisterCash extends Component {
                     hourEnd: data.val().hourEnd,
                     hourInit: data.val().hourInit,
                     id: data.val().id,
-                    indicator: data.indicator,
+                    indicator: data.val().indicator,
                     team: data.val().team,
                 }
                 arrRegisterCash.push(roomObj);
@@ -39,6 +40,7 @@ class RegisterCash extends Component {
         
         return ( 
             <div className={`${marginLeft} ${show} table-hover table-striped w-auto p-4`}>
+                {/* <DatePicker id="example-datepicker" value={this.state.value}/> */}
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -57,7 +59,7 @@ class RegisterCash extends Component {
                     {this.state.arrRegisterCash.map(register => 
                         <tr>
                             <td className='title-table'>{register.cash}</td>
-                            <td className='title-table'>{register.data}</td>
+                            <td className='title-table'>{register.date}</td>
                             <td className='title-table'>{register.hourInit}</td>
                             <td className='title-table'>{register.hourAttention}</td>
                             <td className='title-table'>{register.hourEnd}</td>
