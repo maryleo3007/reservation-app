@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import {ref} from './../../../services/firebase';
 // import DatePicker from 'react-bootstrap-date-picker';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { registerLocale, setDefaultLocale } from  "react-datepicker";
+import es from 'date-fns/locale/es';
+registerLocale('es', es)
 
 class RegisterCash extends Component {
     state = { 
-        arrRegisterCash: undefined
+        arrRegisterCash: undefined,
+        startDate: new Date()
      }
 
     dbRegisterCash = ref.child('CashRegister/');
@@ -32,15 +38,27 @@ class RegisterCash extends Component {
         })
     }
 
+    handleChange =  (date) =>{
+        this.setState({
+          startDate: date
+        });
+      }
+
     render() { 
         const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50'
         const show = this.props.showComponent ===  'registerCash' ? 'd-block' : 'd-none'
         if(this.state.arrRegisterCash === undefined) return null;
-
+        console.log(this.state.startDate);
+        
         
         return ( 
             <div className={`${marginLeft} ${show} table-hover table-striped w-auto p-4`}>
-                {/* <DatePicker id="example-datepicker" value={this.state.value}/> */}
+                 <DatePicker
+                    locale="es"
+                    dateFormat="dd/MM/yyyy"
+                    selected={this.state.startDate}
+                    onChange={this.handleChange}
+                />
                 <table class="table table-bordered">
                     <thead>
                         <tr>
