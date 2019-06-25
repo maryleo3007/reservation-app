@@ -29,12 +29,14 @@ class SpecialCashOne extends Component {
             hourAttention: hourAttention,
             hourEnd: hourEndAttention,
             team:team,
-            comment:comments
+            comment:comments,
+            branchOffice: 2
         }
         this.props.addRegisterCash(obj);
         this.props.changeCashStateAvailable(this.props.currentObjCashRoom.key);
         this.setState({clientAttented:true});
         this.props.updateClearCashForm(this.props.currentObjFormCash.key);
+        // this.props.updateNumOfClients();
     }
 
     getStateSpecialCash = (e) => {

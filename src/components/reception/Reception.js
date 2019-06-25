@@ -206,7 +206,6 @@ class Reception extends Component {
             date: obj.date,
             hourInit:obj.hourInit
         })
-        this.updateNumOfClients();
     }
     /*********funciones para formularios de caja*********** */
     //actualizar equipo de formulario de caja
@@ -253,6 +252,7 @@ class Reception extends Component {
                     updateTeamCash = {this.updateTeamCash}
                     updateCommentsCash = {this.updateCommentsCash}
                     updateIndicatorCash = {this.updateIndicatorCash}
+                    updateNumOfClients = {this.updateNumOfClients}
                     changeState = {this.changeState}
                     addRegister = {this.addRegister}
                     responsable = {this.state.userName}

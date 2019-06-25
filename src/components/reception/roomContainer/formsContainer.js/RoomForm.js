@@ -209,7 +209,8 @@ class RoomForm extends Component {
         this.props.showHideForm(parseInt(this.state.cashOrderSelect));
         this.props.changeCashState(this.state.cashObj.key,'Ocupado');
         this.props.updateDtHrInitCashForm(this.state.cashObj.formCash_id,objCash);
-        this.handleIndicatorCash(this.state.cashObj.formCash_id)    
+        this.handleIndicatorCash(this.state.cashObj.formCash_id);
+        this.props.updateNumOfClients();
     }
 
     updateRoomResponsable = (key, responsable) => {
@@ -505,7 +506,7 @@ class RoomForm extends Component {
                                 <div><span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
                                 <select class="custom-select d-inline w-auto" name="cashOrderSelect" onChange={this.getCashOrder}>
                                     {this.props.cashList.map((cash) => (
-                                        <option key={cash.id} value={cash.order} disabled={cash.state === 'Ocupado' ? true : null}>{cash.id}</option>
+                                        <option key={cash.id} value={cash.order} disabled={cash.state === 'Ocupado' ||  cash.state === 'No disponible' ? true : null}>{cash.id}</option>
                                     ))}
                                 </select>
                                 <span> ?</span></div> 

@@ -58,3 +58,8 @@ export function getHourWithOutSecond() {
   strTime = hours + ':' + minutes + ' ' + ampm + '.';
   return strTime;
 }
+export function setDateLocale(p_date) {
+  let c_date = p_date;
+  let arr = c_date.split("/")
+  return new Date(arr[2], arr[1] - 1, arr[0]);
+}

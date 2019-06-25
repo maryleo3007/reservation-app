@@ -47,7 +47,8 @@ class Cash extends Component {
             hourAttention: obj.hourAttention,
             hourEnd: obj.hourEnd,
             team:obj.team,
-            comment:obj.comment
+            comment:obj.comment,
+            branchOffice: obj.branchOffice
         })
         const newRegister = addRegister.key;
         refRegister.child(newRegister).update({

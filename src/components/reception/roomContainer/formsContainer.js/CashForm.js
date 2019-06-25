@@ -1,12 +1,9 @@
 import React,{Component} from 'react';
 import {getDateFull, getHour} from '../../../helpers/date.js';
 import {ref} from './../../../../services/firebase';
+import Select from 'react-select';
 
 class CashForm extends Component {
-
-    state = {
-        optionTeamList: []
-    }
 
     teamRef= React.createRef();
     commentsRef = React.createRef();
@@ -43,17 +40,20 @@ class CashForm extends Component {
         this.props.updateDtHrInitCashForm(this.props.cash.formCash_id, objCash);
         this.props.changeCashState(this.props.cash.key,'Por confirmar');
     }
+    
+    handleChange = (selectedOption) => {
+        this.updateTeam(selectedOption)
+    }
 
-    componentDidMount () {
-        ref.child('/OptionTeam').on('value', snap => {
-            if(snap.val() !== null)  {
-                this.setState({
-                    optionTeamList : snap.val()
-                })
+    updateTeam = (team) => {
+        ref.child('FormCaja').update({
+            team : {
+                value: team.value,
+                label: team.value
             }
         })
     }
-    
+
     render() {
         
         if(this.props.formCash === undefined) return null; 
@@ -71,7 +71,6 @@ class CashForm extends Component {
         } else if(cash.state === 'Ocupado'){
             showCustomerIncome = false;
         }
-
         
         this.props.showHideFormArr[cash.order].showRoom ? showClass = 'd-block form-cash mb-3 bg-white' : showClass = ' d-none'
         //showHideFormArr = {this.props.showHideFormArr[cash.order].showRoom}
@@ -111,6 +110,11 @@ class CashForm extends Component {
                             <label className="col-sm-5 col-form-label">Equipo</label>
                             <div className="col-sm-7">
                                 <input type="text" className="form-control" defaultValue={formCash.team} ref={this.teamRef} onKeyUp={this.updateTeam}/>
+                                <Select
+                                onChange={this.handleChange}
+                                options={this.props.optionTeam}
+                                className='col-9'
+                                />
                             </div>
                         </div>
                         <div className="form-group row">
