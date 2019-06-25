@@ -135,9 +135,9 @@ class RoomFormPP extends Component {
         let branchOffice = '';
 
         if (this.props.datauser.branchOffice === '1') {
-            branchOffice = 1
+            branchOffice = 'Oficina principal Inteligo'
         } else if (this.props.datauser.branchOffice === '2') {
-            branchOffice = 2
+            branchOffice = 'Oficina Patio Panorama Surco'
         }
 
         // objeto del auto
