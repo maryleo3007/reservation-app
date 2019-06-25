@@ -10,7 +10,6 @@ class RoomPP extends Component {
         const classRoomAvailable = state === 'Disponible' ? 'room-available' : ''
         const classRoomToBeConfirmed = state === 'Por confirmar' ? 'room-to-be-confirmed' : ''
         const classRoomOccupied = state === 'Ocupado' ? 'room-occupied' : '' 
-        const classRoomNotAvailable = state === 'No disponible' ? 'room-not-available' : '' 
         const classRoomOnHold = state === 'En espera de caja' ? 'room-on-hold' : '' 
         const showDetails = state === 'Ocupado' || state === 'En espera de caja' ? 'd-flex' : 'd-none'
         
@@ -18,7 +17,7 @@ class RoomPP extends Component {
             <div onClick={() => {
                 this.props.changeToGreenOrAmber();
                 this.props.showHideForm(id);
-            }} atrkey={key} id={id} className={`room-content min-height-15 mb-0 ${classRoomNotAvailable} 
+            }} atrkey={key} id={id} className={`room-content min-height-15 mb-0 
             ${classRoomAvailable} ${classRoomToBeConfirmed} ${classRoomOccupied} ${classRoomOnHold}`}
             >
                 <span className='d-block'><b>{title}</b></span>

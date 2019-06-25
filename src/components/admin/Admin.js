@@ -12,6 +12,8 @@ import Sidebar from './../Sidebar';
 
 class Admin extends Component {
 
+    dbCashRoomPP = ref.child('CashRoomPP/');
+    dbRoomPP = ref.child('RoomPP/');
     dbCashRoom = ref.child('CashRoom/');
     dbRoom = ref.child('Room/');
     dbUsers = ref.child('users/').child(this.props.responsable.uid).child('/info');
@@ -20,7 +22,9 @@ class Admin extends Component {
     state = {
         showComponent: 'rooms',
         cashList: [],
+        cashListPP: [],
         roomList: [],
+        roomListPP: [],
         objRegister: {},
         showRoom: false,
         userImage: {},
@@ -73,6 +77,25 @@ class Admin extends Component {
             }) 
         })
 
+        this.dbCashRoomPP.on('value', snap => {
+            const arrCash = [];
+            snap.forEach(data =>{
+                let cashObj = {
+                id: data.val().id,
+                state: data.val().state,
+                time: data.val().time,
+                title: data.val().title,
+                key: data.key,
+                showComponent: data.val().showComponent,
+                formCash_id: data.val().formCash_id,
+                order: data.val().order,
+                userId_open: data.val().userId_open
+            }
+            arrCash.push(cashObj)
+            this.setState({cashListPP:arrCash})
+            }) 
+        })
+
 
         this.dbRoom.on('value', snap => {
             const arrRooms = [];
@@ -90,6 +113,26 @@ class Admin extends Component {
                 arrRooms.push(roomObj);
                 this.setState({
                     roomList: arrRooms
+                })
+            })
+        }) 
+
+        this.dbRoomPP.on('value', snap => {
+            const arrRooms = [];
+            snap.forEach(data => {
+                let roomObj = {
+                    id: data.val().id,
+                    state: data.val().state,
+                    time: data.val().time,
+                    title: data.val().title,
+                    floor: data.val().floor,
+                    executive: data.val().executive,
+                    responsable: data.val().responsable,
+                    key: data.key,
+                }
+                arrRooms.push(roomObj);
+                this.setState({
+                    roomListPP: arrRooms
                 })
             })
         }) 
@@ -150,6 +193,8 @@ class Admin extends Component {
                     showComponent={this.state.showComponent}
                     rooms={this.state.roomList}
                     cashs = {this.state.cashList}
+                    roomsPP={this.state.roomListPP}
+                    cashsPP = {this.state.cashListPP}
                     objRegister = {this.state.objRegister}
                     changeCashState = {this.changeCashState}
                     changeCashComponent = {this.changeCashComponent}

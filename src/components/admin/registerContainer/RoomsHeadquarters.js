@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {ref} from './../../../services/firebase';
 import RoomList from '../../reception/roomContainer/containerList/RoomsList';
 import CashList from './../../reception/roomContainer/containerList/CashList';
+import RoomListPP from '../../reception/roomContainer/containerList/RoomListPP';
+
 
 class RoomsHeadquarters extends Component {
 
@@ -29,9 +31,6 @@ class RoomsHeadquarters extends Component {
         },
         headquarters: 'Oficina principal Inteligo'
     }
-
-    dbRoom = ref.child('Room/');
-    dbCashRoom = ref.child('CashRoom/');
 
     chageHeadquarters1 =()=>{
         this.setState({
@@ -79,35 +78,53 @@ class RoomsHeadquarters extends Component {
                 <div>
                     {this.state.headquarters === 'Oficina principal Inteligo' ? (
                         <div className={`room-container container-fluid`}>
-                        <div className="row mt-3">
-                            <div className="col-6">
-                                <div className="roomsList-container bg-white p-3">
-                                    <div className="container-fluid">
-                                        <RoomList
-                                            rooms = {this.props.rooms} 
-                                            responsable = {this.props.responsable} 
-                                            changeToGreenOrAmber = {this.changeToGreenOrAmber}
-                                            showHideFormArr = {this.state.showHideFormArr}
-                                            showHideForm = {this.showHideForm}
-                                        />
-                                    </div>
-                                    <div className="cashRoomlist-container col-lg-3 col-md-3">
-                                        <CashList
-                                            cashs = {cashArr}
-                                            showHideFormArr = {this.state.showHideFormArr}
-                                            showHideForm = {this.showHideForm}
-                                            changeToGreenOrAmberCash = {this.changeToGreenOrAmberCash}
-                                            changeCashComponent = {this.props.changeCashComponent}
-                                            datauser = {this.props.datauser}
-                                        />
+                            <div className="row mt-3">
+                                <div className="col-8">
+                                    <div className="roomsList-container bg-white p-3">
+                                        <div className="container-fluid">
+                                            <RoomList
+                                                rooms = {this.props.rooms} 
+                                                responsable = {this.props.responsable} 
+                                                changeToGreenOrAmber = {this.changeToGreenOrAmber}
+                                                showHideFormArr = {this.state.showHideFormArr}
+                                                showHideForm = {this.showHideForm}
+                                            />
+                                        </div>
+                                        <div className="cashRoomlist-container col-lg-3 col-md-3">
+                                            <CashList
+                                                cashs = {cashArr}
+                                                showHideFormArr = {this.state.showHideFormArr}
+                                                showHideForm = {this.showHideForm}
+                                                changeToGreenOrAmberCash = {this.changeToGreenOrAmberCash}
+                                                changeCashComponent = {this.props.changeCashComponent}
+                                                datauser = {this.props.datauser}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     ) : this.state.headquarters === 'Oficina Patio Panorama Surco' ? (
-                        <div>
-                            salas de patio panorama
+                        <div className={`room-container container-fluid`}>
+                            <div className="row mt-3">
+                                <div className="col-12">
+                                    <div className="roomsList-container bg-white p-3">
+                                    <div className="container-fluid">
+                                            <RoomListPP
+                                                rooms = {this.props.roomsPP} 
+                                                cashs = {this.props.cashsPP}
+                                                responsable = {this.props.responsable} 
+                                                changeToGreenOrAmber = {this.changeToGreenOrAmber}
+                                                showHideFormArr = {this.state.showHideFormArr}
+                                                showHideForm = {this.showHideForm}
+                                                changeToGreenOrAmberCash = {this.changeToGreenOrAmberCash}
+                                                changeCashComponent = {this.props.changeCashComponent}
+                                                datauser = {this.props.datauser}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     ) : ''}
                     

@@ -6,9 +6,7 @@ import CashPP from './unityContainer/CashPP';
 
 class RoomListPP extends Component {
 
-    showRooms = () => {
-        console.log(this.props.cashs);
-        
+    showRooms = () => {        
         if(this.props.cashs[1] === undefined) return null
         
         else {
