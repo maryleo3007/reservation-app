@@ -425,3 +425,25 @@ body {
   width: 163px;
 }
 
+
+ .hvh-50 {
+   height: 30vh;
+ }
+
+ .w-4pp {
+   width: 8%;
+   background-color: #e7e7e7;
+ }
+
+ .w-4pp i {
+   font-size: 30px;
+   color: #505253;
+ }
+
+ .col-pp {
+    max-width: 11.5%;
+    flex: 0 0 11.5%;
+ }
+ .marginl-pp {
+   margin-left: 65.5%;
+ }

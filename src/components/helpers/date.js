@@ -45,3 +45,20 @@ export function setDateLocale(p_date) {
   let arr = c_date.split("/")
   return new Date(arr[2], arr[1] - 1, arr[0]);
 }
+export function getHourWithOutSecond() {
+  let today = '';
+  let hours = '';
+  let minutes = '';
+  let ampm = '';
+  let strTime = '';
+
+  today = new Date();
+  hours = today.getHours();
+  minutes = today.getMinutes();
+  ampm = hours >= 12 ? 'p.m' : 'a.m';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  strTime = hours + ':' + minutes + ' ' + ampm + '.';
+  return strTime;
+}
