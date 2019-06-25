@@ -11,8 +11,7 @@ class RegisterCash extends Component {
     state = { 
         arrRegisterCash: undefined,
         startDate: new Date(),
-        endDate: new Date(),
-        branchOffice: 1
+        endDate: new Date()
      }
 
     dbRegisterCash = ref.child('CashRegister/');
@@ -31,6 +30,7 @@ class RegisterCash extends Component {
                     id: data.val().id,
                     indicator: data.val().indicator,
                     team: data.val().team,
+                    branchOffice: data.val().branchOffice
                 }
                 arrRegisterCash.push(roomObj);
                 this.setState({
@@ -54,51 +54,74 @@ class RegisterCash extends Component {
     };
 
     filterDays = (p_startDate, p_endDate) => {
+        const arrRegisterCash = [];
+        this.dbRegisterCash.on('value', snap => {
+            snap.forEach(data => {
+                let roomObj = {
+                    cash: data.val().cash,
+                    comment: data.val().comment,
+                    date: data.val().date,
+                    hourAttention: data.val().hourAttention,
+                    hourEnd: data.val().hourEnd,
+                    hourInit: data.val().hourInit,
+                    id: data.val().id,
+                    indicator: data.val().indicator,
+                    team: data.val().team,
+                    branchOffice: data.val().branchOffice
+                }
+                arrRegisterCash.push(roomObj);
+            })
+        })
 
-        let result = this.state.arrRegisterCash.filter( (item) => { 
+        let result = arrRegisterCash.filter( (item) => { 
             return setDateLocale(item.date) >= p_startDate && setDateLocale(item.date) <= p_endDate; 
-         })
+        })
         
         this.setState({arrRegisterCash: result})
          
     }
 
-    changeBranchOffice = (branchOffice) => this.setState({branchOffice})
-
-
     render() { 
         if(this.state.arrRegisterCash === undefined) return null;
         const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50';
         const show = this.props.showComponent ===  'registerCash' ? 'd-block' : 'd-none';
-        const buttonTabsP = this.state.branchOffice === 1 ? 'selected' : 'not-selected';
-        const buttonTabsPP = this.state.branchOffice === 2 ? 'selected' : 'not-selected';
 
         return ( 
             <div className={`${marginLeft} ${show} table-hover table-striped w-auto p-4`}>
-                <div className='d-flex ml-5 w-75 justify-content-around align-items-center pt-3'>
-                    <span className={`${buttonTabsP} btn`} onClick={()=>{this.changeBranchOffice(1)}}>Oficina principal</span> 
-                    <span className={`${buttonTabsPP} btn`} onClick={()=>{this.changeBranchOffice(2)}} >Oficina Patio Panorama</span>
-                </div>
+                <div className="f-date p-3 mb-4">
+                     <div className="row">
+                         <div className="col-4">
+                            <label className="pr-3"> Fecha Inicio</label>
+                            <DatePicker
+                                locale="es"
+                                dateFormat="dd/MM/yyyy"
+                                selected={this.state.startDate}
+                                selectsStart
+                                startDate={this.state.startDate}
+                                endDate={this.state.endDate}
+                                onChange={this.handleChangeStart}
+                                calendarClassName="date-stripes"
+                            />
+                         </div>
+                         <div className="col-4">
+                            <label className="pr-3"> Fecha Fin</label>
+                            <DatePicker
+                                locale="es"
+                                dateFormat="dd/MM/yyyy"
+                                selected={this.state.endDate}
+                                selectsEnd
+                                startDate={this.state.startDate}
+                                endDate={this.state.endDate}
+                                onChange={this.handleChangeEnd}
+                                minDate={this.state.startDate}
+                                calendarClassName="date-stripes"
+                            />
+                         </div>
+                     </div>
+                    
+                    
+                 </div>
                  
-                 <DatePicker
-                    locale="es"
-                    dateFormat="dd/MM/yyyy"
-                    selected={this.state.startDate}
-                    selectsStart
-                    startDate={this.state.startDate}
-                    endDate={this.state.endDate}
-                    onChange={this.handleChangeStart}
-                />
-                <DatePicker
-                    locale="es"
-                    dateFormat="dd/MM/yyyy"
-                    selected={this.state.endDate}
-                    selectsEnd
-                    startDate={this.state.startDate}
-                    endDate={this.state.endDate}
-                    onChange={this.handleChangeEnd}
-                    minDate={this.state.startDate}
-                />
                 <table class="table table-bordered">
                     <thead>
                         <tr>
