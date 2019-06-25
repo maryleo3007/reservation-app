@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {ref} from './../../../services/firebase';
-// import DatePicker from 'react-bootstrap-date-picker';
+import { setDateLocale } from './../../helpers/date';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
@@ -10,7 +10,9 @@ registerLocale('es', es)
 class RegisterCash extends Component {
     state = { 
         arrRegisterCash: undefined,
-        startDate: new Date()
+        startDate: new Date(),
+        endDate: new Date(),
+        branchOffice: 1
      }
 
     dbRegisterCash = ref.child('CashRegister/');
@@ -38,26 +40,64 @@ class RegisterCash extends Component {
         })
     }
 
-    handleChange =  (date) =>{
-        this.setState({
-          startDate: date
-        });
-      }
+    handleChange = ({ startDate, endDate }) => {
+        startDate = startDate || this.state.startDate;
+        endDate = endDate || this.state.endDate;
+        this.setState({ startDate, endDate });
+    };
+
+    handleChangeStart = startDate => this.handleChange({ startDate });
+
+    handleChangeEnd = endDate => {
+        this.handleChange({ endDate })
+        this.filterDays(this.state.startDate, endDate)
+    };
+
+    filterDays = (p_startDate, p_endDate) => {
+
+        let result = this.state.arrRegisterCash.filter( (item) => { 
+            return setDateLocale(item.date) >= p_startDate && setDateLocale(item.date) <= p_endDate; 
+         })
+        
+        this.setState({arrRegisterCash: result})
+         
+    }
+
+    changeBranchOffice = (branchOffice) => this.setState({branchOffice})
+
 
     render() { 
-        const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50'
-        const show = this.props.showComponent ===  'registerCash' ? 'd-block' : 'd-none'
         if(this.state.arrRegisterCash === undefined) return null;
-        console.log(this.state.startDate);
-        
-        
+        const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50';
+        const show = this.props.showComponent ===  'registerCash' ? 'd-block' : 'd-none';
+        const buttonTabsP = this.state.branchOffice === 1 ? 'selected' : 'not-selected';
+        const buttonTabsPP = this.state.branchOffice === 2 ? 'selected' : 'not-selected';
+
         return ( 
             <div className={`${marginLeft} ${show} table-hover table-striped w-auto p-4`}>
+                <div className='d-flex ml-5 w-75 justify-content-around align-items-center pt-3'>
+                    <span className={`${buttonTabsP} btn`} onClick={()=>{this.changeBranchOffice(1)}}>Oficina principal</span> 
+                    <span className={`${buttonTabsPP} btn`} onClick={()=>{this.changeBranchOffice(2)}} >Oficina Patio Panorama</span>
+                </div>
+                 
                  <DatePicker
                     locale="es"
                     dateFormat="dd/MM/yyyy"
                     selected={this.state.startDate}
-                    onChange={this.handleChange}
+                    selectsStart
+                    startDate={this.state.startDate}
+                    endDate={this.state.endDate}
+                    onChange={this.handleChangeStart}
+                />
+                <DatePicker
+                    locale="es"
+                    dateFormat="dd/MM/yyyy"
+                    selected={this.state.endDate}
+                    selectsEnd
+                    startDate={this.state.startDate}
+                    endDate={this.state.endDate}
+                    onChange={this.handleChangeEnd}
+                    minDate={this.state.startDate}
                 />
                 <table class="table table-bordered">
                     <thead>
