@@ -25,6 +25,10 @@ class Cash extends Component {
     }
     //actualizar hora final de atención del form de caja
     updateClearCashForm = (key) => {
+        const teamObj = {
+            label: '',
+            value: ''
+        }
         ref.child('FormCaja').child('/'+key).update({
             appointment: "",
             date:"",
@@ -32,8 +36,8 @@ class Cash extends Component {
             hourInit:"00:00:00",
             hourEnd: "",
             hourAttention:"00:00:00",
-            team:"",
-            comments:"No hay comentarios"
+            team:teamObj,
+            comments:""
         })
     }
     //agregar registro de caja

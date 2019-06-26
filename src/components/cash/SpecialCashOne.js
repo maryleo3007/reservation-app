@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-import {getHour} from './../helpers/date.js';
+import { getHour } from './../helpers/date.js';
+import { changeNameBranchOffice} from './../helpers/receptionHelper';
 import './cashComponent.css';
 
 class SpecialCashOne extends Component {
@@ -18,8 +19,11 @@ class SpecialCashOne extends Component {
     }
 
     updateClearCashForm = () => {
+        console.log(this.props.data.branchOffice)
         const hourEndAttention = getHour();   
         const {comments, date, hourAttention, hourInit, team, appointment} = this.props.currentObjFormCash;
+        
+        let branchOfficeName = changeNameBranchOffice(this.props.data.branchOffice);
 
         let obj = {
             indicator : appointment,
@@ -28,10 +32,11 @@ class SpecialCashOne extends Component {
             hourInit: hourInit,
             hourAttention: hourAttention,
             hourEnd: hourEndAttention,
-            team:team,
+            team:team.value,
             comment:comments,
-            branchOffice: 2
+            branchOffice: branchOfficeName
         }
+
         this.props.addRegisterCash(obj);
         this.props.changeCashStateAvailable(this.props.currentObjCashRoom.key);
         this.setState({clientAttented:true});

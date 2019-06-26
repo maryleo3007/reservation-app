@@ -399,7 +399,11 @@ class RoomForm extends Component {
         this.setState({
           modal: !this.state.modal,
           close: !this.state.close
-        },
+        },()=> {
+            if(this.state.modal){ 
+                this.setInitialCashObj()
+            }
+        } 
         );
     }
 
@@ -460,13 +464,21 @@ class RoomForm extends Component {
         this.setState({[name]:value});
         
         cashCurrentObj = this.props.cashList.filter(x => x.order === parseInt(value));
+        
         this.setState({cashObj: cashCurrentObj[0]});
     }
 
     setInitialCashObj = () => {
         let cashInitObj;
-        cashInitObj = this.props.cashList.filter(x => x.order === 13);
-        this.setState({cashObj: cashInitObj[0]});
+        cashInitObj = this.props.cashList.filter(x => x.state === 'Disponible');
+        
+        if(cashInitObj.length !== 0){
+            this.setState({
+                cashObj: cashInitObj[0],
+                cashOrderSelect: cashInitObj[0].order
+            });
+        }
+        
     }
 
     render() {
@@ -516,7 +528,7 @@ class RoomForm extends Component {
                         <ModalFooter className='modal-buttons'>
                         {
                                 this.props.countCashAvailable === 0 ? 
-                                <button className='btn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(e); this.changeRoomOnHold()}}>Esperar turno</button>:
+                                <button className='btn btn-wait-turn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(e); this.changeRoomOnHold()}}>Esperar turno</button>:
                                 <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
     
                         }

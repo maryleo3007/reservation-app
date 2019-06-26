@@ -159,7 +159,7 @@ body {
 .btn-play:focus {
   outline: 0;
 }
-.form-cash .form-control {
+.form-cash .form-control,  .form-cash .css-bg1rzq-control{
   border: none;
   border-radius: 0;
   box-shadow: 0px 4px 8px #c1c1c1;
@@ -424,7 +424,9 @@ body {
   color: #888e9f !important;
   width: 163px;
 }
-
+.btn-wait-turn{
+  min-width: 145px;
+}
 
  .hvh-50 {
    height: 30vh;

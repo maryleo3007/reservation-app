@@ -40,10 +40,15 @@ export function getHour() {
     strTime = hours + ':' + minutes + ':'+seconds +' ' + ampm;
     return strTime;
 }
-export function setDateLocale(p_date) {
-  let c_date = p_date;
+export function setDateLocaleStart(p_starDate) {
+  let c_date = p_starDate;
   let arr = c_date.split("/")
   return new Date(arr[2], arr[1] - 1, arr[0], 23, 59, 59, 59);
+}
+export function setDateLocaleEnd(p_endDate) {
+  let c_date = p_endDate;
+  let arr = c_date.split("/")
+  return new Date(arr[2], arr[1] - 1, arr[0]);
 }
 export function getHourWithOutSecond() {
   let today = '';

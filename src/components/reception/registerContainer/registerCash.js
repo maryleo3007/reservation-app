@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {ref} from './../../../services/firebase';
-import { setDateLocale } from './../../helpers/date';
+import { setDateLocaleStart, setDateLocaleEnd } from './../../helpers/date';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
@@ -72,11 +72,8 @@ class RegisterCash extends Component {
                 arrRegisterCash.push(roomObj);
             })
         })
-            
         let result = arrRegisterCash.filter( (item) => { 
-            
-            
-            return setDateLocale(item.date) >= p_startDate && setDateLocale(item.date) <= p_endDate; 
+            return setDateLocaleStart(item.date) >= p_startDate && setDateLocaleEnd(item.date) <= p_endDate; 
         })
         
         this.setState({arrRegisterCash: result})

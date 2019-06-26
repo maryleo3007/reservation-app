@@ -516,7 +516,7 @@ class RoomFormPP extends Component {
                         <ModalFooter className='modal-buttons'>
                         {
                                 this.props.countCashAvailable === 0 ? 
-                                <button className='btn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(e); this.changeRoomOnHold()}}>Esperar turno</button>:
+                                <button className='btn btn-wait-turn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(e); this.changeRoomOnHold()}}>Esperar turno</button>:
                                 <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
     
                         }

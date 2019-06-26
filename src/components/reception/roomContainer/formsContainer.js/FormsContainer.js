@@ -56,8 +56,6 @@ class FormsContainer extends Component {
     render() { 
         if(this.props.formCashList === undefined) return null;
         if(this.props.cashs === undefined) return null;
-        console.log(this.state.divsObj);
-        
 
         let countCashAvailable = this.props.cashs.filter(x => x.state === 'Disponible').length
         

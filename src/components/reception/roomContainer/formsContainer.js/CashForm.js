@@ -5,6 +5,10 @@ import Select from 'react-select';
 
 class CashForm extends Component {
 
+    state = {
+        cashFormObj: {}
+    }
+
     teamRef= React.createRef();
     commentsRef = React.createRef();
 
@@ -19,14 +23,11 @@ class CashForm extends Component {
         // this.props.changeCashComponent(this.props.cash.key,true);
     }
 
-    updateTeam = (e) =>{
-        e.preventDefault();
-        this.props.updateTeamCash(this.props.cash.formCash_id,this.teamRef.current.value)
-    }
-    
     updateComements = (e) => {
-        e.preventDefault();
-        this.props.updateCommentsCash(this.props.cash.formCash_id, this.commentsRef.current.value)
+        // this.props.updateCommentsCash(this.props.cash.formCash_id, val)
+        ref.child(`FormCaja/${this.props.cash.formCash_id}`).update({
+            comments : e.target.value
+        });
     }
     //limpia el formulario de caja
     resetFormCash = (e) => {
@@ -35,7 +36,11 @@ class CashForm extends Component {
             date:'',
             hourInit: ''
         }
-        this.props.updateTeamCash(this.props.cash.formCash_id,'');
+        const objTeam = {
+            label : '',
+            value: ''
+        }
+        this.updateTeam(objTeam);
         this.props.updateCommentsCash(this.props.cash.formCash_id, '');
         this.props.updateDtHrInitCashForm(this.props.cash.formCash_id, objCash);
         this.props.changeCashState(this.props.cash.key,'Por confirmar');
@@ -46,12 +51,24 @@ class CashForm extends Component {
     }
 
     updateTeam = (team) => {
-        ref.child('FormCaja').update({
+        ref.child(`FormCaja/${this.props.cash.formCash_id}`).update({
             team : {
                 value: team.value,
                 label: team.value
             }
         })
+    }
+
+    componentDidMount () {
+        ref.child(`FormCaja/${this.props.cash.formCash_id}`).on('value', snap => {
+            let cashFormObj = {
+                team: snap.val().team,
+                comments: snap.val().comments
+            }
+            this.setState({
+                cashFormObj
+            })
+        }) 
     }
 
     render() {
@@ -109,18 +126,17 @@ class CashForm extends Component {
                         <div className="form-group row">
                             <label className="col-sm-5 col-form-label">Equipo</label>
                             <div className="col-sm-7">
-                                <input type="text" className="form-control" defaultValue={formCash.team} ref={this.teamRef} onKeyUp={this.updateTeam}/>
                                 <Select
+                                value = { this.state.cashFormObj.team }
                                 onChange={this.handleChange}
                                 options={this.props.optionTeam}
-                                className='col-9'
                                 />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-5 col-form-label">Comentarios</label>
                             <div className="col-sm-12">
-                            <textarea className="form-control" rows="3" defaultValue={formCash.comments} ref={this.commentsRef} onKeyUp={this.updateComements}></textarea>
+                            <textarea className="form-control" rows="3" defaultValue={this.state.cashFormObj.comments} ref={this.commentsRef} onKeyUp={this.updateComements}></textarea>
                             </div>
                         </div>
                     </div>
