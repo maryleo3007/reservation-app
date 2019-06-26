@@ -21,8 +21,8 @@ const CashPP = (props) => {
     const showClass = changeState(state);
 
     return (
-        <div className={`room-content min-height-15 mb-0 ${showClass}`}  onClick={functions}>
-            <div className=" d-flex h-100">
+        <div className={`room-content min-height-15 h-100 mb-0 ${showClass}`}  onClick={functions}>
+            <div className=" d-flex h-100 border-cash-dif">
                 <div className="row justify-content-center align-self-center mx-auto text-capitalize">
                     {title}
                 </div>
