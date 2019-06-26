@@ -72,8 +72,10 @@ class RegisterCash extends Component {
                 arrRegisterCash.push(roomObj);
             })
         })
-
+            
         let result = arrRegisterCash.filter( (item) => { 
+            
+            
             return setDateLocale(item.date) >= p_startDate && setDateLocale(item.date) <= p_endDate; 
         })
         

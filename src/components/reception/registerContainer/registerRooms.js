@@ -87,8 +87,9 @@ class RegisterRooms extends Component {
                 })
             })
         })
-
+        console.log(p_startDate)
         let result = arrRegisterRooms.filter( (item) => { 
+            console.log(setDateLocale(item.date))
             return setDateLocale(item.date) >= p_startDate && setDateLocale(item.date) <= p_endDate; 
         })
         

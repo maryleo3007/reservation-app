@@ -43,7 +43,7 @@ export function getHour() {
 export function setDateLocale(p_date) {
   let c_date = p_date;
   let arr = c_date.split("/")
-  return new Date(arr[2], arr[1] - 1, arr[0]);
+  return new Date(arr[2], arr[1] - 1, arr[0], 23, 59, 59, 59);
 }
 export function getHourWithOutSecond() {
   let today = '';

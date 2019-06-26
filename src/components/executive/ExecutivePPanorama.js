@@ -107,7 +107,7 @@ class ExecutivePPanorama extends Component {
                                             }                                   
                                         </div>
                                     </div>
-                                    <div className={`${bgRoom1} col-lg-2 col-xl-3 col-xs-3 col-sm-3 col-md-3 p-1 border border-top border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
+                                    <div className={`${bgRoom1} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border border-top border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                         <div>
                                             <span className='name-room'>{rooms[0].title}</span>
                                             <br/>
@@ -122,7 +122,7 @@ class ExecutivePPanorama extends Component {
                                             }                                   
                                         </div>
                                     </div>
-                                    <div className={`${bgRoom2} col-lg-2 col-xl-3 col-xs-3 col-sm-3 col-md-3 p-1 border border-top border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
+                                    <div className={`${bgRoom2} col-lg-2 col-xl-2 col-xs-2 col-sm-2 col-md-2 p-1 border border-top border-blue height-18 d-flex align-items-center justify-content-center text-center`}>
                                         <div>
                                             <span className='name-room'>{rooms[1].title}</span>
                                             <br/>
