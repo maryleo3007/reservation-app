@@ -133,6 +133,7 @@ class RegisterCash extends Component {
                             <th scope="col" className='title-table'>Equipo</th>
                             <th scope="col" className='title-table'>Uso de caja</th>
                             <th scope="col" className='title-table'>Comentario</th>
+                            <th scope="col" className='title-table'>Oficina</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,6 +147,7 @@ class RegisterCash extends Component {
                             <td className='title-table'>{register.team}</td>
                             <td className='title-table'>{register.indicator}</td>
                             <td className='title-table'>{register.comment}</td>
+                            <td className='title-table'>{register.branchOffice}</td>
                         </tr>
                     )}
                     </tbody>
