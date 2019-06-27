@@ -19,7 +19,7 @@ class SpecialCashOne extends Component {
     }
 
     updateClearCashForm = () => {
-        console.log(this.props.data.branchOffice)
+        
         const hourEndAttention = getHour();   
         const {comments, date, hourAttention, hourInit, team, appointment} = this.props.currentObjFormCash;
         
@@ -75,8 +75,12 @@ class SpecialCashOne extends Component {
             } 
         }
 
+        let branchOfficeName = changeNameBranchOffice(this.props.data.branchOffice)
+
         return (
-            <div className="content-specialCash px-5 py-3">
+            <div>
+                <small className="text-muted pl-3">{branchOfficeName}</small>
+                <div className="content-specialCash px-5 py-3">
                 <div className="container">
                     <div className="row mx-5 mt-4 h-90">
                         <div className="col-8 col-sm-8 col-md-8 bg-title title-wait-clients h-25 rounded-top">
@@ -90,7 +94,7 @@ class SpecialCashOne extends Component {
                     </div>
                     <div className="row mx-5 mt-4 h-90">
                         <div className="col-8 col-sm-8 col-md-8 bg-title title-special-cash h-25 rounded-top">
-                            <div className="text-center">Caja especial</div>
+                            <div className="text-center">Caja especial </div>
                         </div>
                         <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left content-special-cash h-75">
                             <div className="d-flex h-100">
@@ -134,6 +138,8 @@ class SpecialCashOne extends Component {
                         </div>
                     </div>
                 </div>
+            </div>
+       
             </div>
         );
     }

@@ -187,7 +187,7 @@ class Cash extends Component {
                 onClick={() => {
                     logout()
                 }}
-                className="navbar-brand">Cerrar sesión</button>
+                className="navbar-brand text-secondary"><i aria-hidden="true" class="fa fa-sign-out"></i>Salir</button>
             </div>
          );
     }

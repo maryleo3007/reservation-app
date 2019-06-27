@@ -176,6 +176,10 @@ class RoomForm extends Component {
         this.setExecutiveForRoom(' ')
         //set por cash
         this.setInitialCashObj();
+        
+        if (this.props.room.state === 'En espera de caja') {
+            this.props.updateNumOfClients();
+        }
     };
 
     resetForm =(e) => {
