@@ -5,6 +5,7 @@ class SidebarLg extends Component {
     state ={
         reception : true,
         register : false,
+        office: ''
     }
 
     changeSidebar = () =>{
@@ -24,6 +25,19 @@ class SidebarLg extends Component {
         this.props.changeRegisterCash();
     }
 
+    componentDidMount(){
+        if(this.props.userData.branchOffice === '1'){
+            this.setState({
+                office: 'Oficina principal Inteligo'
+            })
+        } else if(this.props.userData.branchOffice === '2'){
+            this.setState({
+                office: 'Oficina Patio Panorama Surco'
+            })
+        }
+        
+    }
+
     render() {
         const classNameRooms = this.props.classSidebar.activeClassRooms ? 'nav-link active' : 'nav-link'
         const classNameRegisterRooms = this.props.classSidebar.activeClassRegisterRooms ? 'nav-link active' : 'nav-link'
@@ -31,6 +45,7 @@ class SidebarLg extends Component {
         const userImg = this.props.userImage;
         const userName = this.props.userName;
         const position = this.props.userData.position;
+        const office = this.props.userData.branchOffice
         return (
             <nav id="sidebar-lg" className="sidebar">
                 <div className="d-flex justify-content-between">
@@ -45,6 +60,7 @@ class SidebarLg extends Component {
                     <div className="text-center user mt-3">
                         <span className="mt-2"><b>{userName}</b></span>
                         <p className="text-capitalize"><small>{position}</small></p>
+                        <p>{this.state.office}</p>
                     </div>
                 </div>
                 <div className="nav flex-column tabs-options border-top">
