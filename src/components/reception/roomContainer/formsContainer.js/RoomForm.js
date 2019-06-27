@@ -306,11 +306,13 @@ class RoomForm extends Component {
                 butonPlay: this.state.objectFb.divs.butonPlay,
                 divHourStart: this.state.objectFb.divs.divHourStart,
                 divTrash: this.state.objectFb.divs.divTrash,
-                div3Buttons: true,
+                div3Buttons: this.state.objectFb.divs.div3Buttons,
                 buttonExecutive: this.state.objectFb.divs.buttonExecutive
             }
         });
     }
+
+
 
     selectPerson = (selectedOption, e) => {
         this.updatePerson(selectedOption)
@@ -381,7 +383,7 @@ class RoomForm extends Component {
                 butonPlay: !divs.butonPlay,
                 divHourStart: !divs.divHourStart,
                 divTrash: !divs.divTrash,
-                div3Buttons: divs.div3Buttons,
+                div3Buttons: !divs.div3Buttons,
                 buttonExecutive: divs.buttonExecutive
             }
         })
