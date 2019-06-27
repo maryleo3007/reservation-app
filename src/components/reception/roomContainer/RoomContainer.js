@@ -33,14 +33,6 @@ class RoomContainer extends Component {
     dbRoom = ref.child('Room/');
     dbCashRoom = ref.child('CashRoom/');
     dbFormCash = ref.child('FormCaja/');
-    // onToggleForm = (id) => {
-    //     if (id === 1) {
-    //         this.setState({shownCashOne: !this.state.shownCashOne})
-    //     }
-    //     if (id === 2) {
-    //         this.setState({shownCashTwo: !this.state.shownCashTwo})
-    //     }
-    // }
 
     // change state room
     changeToGreenOrAmber = (key, state) => {

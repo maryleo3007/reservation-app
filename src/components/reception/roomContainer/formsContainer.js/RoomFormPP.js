@@ -398,7 +398,11 @@ class RoomFormPP extends Component {
         this.setState({
           modal: !this.state.modal,
           close: !this.state.close
-        },
+        },()=> {
+            if(this.state.modal){ 
+                this.setInitialCashObj()
+            }
+        } 
         );
     }
 
@@ -464,8 +468,14 @@ class RoomFormPP extends Component {
 
     setInitialCashObj = () => {
         let cashInitObj;
-        cashInitObj = this.props.cashList.filter(x => x.order === 13);
-        this.setState({cashObj: cashInitObj[0]});
+        cashInitObj = this.props.cashList.filter(x => x.state === 'Disponible');
+        
+        if(cashInitObj.length !== 0){
+            this.setState({
+                cashObj: cashInitObj[0],
+                cashOrderSelect: cashInitObj[0].order
+            });
+        }
     }
 
     render() {

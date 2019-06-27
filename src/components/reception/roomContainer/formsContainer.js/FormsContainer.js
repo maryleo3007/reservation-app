@@ -15,7 +15,6 @@ class FormsContainer extends Component {
     dbOptionTeam = ref.child('OptionTeam/');
     dbFormSala = ref.child('FormSala/');
 
-
     componentDidMount() {
         this.dbOptionPerson.on('value', snap => {
             const optionPerson = [];
@@ -53,7 +52,9 @@ class FormsContainer extends Component {
             })
     })       
     }
+
     render() { 
+        
         if(this.props.formCashList === undefined) return null;
         if(this.props.cashs === undefined) return null;
 

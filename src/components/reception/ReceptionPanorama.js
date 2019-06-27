@@ -16,7 +16,7 @@ class ReceptionPanorama extends Component {
     dbRoom = ref.child('RoomPP/');
     dbUsers = ref.child('Users/').child(this.props.responsable.uid).child('/info');
     dbFormCash = ref.child('FormCajaPP/');
-    dbClients = ref.child('Clients');
+    dbClients = ref.child('ClientsPP');
 
     state = {
         showComponent: 'rooms',
@@ -194,7 +194,7 @@ class ReceptionPanorama extends Component {
     updateNumOfClients = () => {
         if (this.state.numberOfClients > 0) {
             let discountnumberOfClients = --this.state.numberOfClients;
-            ref.child('Clients').update({
+            ref.child('ClientsPP').update({
                 numberOfClients: discountnumberOfClients
             })
         }
@@ -253,6 +253,7 @@ class ReceptionPanorama extends Component {
                     updateTeamCash = {this.updateTeamCash}
                     updateCommentsCash = {this.updateCommentsCash}
                     updateIndicatorCash = {this.updateIndicatorCash}
+                    updateNumOfClients = {this.updateNumOfClients}
                     changeState = {this.changeState}
                     addRegister = {this.addRegister}
                     responsable = {this.state.userName}

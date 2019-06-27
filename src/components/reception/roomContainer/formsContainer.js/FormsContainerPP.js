@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {ref} from './../../../../services/firebase'
 import CashFormPP from './CashFormPP';
 import RoomFormPP from './RoomFormPP';
+
 class FormsContainerPP extends Component {
 
     state = { 
@@ -52,7 +53,6 @@ class FormsContainerPP extends Component {
     })       
     }
 
-
     render() {
 
         if(this.props.formCashList === undefined) return null;
@@ -60,7 +60,6 @@ class FormsContainerPP extends Component {
 
         let countCashAvailable = this.props.cashs.filter(x => x.state === 'Disponible').length
         
-
         return (
             <div>
                  {this.props.rooms.map(room => 
@@ -82,6 +81,7 @@ class FormsContainerPP extends Component {
                         changeCashState = {this.props.changeCashState}
                         updateDtHrInitCashForm = {this.props.updateDtHrInitCashForm}
                         updateIndicatorCash = {this.props.updateIndicatorCash}
+                        updateNumOfClients = {this.props.updateNumOfClients}
                         datauser = {this.props.datauser}
                     />
                 )}
@@ -99,6 +99,7 @@ class FormsContainerPP extends Component {
                             updateTeamCash = {this.props.updateTeamCash}
                             updateCommentsCash = {this.props.updateCommentsCash}
                             updateIndicatorCash = {this.props.updateIndicatorCash}
+                            optionTeam = {this.state.optionTeam}
                         />
                     )
                 }

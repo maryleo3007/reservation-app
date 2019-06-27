@@ -5,6 +5,7 @@ import Login from './login/Login';
 import Reception from './reception/Reception';
 import ReceptionPanorama from './reception/ReceptionPanorama';
 import Cash from './cash/CashContainer';
+import CashPP from './cash/CashContainerPP';
 import ExecutiveCapital from './executive/Executive';
 import ExecutivePPanorama from './executive/ExecutivePPanorama';
 import Admin from './admin/Admin';
@@ -56,7 +57,18 @@ function PrivateRouteCash ({component: Component, data, ...rest}) {
   return (
     <Route
       {...rest}
-      render={(props) => data.authed === true && data.position === 'cajera'
+      render={(props) => data.authed === true && data.position === 'cajera' && data.branchOffice === '1'
+        ? <Component {...props} data={data}/>
+        : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+    />
+  )
+}
+
+function PrivateRouteCashPP ({component: Component, data, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => data.authed === true && data.position === 'cajera' && data.branchOffice === '2'
         ? <Component {...props} data={data}/>
         : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
     />
@@ -91,9 +103,11 @@ function PublicRoute ({component: Component, data, ...rest}) {
               return <Redirect to='/recepcionPanorama' />
             }else if (data.position ==='administradora') {
               return <Redirect to='/admin' />
-            } else if (data.position ==='cajera') {
+            } else if (data.position ==='cajera' && data.branchOffice === '1') {
               return <Redirect to='/caja' />
-            } else if (data.position ==='mozo') {
+            } else if (data.position ==='cajera' && data.branchOffice === '2') {
+              return <Redirect to='/cajaPanorama' />
+            }else if (data.position ==='mozo') {
               return <Redirect to='/menu' />
             }
          }
@@ -162,6 +176,7 @@ class App extends Component {
                 <PrivateRouteReception data={this.state} path='/recepcion' component={Reception} state={this.state}/>
                 <PrivateRouteAdmin data={this.state} path={'/admin'} component={Admin} />
                 <PrivateRouteCash data={this.state} path={'/caja'} component={Cash} />
+                <PrivateRouteCashPP data={this.state} path={'/cajaPanorama'} component={CashPP} />
                 <PrivateRouteWaiter data={this.state} path={'/menu'} component={Waiter} />
                 <PrivateRouteReceptionPanorama data={this.state} path='/recepcionPanorama' component={ReceptionPanorama} state={this.state}/>
                 <Route component={Error} />

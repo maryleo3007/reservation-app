@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { logout } from './../../components/helpers/authFirebase';
 import {ref} from './../../services/firebase';
 
-import SpecialCashOne from './SpecialCashOne.js';
+import SpecialCashPP from './SpecialCashPP.js';
 
-class Cash extends Component {
+class CashPP extends Component {
     state={
         formCashList: [],
         cashList: [],
@@ -13,10 +13,10 @@ class Cash extends Component {
         client: {}
     }
         
-    dbFormCash = ref.child('FormCaja/');
-    dbCashRoom = ref.child('CashRoom/');
-    dbSpecialCash = ref.child('SpecialCash/');
-    dbClients =  ref.child('Clients/')
+    dbFormCash = ref.child('FormCajaPP/');
+    dbCashRoom = ref.child('CashRoomPP/');
+    dbSpecialCash = ref.child('SpecialCashPP/');
+    dbClients =  ref.child('ClientsPP/')
     //actualizar hora de atención del form de caja
     updateHrAtCashForm = (key,hourAttention) => {
         this.dbFormCash.child('/'+key).update({
@@ -169,7 +169,7 @@ class Cash extends Component {
 
         return ( 
             <div className="bg-main">
-                <SpecialCashOne 
+                <SpecialCashPP 
                     updateHrAtCashForm = {this.updateHrAtCashForm}
                     updateClearCashForm = {this.updateClearCashForm}
                     addRegisterCash = {this.addRegisterCash}
@@ -193,4 +193,4 @@ class Cash extends Component {
     }
 }
  
-export default Cash;
+export default CashPP;

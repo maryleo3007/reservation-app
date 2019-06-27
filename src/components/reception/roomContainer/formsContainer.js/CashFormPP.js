@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {getDateFull, getHour} from '../../../helpers/date.js';
 import {ref} from './../../../../services/firebase';
+import Select from 'react-select';
 
 class CashFormPP extends Component {
 
     state = {
-        optionTeamList: []
+        cashFormObj: {}
     }
 
     teamRef= React.createRef();
@@ -16,20 +17,18 @@ class CashFormPP extends Component {
             date: getDateFull(),
             hourInit: getHour()
         }
+        console.log(getDateFull());
+        console.log(getHour());
         this.props.changeCashState(this.props.cash.key,'Ocupado');
         this.props.updateDtHrInitCashForm(this.props.cash.formCash_id,objCash);
         this.props.updateIndicatorCash(this.props.cash.formCash_id,'Sólo caja')
         // this.props.changeCashComponent(this.props.cash.key,true);
     }
-
-    updateTeam = (e) =>{
-        e.preventDefault();
-        this.props.updateTeamCash(this.props.cash.formCash_id,this.teamRef.current.value)
-    }
     
     updateComements = (e) => {
-        e.preventDefault();
-        this.props.updateCommentsCash(this.props.cash.formCash_id, this.commentsRef.current.value)
+        ref.child(`FormCajaPP/${this.props.cash.formCash_id}`).update({
+            comments : e.target.value
+        });
     }
     //limpia el formulario de caja
     resetFormCash = (e) => {
@@ -38,20 +37,39 @@ class CashFormPP extends Component {
             date:'',
             hourInit: ''
         }
-        this.props.updateTeamCash(this.props.cash.formCash_id,'');
+        const objTeam = {
+            label : '',
+            value: ''
+        }
+        this.updateTeam(objTeam);
         this.props.updateCommentsCash(this.props.cash.formCash_id, '');
         this.props.updateDtHrInitCashForm(this.props.cash.formCash_id, objCash);
         this.props.changeCashState(this.props.cash.key,'Por confirmar');
     }
 
-    componentDidMount () {
-        ref.child('/OptionTeam').on('value', snap => {
-            if(snap.val() !== null)  {
-                this.setState({
-                    optionTeamList : snap.val()
-                })
+    handleChange = (selectedOption) => {
+        this.updateTeam(selectedOption)
+    }
+
+    updateTeam = (team) => {
+        ref.child(`FormCajaPP/${this.props.cash.formCash_id}`).update({
+            team : {
+                value: team.value,
+                label: team.value
             }
         })
+    }
+
+    componentDidMount () {
+        ref.child(`FormCajaPP/${this.props.cash.formCash_id}`).on('value', snap => {
+            let cashFormObj = {
+                team: snap.val().team,
+                comments: snap.val().comments
+            }
+            this.setState({
+                cashFormObj
+            })
+        }) 
     }
 
     render() {
@@ -109,13 +127,17 @@ class CashFormPP extends Component {
                         <div className="form-group row">
                             <label className="col-sm-5 col-form-label">Equipo</label>
                             <div className="col-sm-7">
-                                <input type="text" className="form-control" defaultValue={formCash.team} ref={this.teamRef} onKeyUp={this.updateTeam}/>
+                                <Select
+                                    value = { this.state.cashFormObj.team }
+                                    onChange={this.handleChange}
+                                    options={this.props.optionTeam}
+                                />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-5 col-form-label">Comentarios</label>
                             <div className="col-sm-12">
-                            <textarea className="form-control" rows="3" defaultValue={formCash.comments} ref={this.commentsRef} onKeyUp={this.updateComements}></textarea>
+                            <textarea className="form-control" rows="3" defaultValue={this.state.cashFormObj.comments} ref={this.commentsRef} onKeyUp={this.updateComements}></textarea>
                             </div>
                         </div>
                     </div>
