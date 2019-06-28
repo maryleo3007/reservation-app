@@ -335,6 +335,7 @@ class RoomForm extends Component {
                     const use = 'Uso de sala para caja'
                     this.updateUse(use)
                     this.changeRoomOnHold()
+                    this.addNumClientsCash();
                 }else if (this.state.checked === false){
                     this.dbFormSala.update({
                         useChecked : false
@@ -342,6 +343,7 @@ class RoomForm extends Component {
                     const use = 'Solo uso de sala'
                     this.updateUse(use)
                     this.changeOccupied()
+                    this.props.updateNumOfClients();
                 }
             }       
         )  
@@ -456,9 +458,10 @@ class RoomForm extends Component {
         this.setInitialCashObj();
     }
     //cash functions
-    addNumClientsCash = (e) => {
+    addNumClientsCash = () => {
+        
         let addnumberOfClients = this.state.numberOfClients;
-        e.preventDefault();
+        
         this.dbnumClients.update({
             numberOfClients: ++addnumberOfClients
         })
@@ -534,7 +537,7 @@ class RoomForm extends Component {
                         <ModalFooter className='modal-buttons'>
                         {
                                 this.props.countCashAvailable === 0 ? 
-                                <button className='btn btn-wait-turn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(e); this.changeRoomOnHold()}}>Esperar turno</button>:
+                                <button className='btn btn-wait-turn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(); this.changeRoomOnHold()}}>Esperar turno</button>:
                                 <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
     
                         }
@@ -552,7 +555,7 @@ class RoomForm extends Component {
                         
                         <div className={`${buttonPlay}`}>
                             <span>Ingreso del cliente</span>
-                            <button className='ml-2 btn button-play' onClick={(e) => {this.updateHourStart(e); this.updateCollaborator(e); this.updateDate(e); this.changeOccupied(e); this.showHourHidePlay(this.state.objectFb.divs)}}><i class="fa fa-play" aria-hidden="true"></i></button>
+                            <button className='ml-2 btn button-play border-white' onClick={(e) => {this.updateHourStart(e); this.updateCollaborator(e); this.updateDate(e); this.changeOccupied(e); this.showHourHidePlay(this.state.objectFb.divs)}}><i class="fa fa-play" aria-hidden="true"></i></button>
                         </div>
                         <div className={`${divHourStart}`}>
                             <span>Ingreso del cliente</span>
