@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { getHour } from './../helpers/date.js';
+import { getHour, getDateFull } from './../helpers/date.js';
 import { changeNameBranchOffice} from './../helpers/receptionHelper';
 import './cashComponent.css';
 
@@ -45,15 +45,17 @@ class SpecialCashOne extends Component {
     }
 
     getStateSpecialCash = (e) => {
+
         // let dataVal= e.target.options[e.target.selectedIndex].dataset
         let value = e.target.value;
-        this.props.changeStateSpecialCash(this.props.currentObjSpecialCash.key, value)
-        if (this.props.currentObjCashRoom.state === 'Disponible' || this.props.currentObjCashRoom.state === 'No disponible') {
-            this.props.changeStateCash(this.props.currentObjCashRoom.key, value);
-        }
-        else{
+        console.log(value)
+        console.log(this.props.currentObjSpecialCash)
+        this.props.changeStateSpecialCash(this.props.currentObjSpecialCash.key, value);
+
+        (this.props.currentObjCashRoom.state === 'Disponible' || this.props.currentObjCashRoom.state === 'No disponible') ? 
+            this.props.changeStateCash(this.props.currentObjCashRoom.key, value):
             alert('no puede cambiar de estado cuando la caja esta en ocupado o por confirmar')
-        }
+        
     }
 
     render() {

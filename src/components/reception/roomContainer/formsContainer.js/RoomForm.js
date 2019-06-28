@@ -492,7 +492,10 @@ class RoomForm extends Component {
 
     render() {
         if(this.props.cashList === undefined) return null;
- 
+        let showCheck = false;
+        let filterCash = this.props.cashList.filter(x => x.state === 'Disponible');
+        (filterCash.length === 0) ? showCheck = true : showCheck = false
+        
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         let buttonPlay = this.props.divs.butonPlay ? 'd-block' : 'd-none'
         let divTrash =  this.props.divs.divTrash ? 'd-block' : 'd-none'
@@ -507,13 +510,13 @@ class RoomForm extends Component {
                 : (
                     <div className={`form-container ${showform} py-4 px-5 bg-white mb-3`}>
                     <div className={`${divTrash} button-trash`}>
-                            <button type='reset' className='btn' onClick={(e)=>{this.resetForm(e); this.changeToBeConfirmed(e);this.setExecutiveForRoom(' ')}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                            <button type='reset' className='btn' onClick={(e)=>{this.resetForm(e); this.changeToBeConfirmed(e);this.setExecutiveForRoom(' ')}}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
                     </div>            
                     <div className='text-center mt-4'>
-                        <span class='title-form-room'>{this.props.room.title}</span>
+                        <span className='title-form-room'>{this.props.room.title}</span>
                     </div>
                     <div className='text-center'>
-                        <span class='title-form-state'>{this.props.room.state}</span>
+                        <span className='title-form-state'>{this.props.room.state}</span>
                     </div>
                     <hr className='m-0 mb-4'/>
                     <form id={this.props.room.key}>
@@ -525,7 +528,7 @@ class RoomForm extends Component {
                                 this.props.countCashAvailable === 0 ?
                                 <p><b>En estos momentos no se encuentra caja disponible</b></p>:
                                 <div><span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
-                                <select class="custom-select d-inline w-auto" name="cashOrderSelect" onChange={this.getCashOrder}>
+                                <select className="custom-select d-inline w-auto" name="cashOrderSelect" onChange={this.getCashOrder}>
                                     {this.props.cashList.map((cash) => (
                                         <option key={cash.id} value={cash.order} disabled={cash.state === 'Ocupado' ||  cash.state === 'No disponible' ? true : null}>{cash.id}</option>
                                     ))}
@@ -555,7 +558,7 @@ class RoomForm extends Component {
                         
                         <div className={`${buttonPlay}`}>
                             <span>Ingreso del cliente</span>
-                            <button className='ml-2 btn button-play border-white' onClick={(e) => {this.updateHourStart(e); this.updateCollaborator(e); this.updateDate(e); this.changeOccupied(e); this.showHourHidePlay(this.state.objectFb.divs)}}><i class="fa fa-play" aria-hidden="true"></i></button>
+                            <button className='ml-2 btn button-play border-white' onClick={(e) => {this.updateHourStart(e); this.updateCollaborator(e); this.updateDate(e); this.changeOccupied(e); this.showHourHidePlay(this.state.objectFb.divs)}}><i className="fa fa-play" aria-hidden="true"></i></button>
                         </div>
                         <div className={`${divHourStart}`}>
                             <span>Ingreso del cliente</span>
@@ -609,13 +612,15 @@ class RoomForm extends Component {
                             <input className="form-control h-commentary" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
                             defaultValue={this.state.objectFb.comment}/>
                         </div>
-                        <div className="form-group checkbox-container">
-                            <input className="form-check-input" type="checkbox" checked={this.state.objectFb.useChecked} onChange={(e)=>this.useCashCheckbox(e)}/>
-                            <label className="ml-3 form-check-label">
-                            Solo para uso de caja
-                            </label>
-                            <input type="text" className="d-none" placeholder="" ref={this.box} defaultValue={this.state.objectFb.use}/>
-                        </div>
+                        { showCheck ? 
+                            <div className="form-group checkbox-container">
+                                <input className="form-check-input" type="checkbox" checked={this.state.objectFb.useChecked} onChange={(e)=>this.useCashCheckbox(e)}/>
+                                <label className="ml-3 form-check-label">
+                                Solo para uso de caja
+                                </label>
+                                <input type="text" className="d-none" placeholder="" ref={this.box} defaultValue={this.state.objectFb.use}/>
+                            </div>
+                        :''}
                         <div className="form-group">
                             <input type="text"  className="d-none" placeholder="" ref={this.finalHour}/>
                         </div>
@@ -625,15 +630,15 @@ class RoomForm extends Component {
                         <div className={`${div3Buttons}`}>
                             <div className='d-flex justify-content-around buttons-form'>
                                 <div className={`${buttonExecutive} btn`} onClick={() => {this.updateHourExecutive(); this.hideButtonExecutive(this.state.objectFb.divs)}}>
-                                    <p><i class="fa fa-user-o" aria-hidden="true"></i></p>
+                                    <p><i className="fa fa-user-o" aria-hidden="true"></i></p>
                                     <p>ejecutivo</p>
                                 </div>
                                 <div onClick={()=>this.toggle()} className='btn'>
-                                    <p><i class="fa fa-dashcube" aria-hidden="true"></i></p>
+                                    <p><i className="fa fa-dashcube" aria-hidden="true"></i></p>
                                     <p>Caja</p>    
                                 </div>
                                 <div onClick={()=>this.addRegister()} className='btn'>
-                                    <p><i class="fa fa-sign-out" aria-hidden="true"></i></p>  
+                                    <p><i className="fa fa-sign-out" aria-hidden="true"></i></p>  
                                     <p>Salida</p>    
                                 </div>
                             </div>                                     

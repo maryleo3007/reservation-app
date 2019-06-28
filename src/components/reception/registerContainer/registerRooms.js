@@ -136,7 +136,7 @@ class RegisterRooms extends Component {
                      </div>
                  </div>
                  
-                <table class="table table-bordered">
+                <table className="table table-bordered">
                     <thead>
                         <tr>
                             <th scope="col" className='title-table'>Sala</th>

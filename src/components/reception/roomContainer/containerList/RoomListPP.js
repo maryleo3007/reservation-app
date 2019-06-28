@@ -108,7 +108,7 @@ class RoomListPP extends Component {
                         />
                     </div>
                     <div className='w-4pp p-0 min-height-1 d-flex justify-content-center align-items-center'>
-                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                        <i className="fa fa-user-o" aria-hidden="true"></i>
                     </div>
                     <div className='col-pp p-0 min-height-15'>
                         <RoomPP

@@ -206,7 +206,6 @@ class ReceptionPanorama extends Component {
             date: obj.date,
             hourInit:obj.hourInit
         })
-        this.updateNumOfClients();
     }
     /*********funciones para formularios de caja*********** */
     //actualizar equipo de formulario de caja
