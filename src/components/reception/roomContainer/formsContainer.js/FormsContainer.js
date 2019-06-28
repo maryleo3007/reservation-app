@@ -70,6 +70,7 @@ class FormsContainer extends Component {
                         addRegister = {this.props.addRegister}
                         responsable = {this.props.responsable}
                         showHideFormArr = {this.props.showHideFormArr[room.id].showRoom}
+                        showHideFormBool = {this.props.showHideFormArr[room.id]}
                         showHideForm = {this.props.showHideForm}
                         position = {this.props.position}
                         optionPerson = {this.state.optionPerson}

@@ -490,6 +490,10 @@ class RoomFormPP extends Component {
         let filterCash = this.props.cashList.filter(x => x.state === 'Disponible');
         (filterCash.length === 0) ? showCheck = true : showCheck = false
 
+        if(this.props.room.state === 'Disponible') {
+            this.props.showHideFormBool.showRoom = false
+        }
+ 
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         let buttonPlay = this.props.divs.butonPlay ? 'd-block' : 'd-none'
         let divTrash =  this.props.divs.divTrash ? 'd-block' : 'd-none'
