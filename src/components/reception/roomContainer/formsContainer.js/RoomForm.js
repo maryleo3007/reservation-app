@@ -4,6 +4,7 @@ import {getCurrenHour, getCurrentDate} from '../../../helpers/roomHelpers'
 import Select from 'react-select';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { getDateFull, getHour} from '../../../helpers/date.js';
+import { log } from 'util';
 
 class RoomForm extends Component {
 
@@ -485,13 +486,18 @@ class RoomForm extends Component {
 
     render() {
         if(this.props.cashList === undefined) return null;
- 
+        if(this.props.room.state === 'Disponible') {
+            this.props.showHideFormBool.showRoom = false
+        }
+
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         let buttonPlay = this.props.divs.butonPlay ? 'd-block' : 'd-none'
         let divTrash =  this.props.divs.divTrash ? 'd-block' : 'd-none'
         let divHourStart = this.props.divs.divHourStart ? 'd-block' : 'd-none'
         let div3Buttons = this.props.divs.div3Buttons ? 'd-block' : 'd-none'
         let buttonExecutive = this.props.divs.buttonExecutive ? 'd-block' : 'd-none'
+
+
         return (
             <div>
                 {this.props.room.state === 'Disponible' ? (

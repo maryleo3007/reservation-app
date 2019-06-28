@@ -8,15 +8,16 @@ const DB_CONFIG = {
     databaseURL: "https://customer-desarrollo.firebaseio.com",
     // projectId: "customer-desarrollo",
     storageBucket: "customer-desarrollo.appspot.com",
-    // messagingSenderId: "257036633584"
+    messagingSenderId: "257036633584"
 };
 
 const app = firebase.initializeApp(DB_CONFIG);
 
 const ref = firebase.database().ref();
+const firebase_messaging = firebase.messaging;
 const firebaseAuth = firebase.auth;
 const storage = firebase.storage()
 
 export {
-    app, ref, firebaseAuth, storage
+    app, ref, firebaseAuth, storage, firebase_messaging
 }

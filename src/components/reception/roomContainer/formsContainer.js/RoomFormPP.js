@@ -480,6 +480,9 @@ class RoomFormPP extends Component {
 
     render() {
         if(this.props.cashList === undefined) return null;
+        if(this.props.room.state === 'Disponible') {
+            this.props.showHideFormBool.showRoom = false
+        }
  
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         let buttonPlay = this.props.divs.butonPlay ? 'd-block' : 'd-none'

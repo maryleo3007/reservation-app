@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {ref} from './../../../services/firebase';
 import RoomList from '../../reception/roomContainer/containerList/RoomsList';
 import CashList from './../../reception/roomContainer/containerList/CashList';
 import RoomListPP from '../../reception/roomContainer/containerList/RoomListPP';
