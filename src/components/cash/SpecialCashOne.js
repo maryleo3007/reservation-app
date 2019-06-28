@@ -54,9 +54,8 @@ class SpecialCashOne extends Component {
             this.setState({getHourReg : true})
         }
 
-        if(this.state.getHourReg){
+        if(this.state.getHourReg && value === 'Disponible'){
             console.log(value);
-            
         }
         
         this.props.changeStateSpecialCash(this.props.currentObjSpecialCash.key, value);

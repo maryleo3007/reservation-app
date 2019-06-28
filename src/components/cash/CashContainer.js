@@ -79,6 +79,21 @@ class Cash extends Component {
         });
     }
 
+    addRegisterSpecialCash = (obj) => {
+        const refRegister = ref.child('CashSpecialRegister/');
+        const addRegister = refRegister.push({
+            name : obj.name,
+            state: obj.state,
+            hourInit: obj.hourInit,
+            hourEnd: obj.hourEnd,
+            branchOffice: obj.branchOffice
+        })
+        const newRegister = addRegister.key;
+        refRegister.child(newRegister).update({
+            id: newRegister
+        })
+    }
+
     componentDidMount(){
         this.dbFormCash.on('value',snap => {
             const arrFormCash = [];
