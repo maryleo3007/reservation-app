@@ -9,7 +9,8 @@ class SpecialCashOne extends Component {
         clientAttented : true,
         stateValue : '',
         availableClass : '',
-        getHourReg : false
+        getHourReg : false,
+        hourStartSC : ''
     }
     
     updateHourAttention = () => {
@@ -46,18 +47,25 @@ class SpecialCashOne extends Component {
     }
 
     getStateSpecialCash = (e) => {
-        let hourStart = '';
+        
         // let dataVal= e.target.options[e.target.selectedIndex].dataset
         let value = e.target.value;
         if(value === 'No disponible'){
-            hourStart = getHour();
-            this.setState({getHourReg : true})
+            this.setState({getHourReg : true, hourStartSC: getHour()})
         }
 
         if(this.state.getHourReg && value === 'Disponible'){
-            console.log(value);
+            this.setState({getHourReg : false, hourEndSC: getHour()})
+            let objSpecialCash = {
+                name : this.props.currentObjCashRoom.title,
+                state: 'No disponible',
+                hourInit: this.state.hourStartSC,
+                hourEnd: getHour(),
+                branchOffice: changeNameBranchOffice(this.props.data.branchOffice)
+            }
+            this.props.addRegisterSpecialCash(objSpecialCash);
         }
-        
+
         this.props.changeStateSpecialCash(this.props.currentObjSpecialCash.key, value);
 
         (this.props.currentObjCashRoom.state === 'Disponible' || this.props.currentObjCashRoom.state === 'No disponible') ? 

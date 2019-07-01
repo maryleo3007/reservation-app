@@ -196,6 +196,7 @@ class Cash extends Component {
                     changeStateSpecialCash = {this.changeStateSpecialCash}
                     data = {this.props.data}
                     client = {this.state.client}
+                    addRegisterSpecialCash = {this.addRegisterSpecialCash}
                 />
                 <button
                 style={{border: 'none', background: 'transparent'}}
