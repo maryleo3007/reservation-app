@@ -30,7 +30,6 @@ class RegisterRooms extends Component {
                     finalHour: data.val().finalHour,
                     floor: data.floor,
                     id: data.val().id,
-                    idRegRoom: data.val().idRegRoom,
                     person: data.val().person,
                     responsableRegistry: data.val().responsableRegistry,
                     room: data.val().room,
@@ -73,7 +72,6 @@ class RegisterRooms extends Component {
                     finalHour: data.val().finalHour,
                     floor: data.floor,
                     id: data.val().id,
-                    idRegRoom: data.val().idRegRoom,
                     person: data.val().person,
                     responsableRegistry: data.val().responsableRegistry,
                     room: data.val().room,
@@ -89,6 +87,7 @@ class RegisterRooms extends Component {
         })
          
         let result = arrRegisterRooms.filter( (item) => { 
+            console.log(item);
             return setDateLocaleStart(item.date) >= p_startDate && setDateLocaleEnd(item.date) <= p_endDate; 
         })
         

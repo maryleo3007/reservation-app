@@ -110,8 +110,8 @@ class RoomContainer extends Component {
 
         const button17 = this.state.floor === 17 ? 'selected' : 'not-selected'
         const button21 = this.state.floor === 21 ? 'selected' : 'not-selected'
-        const show17 = this.state.floor === 17 ? 'd-block' : 'd-none'
-        const show21 = this.state.floor === 21 ? 'd-block' : 'd-none'
+        const show17 = this.state.floor === 17 ? 'd-flex' : 'd-none'
+        const show21 = this.state.floor === 21 ? 'd-flex' : 'd-none'
 
         return (
             

@@ -493,9 +493,9 @@ class RoomForm extends Component {
 
     render() {
         if(this.props.cashList === undefined) return null;
-        let showCheck = false;
-        let filterCash = this.props.cashList.filter(x => x.state === 'Disponible');
-        (filterCash.length === 0) ? showCheck = true : showCheck = false
+        // let showCheck = false;
+        // let filterCash = this.props.cashList.filter(x => x.state === 'Disponible');
+        // (filterCash.length === 0) ? showCheck = true : showCheck = false
         
         if(this.props.room.state === 'Disponible') {
             this.props.showHideFormBool.showRoom = false
@@ -619,7 +619,6 @@ class RoomForm extends Component {
                             <input className="form-control h-commentary" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
                             defaultValue={this.state.objectFb.comment}/>
                         </div>
-                        { showCheck ? 
                             <div className="form-group checkbox-container">
                                 <input className="form-check-input" type="checkbox" checked={this.state.objectFb.useChecked} onChange={(e)=>this.useCashCheckbox(e)}/>
                                 <label className="ml-3 form-check-label">
@@ -627,7 +626,7 @@ class RoomForm extends Component {
                                 </label>
                                 <input type="text" className="d-none" placeholder="" ref={this.box} defaultValue={this.state.objectFb.use}/>
                             </div>
-                        :''}
+                        
                         <div className="form-group">
                             <input type="text"  className="d-none" placeholder="" ref={this.finalHour}/>
                         </div>
