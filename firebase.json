@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site" : "recepcion",
     "public": "build",
     "ignore": [
       "firebase.json",

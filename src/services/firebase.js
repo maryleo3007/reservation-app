@@ -13,7 +13,7 @@ const DB_CONFIG = {
     authDomain: "recepcion-prod.firebaseapp.com",
     databaseURL: "https://recepcion-prod.firebaseio.com",
     projectId: "recepcion-prod",
-    storageBucket: "",
+    storageBucket: "recepcion-prod.appspot.com",
     messagingSenderId: "725271756885",
     appId: "1:725271756885:web:11daae268b19aa33"
 };
