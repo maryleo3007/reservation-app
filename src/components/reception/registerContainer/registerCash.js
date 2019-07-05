@@ -186,7 +186,7 @@ class RegisterCash extends Component {
                     </table>
                 </div>
                 <div className={`${showCS} row mt-3`}>
-                <table className="table table-bordered">
+                    <table className="table table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col" className='title-table'>Caja</th>
