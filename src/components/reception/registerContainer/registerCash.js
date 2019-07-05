@@ -114,8 +114,8 @@ class RegisterCash extends Component {
         const showCash = this.state.cashRegister === 1 ? 'd-flex' : 'd-none'
 
         return ( 
-            <div className={`${marginLeft} ${show} table-hover table-striped w-100 p-4`}>
-                <div className="f-date p-3 mb-4">
+            <div className={`${marginLeft} ${show} w-100 p-4 mh-100 table-hover table-striped`}>
+                <div className="f-date p-3 mb-4 container">
                     <div className="row">
                         <div className="col-3">
                             <label className="pr-3"> Fecha Inicio</label>
@@ -152,40 +152,42 @@ class RegisterCash extends Component {
                         </div>
                     </div> 
                 </div>
-                <div className={`${showCash} row mt-3`}> 
-                    <table className="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col" className='title-table'>Caja</th>
-                                {/* <th scope="col" className='title-table'>Responsable</th> */}
-                                <th scope="col" className='title-table'>Fecha</th>
-                                <th scope="col" className='title-table'>Hora de Ingreso del cliente</th>
-                                <th scope="col" className='title-table'>Hora de Atención</th>
-                                <th scope="col" className='title-table'>Hora de Finalización</th>
-                                <th scope="col" className='title-table'>Equipo</th>
-                                <th scope="col" className='title-table'>Uso de caja</th>
-                                <th scope="col" className='title-table'>Comentario</th>
-                                <th scope="col" className='title-table'>Oficina</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {this.state.arrRegisterCash.map(register => 
-                            <tr key={register.id}>
-                                <td className='title-table'>{register.cash}</td>
-                                <td className='title-table'>{register.date}</td>
-                                <td className='title-table'>{register.hourInit}</td>
-                                <td className='title-table'>{register.hourAttention}</td>
-                                <td className='title-table'>{register.hourEnd}</td>
-                                <td className='title-table'>{register.team}</td>
-                                <td className='title-table'>{register.indicator}</td>
-                                <td className='title-table'>{register.comment}</td>
-                                <td className='title-table'>{register.branchOffice}</td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </table>
-                </div>
-                <div className={`${showCS} row mt-3`}>
+                <div className="container">
+                    
+                    <div className={`${showCash} row mt-3`}> 
+                        <table className="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" className='title-table'>Caja</th>
+                                    {/* <th scope="col" className='title-table'>Responsable</th> */}
+                                    <th scope="col" className='title-table'>Fecha</th>
+                                    <th scope="col" className='title-table'>Hora de Ingreso del cliente</th>
+                                    <th scope="col" className='title-table'>Hora de Atención</th>
+                                    <th scope="col" className='title-table'>Hora de Finalización</th>
+                                    <th scope="col" className='title-table'>Equipo</th>
+                                    <th scope="col" className='title-table'>Uso de caja</th>
+                                    <th scope="col" className='title-table'>Comentario</th>
+                                    <th scope="col" className='title-table'>Oficina</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {this.state.arrRegisterCash.map(register => 
+                                <tr key={register.id}>
+                                    <td className='title-table'>{register.cash}</td>
+                                    <td className='title-table'>{register.date}</td>
+                                    <td className='title-table'>{register.hourInit}</td>
+                                    <td className='title-table'>{register.hourAttention}</td>
+                                    <td className='title-table'>{register.hourEnd}</td>
+                                    <td className='title-table'>{register.team}</td>
+                                    <td className='title-table'>{register.indicator}</td>
+                                    <td className='title-table'>{register.comment}</td>
+                                    <td className='title-table'>{register.branchOffice}</td>
+                                </tr>
+                            )}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className={`${showCS} row mt-3`}>
                     <table className="table table-bordered">
                         <thead>
                             <tr>
@@ -209,6 +211,8 @@ class RegisterCash extends Component {
                         </tbody>
                     </table>       
                 </div>     
+            
+                </div>
             </div>
          );
     }
