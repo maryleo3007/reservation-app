@@ -110,8 +110,8 @@ class RegisterCash extends Component {
 
         const buttonCS = this.state.cashRegister === 0 ? 'selected' : 'not-selected'
         const buttonCash = this.state.cashRegister === 1 ? 'selected' : 'not-selected'
-        const showCS = this.state.cashRegister === 0 ? 'd-block' : 'd-none'
-        const showCash = this.state.cashRegister === 1 ? 'd-block' : 'd-none'
+        const showCS = this.state.cashRegister === 0 ? 'd-flex' : 'd-none'
+        const showCash = this.state.cashRegister === 1 ? 'd-flex' : 'd-none'
 
         return ( 
             <div className={`${marginLeft} ${show} table-hover table-striped w-100 p-4`}>
