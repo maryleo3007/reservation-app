@@ -14,7 +14,7 @@ class RegisterRooms extends Component {
         endDate: new Date()
      }
 
-    dbRegisterRoom = ref.child('roomRegister/');
+    dbRegisterRoom = ref.child('register2018/');
 
     componentDidMount() {
         this.dbRegisterRoom.on('value', snap => {
@@ -29,7 +29,7 @@ class RegisterRooms extends Component {
                     executiveHour: data.val().executiveHour,
                     finalHour: data.val().finalHour,
                     floor: data.floor,
-                    id: data.val().id,
+                    id: data.key,
                     person: data.val().person,
                     responsableRegistry: data.val().responsableRegistry,
                     room: data.val().room,
@@ -71,7 +71,7 @@ class RegisterRooms extends Component {
                     executiveHour: data.val().executiveHour,
                     finalHour: data.val().finalHour,
                     floor: data.floor,
-                    id: data.val().id,
+                    id: data.key,
                     person: data.val().person,
                     responsableRegistry: data.val().responsableRegistry,
                     room: data.val().room,
@@ -153,7 +153,7 @@ class RegisterRooms extends Component {
                     </thead>
                     <tbody>
                     {this.state.arrRegisterRooms.map(register => 
-                        <tr>
+                        <tr key = {register.id}>
                             <td className='title-table'>{register.room}</td>
                             <td className='title-table'>{register.responsableRegistry}</td>
                             <td className='title-table'>{register.date}</td>
