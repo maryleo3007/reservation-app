@@ -87,8 +87,6 @@ class SpecialCashOne extends Component {
             currentObjCashRoom = this.props.currentObjCashRoom
             if (currentObjCashRoom.state === 'Ocupado') {
                 clientAproaching = true
-
-
             }
             if (currentObjCashRoom.state === 'Disponible' || currentObjCashRoom.state === 'No disponible') {
                 selectDisabled = false;
