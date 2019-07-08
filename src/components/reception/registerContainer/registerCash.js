@@ -1,45 +1,34 @@
 import React, { Component } from 'react';
 import {ref} from './../../../services/firebase';
-import { setDateLocaleStart, setDateLocaleEnd } from './../../helpers/date';
+import { getDateFull, getDateFormat } from './../../helpers/date';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
 import es from 'date-fns/locale/es';
+import axios from "axios";
 registerLocale('es', es)
 
 class RegisterCash extends Component {
     state = { 
-        arrRegisterCash: undefined,
+        arrRegisterCash: [],
         startDate: new Date(),
         endDate: new Date(),
         cashRegister: 1,
-        arrRegisterSC: undefined
+        arrRegisterSC: []
      }
 
     dbRegisterCash = ref.child('CashRegister/');
     dbSpecialCash = ref.child('CashSpecialRegister/');
 
     componentDidMount() {
-        this.dbRegisterCash.on('value', snap => {
-            const arrRegisterCash = [];
-            snap.forEach(data => {
-                let roomObj = {
-                    cash: data.val().cash,
-                    comment: data.val().comment,
-                    date: data.val().date,
-                    hourAttention: data.val().hourAttention,
-                    hourEnd: data.val().hourEnd,
-                    hourInit: data.val().hourInit,
-                    id: data.val().id,
-                    indicator: data.val().indicator,
-                    team: data.val().team,
-                    branchOffice: data.val().branchOffice
-                }
-                arrRegisterCash.push(roomObj);
-                this.setState({
-                    arrRegisterCash
-                })
-            })
+
+        let todayini = getDateFull();
+        let url = `https://us-central1-recepcion-prod.cloudfunctions.net/registers_cash?fechaini=${todayini}&&fechafin=${todayini}`;
+        
+        axios.get(url)
+        .then(res => {
+            const arrRegisterCash = res.data;
+            this.setState({ arrRegisterCash });
         })
 
         this.dbSpecialCash.on('value', snap => {
@@ -75,29 +64,15 @@ class RegisterCash extends Component {
     };
 
     filterDays = (p_startDate, p_endDate) => {
-        const arrRegisterCash = [];
-        this.dbRegisterCash.on('value', snap => {
-            snap.forEach(data => {
-                let roomObj = {
-                    cash: data.val().cash,
-                    comment: data.val().comment,
-                    date: data.val().date,
-                    hourAttention: data.val().hourAttention,
-                    hourEnd: data.val().hourEnd,
-                    hourInit: data.val().hourInit,
-                    id: data.val().id,
-                    indicator: data.val().indicator,
-                    team: data.val().team,
-                    branchOffice: data.val().branchOffice
-                }
-                arrRegisterCash.push(roomObj);
-            })
-        })
-        let result = arrRegisterCash.filter( (item) => { 
-            return setDateLocaleStart(item.date) >= p_startDate && setDateLocaleEnd(item.date) <= p_endDate; 
-        })
+        let startDate = getDateFormat(p_startDate);
+        let endDate = getDateFormat(p_endDate)
+        let url = `https://us-central1-recepcion-prod.cloudfunctions.net/registers_cash?fechaini=${startDate}&&fechafin=${endDate}`;
         
-        this.setState({arrRegisterCash: result})
+        axios.get(url)
+        .then(res => {
+            const arrRegisterCash = res.data;
+            this.setState({ arrRegisterCash });
+        }) 
          
     }
 
@@ -105,6 +80,7 @@ class RegisterCash extends Component {
     
     render() { 
         if(this.state.arrRegisterCash === undefined || this.state.arrRegisterSC === undefined) return null;
+        
         const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50';
         const show = this.props.showComponent ===  'registerCash' ? 'd-block' : 'd-none';
 

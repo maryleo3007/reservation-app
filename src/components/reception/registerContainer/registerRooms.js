@@ -15,11 +15,9 @@ class RegisterRooms extends Component {
         endDate: new Date()
      }
 
-    dbRegisterRoom = ref.child('roomRegister/');
-
     componentDidMount() {
         let todayini = getDateFull();
-        let url = `https://us-central1-recepcion-prod.cloudfunctions.net/register_cash?fechaini=${todayini}&&fechafin=${todayini}`;
+        let url = `https://us-central1-recepcion-prod.cloudfunctions.net/register_room?fechaini=${todayini}&&fechafin=${todayini}`;
         
         axios.get(url)
         .then(res => {
@@ -56,12 +54,12 @@ class RegisterRooms extends Component {
     }
 
     
-    render() { 
-        if(this.state.arrRegisterRooms === undefined) return null;
+    render() {        
 
         const marginLeft = this.props.sidebarState ? 'margin-250' : 'margin-50'
         const show = this.props.showComponent ===  'registerRooms' ? 'd-block' : 'd-none'
         
+        if(this.state.arrRegisterRooms === undefined) return null;
         
         return ( 
             <div className={`${marginLeft} ${show} table-hover table-striped w-auto p-4`}>
