@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-// const cors = require('cors')({ origin: true });
+const cors = require('cors')({ origin: true });
 admin.initializeApp();
 
 // // Create and Deploy Your First Cloud Functions
@@ -8,7 +8,8 @@ admin.initializeApp();
 //
 exports.register_cash= functions.https.onRequest((req, res) => {
     /* Instead use the admin */
-    
+    cors(req,res,()=>{});
+
     let fechaini = setDateLocaleStart(req.query.fechaini);
     let fechafin = setDateLocaleEnd(req.query.fechafin);
     const array = [];
