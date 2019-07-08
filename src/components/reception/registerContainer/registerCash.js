@@ -114,7 +114,7 @@ class RegisterCash extends Component {
         const showCash = this.state.cashRegister === 1 ? 'd-flex' : 'd-none'
 
         return ( 
-            <div className={`${marginLeft} ${show} w-100 p-4 mh-100 table-hover table-striped`}>
+            <div className={`${marginLeft} ${show} w-auto p-4 mh-100 table-hover table-striped`}>
                 <div className="f-date p-3 mb-4 container">
                     <div className="row">
                         <div className="col-3">
