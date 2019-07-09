@@ -114,7 +114,7 @@ class RegisterRooms extends Component {
                     </thead>
                     <tbody>
                     {this.state.arrRegisterRooms.map(register => 
-                        <tr key = {register.id}>
+                        <tr key = {register.idRegRoom}>
                             <td className='title-table'>{register.room}</td>
                             <td className='title-table'>{register.responsableRegistry}</td>
                             <td className='title-table'>{register.date}</td>
