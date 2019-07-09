@@ -14,7 +14,7 @@ class RegisterRooms extends Component {
         endDate: new Date()
      }
 
-    dbRegisterRoom = ref.child('register2018/');
+    dbRegisterRoom = ref.child('roomRegister/');
 
     componentDidMount() {
         this.dbRegisterRoom.on('value', snap => {
