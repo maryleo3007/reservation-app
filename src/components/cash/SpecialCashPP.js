@@ -8,7 +8,9 @@ class SpecialCashPP extends Component {
     state = {
         clientAttented : true,
         stateValue : '',
-        availableClass : ''
+        availableClass : '',
+        getHourReg : false,
+        hourStartSC : ''
     }
     
     updateHourAttention = () => {
@@ -45,15 +47,31 @@ class SpecialCashPP extends Component {
     }
 
     getStateSpecialCash = (e) => {
+        
         // let dataVal= e.target.options[e.target.selectedIndex].dataset
         let value = e.target.value;
+        if(value === 'No disponible'){
+            this.setState({getHourReg : true, hourStartSC: getHour()})
+        }
+
+        if(this.state.getHourReg && value === 'Disponible'){
+            this.setState({getHourReg : false, hourEndSC: getHour()})
+            let objSpecialCash = {
+                name : this.props.currentObjCashRoom.title,
+                state: 'No disponible',
+                hourInit: this.state.hourStartSC,
+                hourEnd: getHour(),
+                branchOffice: changeNameBranchOffice(this.props.data.branchOffice)
+            }
+            this.props.addRegisterSpecialCash(objSpecialCash);
+        }
+
         this.props.changeStateSpecialCash(this.props.currentObjSpecialCash.key, value)
-        if (this.props.currentObjCashRoom.state === 'Disponible' || this.props.currentObjCashRoom.state === 'No disponible') {
-            this.props.changeStateCash(this.props.currentObjCashRoom.key, value);
-        }
-        else{
+       
+        (this.props.currentObjCashRoom.state === 'Disponible' || this.props.currentObjCashRoom.state === 'No disponible') ? 
+            this.props.changeStateCash(this.props.currentObjCashRoom.key, value):
             alert('no puede cambiar de estado cuando la caja esta en ocupado o por confirmar')
-        }
+    
     }
 
     render() {
@@ -128,6 +146,8 @@ class SpecialCashPP extends Component {
                                             <div className="text-center">
                                                 <p>Cliente se está aproximando</p>
                                                 <button className="btn-specialCash" onClick={this.updateHourAttention}>Iniciar Atención</button>
+                                                <audio ref="audio_tag" className='d-none' src="https://firebasestorage.googleapis.com/v0/b/recepcion-prod.appspot.com/o/SD_ALERT_29.mp3?alt=media&token=45fc466e-4aab-4898-8f9e-89ebc1f7d139" controls autoPlay/>
+
                                             </div>:
                                             <button className="btn-specialCash" onClick={this.updateClearCashForm}>Salida del cliente</button>
                                         }

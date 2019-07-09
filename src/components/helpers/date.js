@@ -9,7 +9,7 @@ export function getDateFull() {
     dd = today.getDate();
     mm = today.getMonth() + 1;
     yyyy = today.getFullYear();
-
+    
     if (dd < 10) {
       dd = "0" + dd;
     }
@@ -20,6 +20,29 @@ export function getDateFull() {
 
     return today;
 }
+export function getDateFormat(p_date) {
+    
+  let today = p_date;
+  let dd = '';
+  let mm = '';
+  let yyyy = '';
+
+  dd = today.getDate();
+  mm = today.getMonth() + 1;
+  yyyy = today.getFullYear();
+  
+  if (dd < 10) {
+    dd = "0" + dd;
+  }
+  if (mm < 10) {
+    mm = "0" + mm;
+  }
+  today = dd + "/" + mm + "/" + yyyy;
+
+  return today;
+}
+
+
 export function getHour() {
     let today = '';
     let hours = '';
