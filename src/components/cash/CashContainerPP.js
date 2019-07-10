@@ -73,11 +73,31 @@ class CashPP extends Component {
         });
     }
     //cambia estado de caja especial
-    changeStateSpecialCash = (key, state) => {
-        this.dbSpecialCash.child('/'+key).update({
+    changeStateSpecialCash(key, state) {
+        console.log(key);
+        console.log(state);
+        
+        ref.child('SpecialCashPP/'+ key).update({
             state
         });
     }
+
+    addRegisterSpecialCash = (obj) => {
+        const refRegister = ref.child('CashSpecialRegister/');
+        const addRegister = refRegister.push({
+            name : obj.name,
+            state: obj.state,
+            hourInit: obj.hourInit,
+            hourEnd: obj.hourEnd,
+            branchOffice: obj.branchOffice,
+            date: obj.date
+        })
+        const newRegister = addRegister.key;
+        refRegister.child(newRegister).update({
+            id: newRegister
+        })
+    }
+
 
     componentDidMount(){
         this.dbFormCash.on('value',snap => {
@@ -181,6 +201,7 @@ class CashPP extends Component {
                     changeStateSpecialCash = {this.changeStateSpecialCash}
                     data = {this.props.data}
                     client = {this.state.client}
+                    addRegisterSpecialCash = {this.addRegisterSpecialCash}
                 />
                 <button
                 style={{border: 'none', background: 'transparent'}}
