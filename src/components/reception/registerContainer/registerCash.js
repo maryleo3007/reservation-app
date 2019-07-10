@@ -40,7 +40,8 @@ class RegisterCash extends Component {
                     hourEnd: data.val().hourEnd,
                     hourInit: data.val().hourInit,
                     id: data.val().id,
-                    branchOffice: data.val().branchOffice
+                    branchOffice: data.val().branchOffice,
+                    date:data.val().date
                 }
                 arrRegisterSCash.push(scObj);
                 this.setState({
@@ -169,6 +170,7 @@ class RegisterCash extends Component {
                             <tr>
                                 <th scope="col" className='title-table'>Caja</th>
                                 <th scope="col" className='title-table'>Estado</th>
+                                <th scope="col" className='title-table'>Fecha</th>
                                 <th scope="col" className='title-table'>Hora de Inicio</th>
                                 <th scope="col" className='title-table'>Hora de Finalización</th>
                                 <th scope="col" className='title-table'>Oficina</th>
@@ -179,6 +181,7 @@ class RegisterCash extends Component {
                             <tr key={register.id}>
                                 <td className='title-table'>{register.name}</td>
                                 <td className='title-table'>{register.state}</td>
+                                <td className='title-table'>{register.date}</td>
                                 <td className='title-table'>{register.hourInit}</td>
                                 <td className='title-table'>{register.hourEnd}</td>
                                 <td className='title-table'>{register.branchOffice}</td>

@@ -15,7 +15,13 @@
 }
 .btn-specialCash{
     background-color: #2c79be;
-    font-size: 20pxpx;
+    color: #ffffff;
+    border: 0px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+.btn-specialCash-out{
+    background-color: #BC7765;
     color: #ffffff;
     border: 0px;
     cursor: pointer;

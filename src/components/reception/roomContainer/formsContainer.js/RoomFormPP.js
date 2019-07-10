@@ -213,7 +213,26 @@ class RoomFormPP extends Component {
         this.props.showHideForm(parseInt(this.state.cashOrderSelect));
         this.props.changeCashState(this.state.cashObj.key,'Ocupado');
         this.props.updateDtHrInitCashForm(this.state.cashObj.formCash_id,objCash);
-        this.handleIndicatorCash(this.state.cashObj.formCash_id)    
+        this.handleIndicatorCash(this.state.cashObj.formCash_id);
+        this.props.updateNumOfClients();    
+    }
+
+    roomToCashToRoom =(e) => {
+        
+        e.preventDefault();
+
+        const objCash = {
+            date: getDateFull(),
+            hourInit: getHour()
+        }
+
+        this.props.showHideForm(this.props.room.id);
+       
+        this.props.showHideForm(parseInt(this.state.cashOrderSelect));
+        this.props.changeCashState(this.state.cashObj.key,'Ocupado');
+        this.props.updateDtHrInitCashForm(this.state.cashObj.formCash_id,objCash);
+        this.handleIndicatorCash(this.state.cashObj.formCash_id);
+        this.props.updateNumOfClients();
     }
 
     updateRoomResponsable = (key, responsable) => {
@@ -540,7 +559,10 @@ class RoomFormPP extends Component {
                         {
                                 this.props.countCashAvailable === 0 ? 
                                 <button className='btn btn-wait-turn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(); this.changeRoomOnHold()}}>Esperar turno</button>:
-                                <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
+                                <div>
+                                    <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
+                                    <button className='btn ml-3 btn-rtsr' onClick={(e)=>{this.toggle(e); this.roomToCashToRoom(e)}}><i className="fa fa-undo" aria-hidden="true"></i> a sala</button>
+                                </div>
     
                         }
                             

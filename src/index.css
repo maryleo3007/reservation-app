@@ -452,3 +452,6 @@ body {
  .mh-100{
    min-height: 100vh;
  }
+ .btn-rtsr{
+   background-color: rgba(66, 127, 180, 0.3) !important;
+ }

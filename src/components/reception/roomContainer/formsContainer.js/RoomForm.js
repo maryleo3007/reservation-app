@@ -4,7 +4,6 @@ import {getCurrenHour, getCurrentDate} from '../../../helpers/roomHelpers'
 import Select from 'react-select';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { getDateFull, getHour} from '../../../helpers/date.js';
-import { log } from 'util';
 
 class RoomForm extends Component {
 
@@ -211,6 +210,24 @@ class RoomForm extends Component {
         this.props.showHideForm(this.props.room.id);
         this.setExecutiveForRoom(' ')
         //update for cash
+        this.props.showHideForm(parseInt(this.state.cashOrderSelect));
+        this.props.changeCashState(this.state.cashObj.key,'Ocupado');
+        this.props.updateDtHrInitCashForm(this.state.cashObj.formCash_id,objCash);
+        this.handleIndicatorCash(this.state.cashObj.formCash_id);
+        this.props.updateNumOfClients();
+    }
+
+    roomToCashToRoom =(e) => {
+        
+        e.preventDefault();
+
+        const objCash = {
+            date: getDateFull(),
+            hourInit: getHour()
+        }
+
+        this.props.showHideForm(this.props.room.id);
+       
         this.props.showHideForm(parseInt(this.state.cashOrderSelect));
         this.props.changeCashState(this.state.cashObj.key,'Ocupado');
         this.props.updateDtHrInitCashForm(this.state.cashObj.formCash_id,objCash);
@@ -548,8 +565,10 @@ class RoomForm extends Component {
                         {
                                 this.props.countCashAvailable === 0 ? 
                                 <button className='btn btn-wait-turn' onClick={(e)=>{this.toggle(e); this.addNumClientsCash(); this.changeRoomOnHold()}}>Esperar turno</button>:
-                                <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
-    
+                                <div>
+                                    <button className='btn' onClick={(e)=>{this.toggle(e);this.roomToCash(e)}}>Confirmar</button>
+                                    <button className='btn ml-3 btn-rtsr' onClick={(e)=>{this.toggle(e); this.roomToCashToRoom(e)}}><i className="fa fa-undo" aria-hidden="true"></i> a sala</button>
+                                </div>
                         }
                             
                             <Button className='btn' onClick={this.toggle}>Cancelar</Button>

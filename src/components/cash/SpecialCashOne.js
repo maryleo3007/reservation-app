@@ -61,7 +61,8 @@ class SpecialCashOne extends Component {
                 state: 'No disponible',
                 hourInit: this.state.hourStartSC,
                 hourEnd: getHour(),
-                branchOffice: changeNameBranchOffice(this.props.data.branchOffice)
+                branchOffice: changeNameBranchOffice(this.props.data.branchOffice),
+                date: getDateFull()
             }
             this.props.addRegisterSpecialCash(objSpecialCash);
         }
@@ -149,7 +150,7 @@ class SpecialCashOne extends Component {
                                             <audio ref="audio_tag" className='d-none' src="https://firebasestorage.googleapis.com/v0/b/recepcion-prod.appspot.com/o/SD_ALERT_29.mp3?alt=media&token=45fc466e-4aab-4898-8f9e-89ebc1f7d139" controls autoPlay/>
 
                                         </div>:
-                                        <button className="btn-specialCash" onClick={this.updateClearCashForm}>Salida del cliente</button>
+                                        <button className="btn-specialCash-out" onClick={this.updateClearCashForm}>Salida del cliente</button>
                                     }
                                 </div>:
                                 <div></div>
