@@ -1,0 +1,131 @@
+/* fomrs style */
+
+.button-trash {
+    position: absolute;
+    right: 75px;
+}
+
+.button-trash button {
+    border: 1px solid #a09d9d;
+    padding: 4px 5px 1px 4px;
+    border-radius: 2px;
+}
+
+.button-trash button i {
+    font-size: 21px;
+    color: #a09d9d;
+}
+
+.title-form-room {
+    font-size: 30px;
+}
+
+.title-form-state {
+    font-size: 15px;
+}
+
+.button-play {
+    border: 1px solid #a09d9d;
+    border-radius: 2px;
+    padding: 4px 8px 0px 10px;
+}
+
+.button-play:focus, .button-play.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0 !important;
+}
+
+.button-play i{
+    border: 1px solid #a09d9d;
+    border-radius: 2px;
+    padding: 6px 10px 6px 12px;
+    font-size: 22px;
+    color: #a09d9d;
+}
+
+.h-commentary {
+    height: 90px !important;
+}
+
+.start-hour-user {
+    font-size: 25px;
+}
+
+.buttons-form div{
+    width: 33%;
+    max-width: 80px;;
+    border-radius: 3px;
+    border: 1px solid #427fb4;
+    margin: 5px;
+    padding: 10px 5px 5px 5px !important;
+}
+
+.buttons-form div p{
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #837f7f;
+
+}
+
+.buttons-form div p i{
+    font-size: 21px;
+    color: #2c79be;
+}
+
+.modal-room-to-form .modal-content .modal-header{
+    border-bottom: 1px solid #ffffff !important;
+}
+
+.question-modal {
+    font-size: 22px;
+    margin: auto 35px;
+}
+
+.modal-buttons {
+    border-top: 1px solid #ffffff !important;
+    display: flex !important;
+    justify-content: space-around !important;
+    margin: auto 35px 40px 35px;
+}
+
+.modal-buttons button:nth-child(1){
+    width: 120px;
+    border-radius: 2px;
+    background-color: #427fb4;
+    color: #ffffff;
+}
+
+.modal-buttons button:nth-child(2){
+    width: 120px;
+    border-radius: 2px;
+    background-color: #fff;
+    color: #837f7f;
+    border: 1px solid #427fb4;
+}
+
+.modal-buttons button:nth-child(2):focus{
+    box-shadow: 0;
+}
+
+.modal-buttons button:nth-child(2):active{
+    background-color: #fff !important;
+}
+
+.checkbox-container {
+    display: block;
+  position: relative;
+  padding-left: 39px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.checkbox-container input {
+  height: 20px;
+  width: 20px;
+  background-color: rgb(255, 255, 255) !important;
+  margin-top: 0 !important;
+}

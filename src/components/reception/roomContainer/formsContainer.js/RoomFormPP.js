@@ -4,9 +4,8 @@ import {getCurrenHour, getCurrentDate} from '../../../helpers/roomHelpers'
 import Select from 'react-select';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { getDateFull, getHour} from '../../../helpers/date.js';
-import { log } from 'util';
 
-class RoomForm extends Component {
+class RoomFormPP extends Component {
 
     state = { 
         available: 'Disponible',
@@ -23,28 +22,28 @@ class RoomForm extends Component {
         cashObj: {}
     }
 
-    dbFormSala = ref.child('FormSala/'+this.props.room.id);
-    dbRoom = ref.child('Room/'+this.props.room.key);
-    dbnumClients = ref.child('Clients/');
+    dbFormSala = ref.child('FormSalaPP/'+this.props.room.id);
+    dbRoom = ref.child('RoomPP/'+this.props.room.key);
+    dbnumClients = ref.child('ClientsPP/');
 
-    // refs 
+     // refs 
 
-    startTime = React.createRef();
-    person = React.createRef();
-    area = React.createRef(); 
-    appointment = React.createRef();
-    commentary = React.createRef();
-    date = React.createRef(); 
-    executiveHour = React.createRef();
-    finalHour = React.createRef();
-    floor = React.createRef();
-    room = React.createRef();
-    team = React.createRef();
-    responsableRegistry = React.createRef();
-    box = React.createRef();
-    branchOffice = React.createRef();
+     startTime = React.createRef();
+     person = React.createRef();
+     area = React.createRef(); 
+     appointment = React.createRef();
+     commentary = React.createRef();
+     date = React.createRef(); 
+     executiveHour = React.createRef();
+     finalHour = React.createRef();
+     floor = React.createRef();
+     room = React.createRef();
+     team = React.createRef();
+     responsableRegistry = React.createRef();
+     box = React.createRef();
+     branchOffice = React.createRef();
 
-    changeAvailable = () => {
+     changeAvailable = () => {
         // e.preventDefault();
         this.props.changeState(this.props.room.key, this.state.available)            
     }
@@ -177,7 +176,7 @@ class RoomForm extends Component {
         this.setExecutiveForRoom(' ')
         //set por cash
         this.setInitialCashObj();
-        
+
         if (this.props.room.state === 'En espera de caja') {
             this.props.updateNumOfClients();
         }
@@ -214,12 +213,11 @@ class RoomForm extends Component {
         this.props.showHideForm(parseInt(this.state.cashOrderSelect));
         this.props.changeCashState(this.state.cashObj.key,'Ocupado');
         this.props.updateDtHrInitCashForm(this.state.cashObj.formCash_id,objCash);
-        this.handleIndicatorCash(this.state.cashObj.formCash_id);
-        this.props.updateNumOfClients();
+        this.handleIndicatorCash(this.state.cashObj.formCash_id)    
     }
 
     updateRoomResponsable = (key, responsable) => {
-        ref.child('Room/').child('/' + key).update({
+        ref.child('RoomPP/').child('/' + key).update({
             responsable
         });
     }
@@ -312,8 +310,6 @@ class RoomForm extends Component {
             }
         });
     }
-
-
 
     selectPerson = (selectedOption, e) => {
         this.updatePerson(selectedOption)
@@ -460,7 +456,6 @@ class RoomForm extends Component {
     }
     //cash functions
     addNumClientsCash = () => {
-        
         let addnumberOfClients = this.state.numberOfClients;
         
         this.dbnumClients.update({
@@ -474,7 +469,6 @@ class RoomForm extends Component {
         this.setState({[name]:value});
         
         cashCurrentObj = this.props.cashList.filter(x => x.order === parseInt(value));
-        
         this.setState({cashObj: cashCurrentObj[0]});
     }
 
@@ -488,7 +482,6 @@ class RoomForm extends Component {
                 cashOrderSelect: cashInitObj[0].order
             });
         }
-        
     }
 
     render() {
@@ -496,18 +489,17 @@ class RoomForm extends Component {
         // let showCheck = false;
         // let filterCash = this.props.cashList.filter(x => x.state === 'Disponible');
         // (filterCash.length === 0) ? showCheck = true : showCheck = false
-        
+
         if(this.props.room.state === 'Disponible') {
             this.props.showHideFormBool.showRoom = false
         }
-
+ 
         let showform = this.props.showHideFormArr ? 'd-block' : 'd-none'
         let buttonPlay = this.props.divs.butonPlay ? 'd-block' : 'd-none'
         let divTrash =  this.props.divs.divTrash ? 'd-block' : 'd-none'
         let divHourStart = this.props.divs.divHourStart ? 'd-block' : 'd-none'
         let div3Buttons = this.props.divs.div3Buttons ? 'd-block' : 'd-none'
         let buttonExecutive = this.props.divs.buttonExecutive ? 'd-block' : 'd-none'
-
 
         return (
             <div>
@@ -537,7 +529,7 @@ class RoomForm extends Component {
                                 <div><span>¿El cliente pasará de </span><b>{this.props.room.title}</b> <span>a </span><b>CAJA </b>
                                 <select className="custom-select d-inline w-auto" name="cashOrderSelect" onChange={this.getCashOrder}>
                                     {this.props.cashList.map((cash) => (
-                                        <option key={cash.id} value={cash.order} disabled={cash.state === 'Ocupado' ||  cash.state === 'No disponible' ? true : null}>{cash.id}</option>
+                                        <option key={cash.id} value={cash.order} disabled={cash.state === 'Ocupado' ? true : null}>{cash.id}</option>
                                     ))}
                                 </select>
                                 <span> ?</span></div> 
@@ -619,14 +611,13 @@ class RoomForm extends Component {
                             <input className="form-control h-commentary" rows="3" ref={this.commentary} onKeyUp={()=> this.updateComment(this.commentary.current.value)}
                             defaultValue={this.state.objectFb.comment}/>
                         </div>
-                            <div className="form-group checkbox-container">
-                                <input className="form-check-input" type="checkbox" checked={this.state.objectFb.useChecked} onChange={(e)=>this.useCashCheckbox(e)}/>
-                                <label className="ml-3 form-check-label">
-                                Solo para uso de caja
-                                </label>
-                                <input type="text" className="d-none" placeholder="" ref={this.box} defaultValue={this.state.objectFb.use}/>
-                            </div>
-                        
+                        <div className="form-group checkbox-container">
+                            <input className="form-check-input" type="checkbox" checked={this.state.objectFb.useChecked} onChange={(e)=>this.useCashCheckbox(e)}/>
+                            <label className="ml-3 form-check-label">
+                            Solo para uso de caja
+                            </label>
+                            <input type="text" className="d-none" placeholder="" ref={this.box} defaultValue={this.state.objectFb.use}/>
+                        </div>
                         <div className="form-group">
                             <input type="text"  className="d-none" placeholder="" ref={this.finalHour}/>
                         </div>
@@ -654,10 +645,8 @@ class RoomForm extends Component {
                 )
                 }
             </div>
-            
-         );
+        );
     }
 }
 
-export default RoomForm;
-
+export default RoomFormPP;

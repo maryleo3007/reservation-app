@@ -1,14 +1,12 @@
-import React,{Component} from 'react';
-import Cash from './unityContainer/Cash';
+import React, { Component } from 'react';
+import CashPP from './unityContainer/CashPP';
 
-class CashList extends Component {
-
+class CashListPP extends Component {
     render() {
-        
         return (
-            <div className="cashList">
+            <div className="cashList d-flex justify-content-center">
                 {this.props.cashs.map(cash => 
-                    <Cash
+                    <CashPP
                         //onToggleForm={() =>{this.props.onToggleForm(cash.id,cash.key)}}
                         //changeCashComponent = {()=>{this.props.changeCashComponent(cash.key,!cash.showComponent)}}
                         //changeCashState = {this.props.changeCashState}
@@ -25,4 +23,4 @@ class CashList extends Component {
     }
 }
 
-export default CashList
+export default CashListPP;

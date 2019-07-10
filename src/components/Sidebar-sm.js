@@ -29,18 +29,18 @@ class SidebarSm extends Component {
                     <i className="fa fa-bars icon-menu pl-3 pb-2" id="menu" onClick={this.changeSidebar}></i>
                 </div>
                 <div aria-orientation="vertical" className="nav flex-column ng-star-inserted">
-                    <a className='nav-link' onClick={this.changeReception}>
+                    <button className='nav-link' onClick={this.changeReception}>
                         <i aria-hidden="true" className={`fa fa-pencil pr-2 ${classNameRooms}`}></i>
-                    </a>
-                    <a className='nav-link' onClick={this.changeRegisterRooms}>
+                    </button>
+                    <button className='nav-link' onClick={this.changeRegisterRooms}>
                         <i aria-hidden="true" className={`fa fa-file-text-o pr-2 ${classNameRegisterRooms}`}></i>
-                    </a>
-                    <a className='nav-link' onClick={this.changeRegisterCash}>
+                    </button>
+                    <button className='nav-link' onClick={this.changeRegisterCash}>
                         <i aria-hidden="true" className={`fa fa-file-text-o pr-2 ${classNameRegisterCash}`}></i>
-                    </a>
-                    <a className="nav-link" onClick={logOut}>
+                    </button>
+                    <button className="nav-link" onClick={logOut}>
                         <i aria-hidden="true" className="fa fa-sign-out"></i>
-                    </a>
+                    </button>
                 </div>
             </nav>
         );

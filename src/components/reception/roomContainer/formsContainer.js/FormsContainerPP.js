@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {ref} from './../../../../services/firebase'
-import CashForm from './CashForm';
-import RoomForm from './RoomForm';
+import CashFormPP from './CashFormPP';
+import RoomFormPP from './RoomFormPP';
 
-class FormsContainer extends Component {
-    
+class FormsContainerPP extends Component {
+
     state = { 
         optionPerson: [],
         optionTeam: [],
@@ -13,7 +13,7 @@ class FormsContainer extends Component {
 
     dbOptionPerson = ref.child('OptionPerson/');
     dbOptionTeam = ref.child('OptionTeam/');
-    dbFormSala = ref.child('FormSala/');
+    dbFormSala = ref.child('FormSalaPP/');
 
     componentDidMount() {
         this.dbOptionPerson.on('value', snap => {
@@ -53,17 +53,17 @@ class FormsContainer extends Component {
     })       
     }
 
-    render() { 
-        
+    render() {
+
         if(this.props.formCashList === undefined) return null;
         if(this.props.cashs === undefined) return null;
 
         let countCashAvailable = this.props.cashs.filter(x => x.state === 'Disponible').length
         
-        return ( 
+        return (
             <div>
                  {this.props.rooms.map(room => 
-                    <RoomForm
+                    <RoomFormPP
                         key = {room.id}
                         room = {room}
                         objRegister = {this.props.objRegister}
@@ -88,7 +88,7 @@ class FormsContainer extends Component {
                 )}
                 {
                     this.props.cashs.map( cash =>
-                        <CashForm
+                        <CashFormPP
                             key = {cash.id}
                             cash = {cash}
                             formCash = {this.props.formCashList.find( formCash => formCash.id === cash.id)}
@@ -105,8 +105,8 @@ class FormsContainer extends Component {
                     )
                 }
             </div>
-         );
+        );
     }
 }
 
-export default FormsContainer;
+export default FormsContainerPP;

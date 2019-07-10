@@ -2,21 +2,21 @@ import React, {Component} from 'react';
 import {logout} from './../../components/helpers/authFirebase';
 import {ref,storage} from './../../services/firebase';
 import { getCutName } from './../helpers/receptionHelper';
+import RoomContainerPP from './roomContainer/RoomContainerPP';
 
 //components
-import RoomContainer from './roomContainer/RoomContainer';
 import Sidebar from './../Sidebar';
 import RegisterCash from './registerContainer/registerCash';
 import RegisterRooms from './registerContainer/registerRooms';
 import './../../rooms.css'
 
-class Reception extends Component {
+class ReceptionPanorama extends Component {
 
-    dbCashRoom = ref.child('CashRoom/');
-    dbRoom = ref.child('Room/');
+    dbCashRoom = ref.child('CashRoomPP/');
+    dbRoom = ref.child('RoomPP/');
     dbUsers = ref.child('Users/').child(this.props.responsable.uid).child('/info');
-    dbFormCash = ref.child('FormCaja/');
-    dbClients = ref.child('Clients');
+    dbFormCash = ref.child('FormCajaPP/');
+    dbClients = ref.child('ClientsPP');
 
     state = {
         showComponent: 'rooms',
@@ -31,7 +31,7 @@ class Reception extends Component {
         formCashList:[],
         sidebarState: true,
         numberOfClients: 0
-    };
+    }
 
     // mostrar componente de salas o registros
     changeComponent = (change) => {
@@ -52,7 +52,7 @@ class Reception extends Component {
 
     // función cambia estado de sala
     changeState = (key, state) => {
-        ref.child('Room/').child('/' + key).update({
+        ref.child('RoomPP/').child('/' + key).update({
             state
         });
     } 
@@ -135,7 +135,6 @@ class Reception extends Component {
         let name = getCutName(this.props.responsable.userMail); 
         
         this.storage = storage.ref('/users').child(`${name}.jpg`).getDownloadURL().then(url => {
-            console.log(url)
             this.setState({
                 userImage: url
             })
@@ -179,14 +178,14 @@ class Reception extends Component {
 
     //cambia estado de caja
     changeCashState = (key, state) => {
-        ref.child('CashRoom').child('/'+ key).update({
+        ref.child('CashRoomPP').child('/'+ key).update({
             state
         });
     }
 
     //cambia estado de caja
     changeCashComponent= (key, showComponent) => {
-        ref.child('CashRoom').child('/'+ key).update({
+        ref.child('CashRoomPP').child('/'+ key).update({
             showComponent
         });
     }
@@ -195,7 +194,7 @@ class Reception extends Component {
     updateNumOfClients = () => {
         if (this.state.numberOfClients > 0) {
             let discountnumberOfClients = --this.state.numberOfClients;
-            ref.child('Clients').update({
+            ref.child('ClientsPP').update({
                 numberOfClients: discountnumberOfClients
             })
         }
@@ -203,7 +202,7 @@ class Reception extends Component {
     }
 
     updateDtHrInitCashForm = (key,obj) => {
-        ref.child('FormCaja').child('/'+key).update({
+        ref.child('FormCajaPP').child('/'+key).update({
             date: obj.date,
             hourInit:obj.hourInit
         })
@@ -211,37 +210,37 @@ class Reception extends Component {
     /*********funciones para formularios de caja*********** */
     //actualizar equipo de formulario de caja
     updateTeamCash = (key,team) => {
-        ref.child('FormCaja').child('/'+key).update({
+        ref.child('FormCajaPP').child('/'+key).update({
             team
         })
     }
     //actualizar commentario de formulario de caja
     updateCommentsCash = (key,comments) => {
-        ref.child('FormCaja').child('/'+key).update({
+        ref.child('FormCajaPP').child('/'+key).update({
             comments
         })
     }
 
     updateIndicatorCash = (key, appointment) => {
-        ref.child('FormCaja').child('/'+key).update({
+        ref.child('FormCajaPP').child('/'+key).update({
             appointment
         })
     }
 
     render() {
-
-        return ( <div className = "wrapper bg-main" >
+        const showComponent = this.state.showComponent;
+        return ( 
+            <div className = "wrapper bg-main" >
             <Sidebar changeComponent = {this.changeComponent}
                 userImage = {this.state.userImage}
                 userName = {this.state.userName}
                 userData = {this.props.responsable}
                 logOut = {this.logOut}
                 changeSidebar = {this.changeSidebar}
-                sidebarState = {this.state.sidebarState}/> 
-                
+                sidebarState = {this.state.sidebarState}/>
                 <RegisterRooms showComponent={this.state.showComponent} sidebarState = {this.state.sidebarState}/>
                 <RegisterCash showComponent={this.state.showComponent} sidebarState = {this.state.sidebarState}/>
-                <RoomContainer
+                <RoomContainerPP
                     showComponent={this.state.showComponent}
                     rooms={this.state.roomList}
                     cashs = {this.state.cashList}
@@ -261,9 +260,9 @@ class Reception extends Component {
                     position = {this.props.responsable.position}
                     sidebarState = {this.state.sidebarState}
                 />
-        </div> 
+            </div>
         )
     }
 }
 
-export default Reception;
+export default ReceptionPanorama;

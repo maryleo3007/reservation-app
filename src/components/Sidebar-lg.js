@@ -5,6 +5,7 @@ class SidebarLg extends Component {
     state ={
         reception : true,
         register : false,
+        office: ''
     }
 
     changeSidebar = () =>{
@@ -24,6 +25,19 @@ class SidebarLg extends Component {
         this.props.changeRegisterCash();
     }
 
+    componentDidMount(){
+        if(this.props.userData.branchOffice === '1'){
+            this.setState({
+                office: 'Oficina principal Inteligo'
+            })
+        } else if(this.props.userData.branchOffice === '2'){
+            this.setState({
+                office: 'Oficina Patio Panorama Surco'
+            })
+        }
+        
+    }
+
     render() {
         const classNameRooms = this.props.classSidebar.activeClassRooms ? 'nav-link active' : 'nav-link'
         const classNameRegisterRooms = this.props.classSidebar.activeClassRegisterRooms ? 'nav-link active' : 'nav-link'
@@ -31,6 +45,7 @@ class SidebarLg extends Component {
         const userImg = this.props.userImage;
         const userName = this.props.userName;
         const position = this.props.userData.position;
+        const office = this.props.userData.branchOffice
         return (
             <nav id="sidebar-lg" className="sidebar">
                 <div className="d-flex justify-content-between">
@@ -45,24 +60,25 @@ class SidebarLg extends Component {
                     <div className="text-center user mt-3">
                         <span className="mt-2"><b>{userName}</b></span>
                         <p className="text-capitalize"><small>{position}</small></p>
+                        <p>{this.state.office}</p>
                     </div>
                 </div>
                 <div className="nav flex-column tabs-options border-top">
-                    <a className={classNameRooms} onClick={this.changeReception}>
+                    <button className={classNameRooms} onClick={this.changeReception}>
                         <i aria-hidden="true" className="fa fa-pencil pr-2"></i> Atender Cliente 
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
-                    </a>
-                    <a className={classNameRegisterRooms} onClick={this.changeRegisterRooms}>
+                    </button>
+                    <button className={classNameRegisterRooms} onClick={this.changeRegisterRooms}>
                         <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro Salas
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
-                    </a>
-                    <a className={classNameRegisterCash} onClick={this.changeRegisterCash}>
+                    </button>
+                    <button className={classNameRegisterCash} onClick={this.changeRegisterCash}>
                         <i aria-hidden="true" className="fa fa-file-text-o pr-2"></i> Ver Registro Cajas
                         <i aria-hidden="true" className="fa fa-chevron-right"></i>
-                    </a>
+                    </button>
                 </div>
                 <div className="log-out d-flex align-items-end">
-                    <a className="nav-link" onClick={this.props.logOut}><i aria-hidden="true" className="fa fa-sign-out"></i>Salir</a>
+                    <button className="nav-link" onClick={this.props.logOut}><i aria-hidden="true" className="fa fa-sign-out"></i>Salir</button>
                 </div>
             </nav>
         );

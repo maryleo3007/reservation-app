@@ -1,9 +1,9 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import {getDateFull, getHour} from '../../../helpers/date.js';
 import {ref} from './../../../../services/firebase';
 import Select from 'react-select';
 
-class CashForm extends Component {
+class CashFormPP extends Component {
 
     state = {
         cashFormObj: {}
@@ -11,21 +11,22 @@ class CashForm extends Component {
 
     teamRef= React.createRef();
     commentsRef = React.createRef();
-
+    
     customerIncome = () => {
         const objCash = {
             date: getDateFull(),
             hourInit: getHour()
         }
+        console.log(getDateFull());
+        console.log(getHour());
         this.props.changeCashState(this.props.cash.key,'Ocupado');
         this.props.updateDtHrInitCashForm(this.props.cash.formCash_id,objCash);
         this.props.updateIndicatorCash(this.props.cash.formCash_id,'Sólo caja')
         // this.props.changeCashComponent(this.props.cash.key,true);
     }
-
+    
     updateComements = (e) => {
-        // this.props.updateCommentsCash(this.props.cash.formCash_id, val)
-        ref.child(`FormCaja/${this.props.cash.formCash_id}`).update({
+        ref.child(`FormCajaPP/${this.props.cash.formCash_id}`).update({
             comments : e.target.value
         });
     }
@@ -45,13 +46,13 @@ class CashForm extends Component {
         this.props.updateDtHrInitCashForm(this.props.cash.formCash_id, objCash);
         this.props.changeCashState(this.props.cash.key,'Por confirmar');
     }
-    
+
     handleChange = (selectedOption) => {
         this.updateTeam(selectedOption)
     }
 
     updateTeam = (team) => {
-        ref.child(`FormCaja/${this.props.cash.formCash_id}`).update({
+        ref.child(`FormCajaPP/${this.props.cash.formCash_id}`).update({
             team : {
                 value: team.value,
                 label: team.value
@@ -60,7 +61,7 @@ class CashForm extends Component {
     }
 
     componentDidMount () {
-        ref.child(`FormCaja/${this.props.cash.formCash_id}`).on('value', snap => {
+        ref.child(`FormCajaPP/${this.props.cash.formCash_id}`).on('value', snap => {
             let cashFormObj = {
                 team: snap.val().team,
                 comments: snap.val().comments
@@ -72,7 +73,7 @@ class CashForm extends Component {
     }
 
     render() {
-        
+
         if(this.props.formCash === undefined) return null; 
         const formCash = this.props.formCash;
         
@@ -88,12 +89,12 @@ class CashForm extends Component {
         } else if(cash.state === 'Ocupado'){
             showCustomerIncome = false;
         }
+
         
         this.props.showHideFormArr[cash.order].showRoom ? showClass = 'd-block form-cash mb-3 bg-white' : showClass = ' d-none'
-        //showHideFormArr = {this.props.showHideFormArr[cash.order].showRoom}
 
         return (
-                <div>{cash.state === 'Disponible' ? (''):
+            <div>{cash.state === 'Disponible' ? (''):
                     (<div className={showClass}>
                         {showCustomerIncome?'':<button onClick={this.resetFormCash} className="btn-trash-form"><i className="fa fa-trash" aria-hidden="true"></i></button>}
                         <div>
@@ -107,6 +108,7 @@ class CashForm extends Component {
                                 <div className="col-sm-7">
                                     <button className="btn-play" onClick={this.customerIncome}><i aria-hidden="true" className="fa fa-caret-right"></i></button>
                                 </div>
+                                <audio ref="audio_tag" className='d-none' src="https://firebasestorage.googleapis.com/v0/b/recepcion-prod.appspot.com/o/SD_ALERT_29.mp3?alt=media&token=45fc466e-4aab-4898-8f9e-89ebc1f7d139" controls autoPlay/>
                             </div> :
                             <div>
                                 <div className="form-group row">
@@ -127,9 +129,9 @@ class CashForm extends Component {
                             <label className="col-sm-5 col-form-label">Equipo</label>
                             <div className="col-sm-7">
                                 <Select
-                                value = { this.state.cashFormObj.team }
-                                onChange={this.handleChange}
-                                options={this.props.optionTeam}
+                                    value = { this.state.cashFormObj.team }
+                                    onChange={this.handleChange}
+                                    options={this.props.optionTeam}
                                 />
                             </div>
                         </div>
@@ -142,9 +144,8 @@ class CashForm extends Component {
                     </div>
                     )
                 }</div>
-                
         );
     }
 }
 
-export default CashForm
+export default CashFormPP;

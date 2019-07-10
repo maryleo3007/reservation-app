@@ -19,6 +19,19 @@ export function changeState(state) {
     return showClass;
 }
 
+export function changeNameBranchOffice(branchOffice) {
+    
+    let showName = '';
+
+    if (branchOffice === '1') {
+        showName = 'Oficina principal Inteligo';
+    } else if (branchOffice === '2') {
+        showName = 'Oficina Patio Panorama Surco';
+    } 
+
+    return showName;
+}
+
 export const getCutName = (mail) => {
     let cutName = mail.indexOf("@");
     let name = mail.substring(0, cutName);

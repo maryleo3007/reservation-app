@@ -1,6 +1,7 @@
 import React from 'react';
 import {changeState} from '../../../../helpers/receptionHelper.js';
-const Cash = (props) => {
+
+const CashPP = (props) => {
     
     if(props.cash === undefined) return null;
     const { title, state, key ,order, userId_open, formCash_id} = props.cash ;
@@ -20,8 +21,8 @@ const Cash = (props) => {
     const showClass = changeState(state);
 
     return (
-        <div className={showClass}  onClick={functions}>
-            <div className="container d-flex h-100">
+        <div className={`room-content min-height-15 h-100 mb-0 ${showClass}`}  onClick={functions}>
+            <div className=" d-flex h-100 border-cash-dif">
                 <div className="row justify-content-center align-self-center mx-auto text-capitalize">
                     {title}
                 </div>
@@ -30,4 +31,4 @@ const Cash = (props) => {
     );
 }
 
-export default Cash
+export default CashPP;
