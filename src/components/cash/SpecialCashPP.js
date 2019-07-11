@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import { getHour, getDateFull } from './../helpers/date.js';
 import { changeNameBranchOffice} from './../helpers/receptionHelper';
+import {ref} from './../../services/firebase';
 import './cashComponent.css';
 
 class SpecialCashPP extends Component {
@@ -66,8 +67,10 @@ class SpecialCashPP extends Component {
             }
             this.props.addRegisterSpecialCash(objSpecialCash);
         }
-        console.log(this.props.currentObjSpecialCash.key)
-        this.props.changeStateSpecialCash(this.props.currentObjSpecialCash.key, value)
+        
+        ref.child('SpecialCashPP/'+ this.props.currentObjSpecialCash.key).update({
+            state:value
+        });
        
         (this.props.currentObjCashRoom.state === 'Disponible' || this.props.currentObjCashRoom.state === 'No disponible') ? 
             this.props.changeStateCash(this.props.currentObjCashRoom.key, value):
