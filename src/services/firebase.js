@@ -9,6 +9,7 @@ const DB_CONFIG = {
     // // projectId: "customer-desarrollo",
     // storageBucket: "customer-desarrollo.appspot.com",
     // messagingSenderId: "257036633584"
+    
     apiKey: "AIzaSyDPrMgwUKV0H2ECiVOFHKLCfBg8QQK5jE4",
     authDomain: "recepcion-prod.firebaseapp.com",
     databaseURL: "https://recepcion-prod.firebaseio.com",

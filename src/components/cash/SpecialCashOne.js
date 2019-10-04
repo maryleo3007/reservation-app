@@ -97,33 +97,36 @@ class SpecialCashOne extends Component {
         let branchOfficeName = changeNameBranchOffice(this.props.data.branchOffice)
 
         return (
-            <div>
-                <small className="text-muted pl-3">{branchOfficeName}</small>
+            <div> 
                 <div className="content-specialCash px-5 py-3">
                 <div className="container">
-                    <div className="row mx-5 mt-4 h-90">
-                        <div className="col-8 col-sm-8 col-md-8 bg-title title-wait-clients h-25 rounded-top">
-                            <div className="text-center">Clientes en espera</div>
-                        </div>
-                        <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left  content-wait-clients h-75">
-                            <div className="d-flex h-100">
-                                <div className="justify-content-center align-self-center mx-auto title-form">{numberOfClients} clientes</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row mx-5 mt-4 h-90">
-                        <div className="col-8 col-sm-8 col-md-8 bg-title title-special-cash h-25 rounded-top">
-                            <div className="text-center">Caja especial </div>
-                        </div>
-                        <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left content-special-cash h-75">
-                            <div className="d-flex h-100">
-                                <div className="justify-content-center align-self-center mx-auto title-form">
-                                    {this.props.data.name}
+                    <div className="row">
+                        <div className="col-6">
+                            <div className="text-muted text-center">{branchOfficeName}</div>
+                            <div className="container">
+                                <div className="row mt-4 h-90">
+                                    <div className="col-8 col-sm-8 col-md-8 bg-title title-wait-clients h-25 rounded-top">
+                                        <div className="text-center">Clientes en espera</div>
+                                    </div>
+                                    <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left  content-wait-clients h-75">
+                                        <div className="d-flex h-100">
+                                            <div className="justify-content-center align-self-center mx-auto title-form">{numberOfClients} clientes</div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row mx-5 mt-4 h-90">
+                                <div className="row mt-4 h-90">
+                                    <div className="col-8 col-sm-8 col-md-8 bg-title title-special-cash h-25 rounded-top">
+                                        <div className="text-center">Caja especial </div>
+                                    </div>
+                                    <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left content-special-cash h-75">
+                                        <div className="d-flex h-100">
+                                            <div className="justify-content-center align-self-center mx-auto title-form">
+                                                {this.props.data.name}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row mt-4 h-90">
                         <div className="col-8 col-sm-8 col-md-8 bg-title title-state-cash h-25 rounded-top">
                             <div className="text-center">Mi estado</div>
                         </div>
@@ -137,24 +140,29 @@ class SpecialCashOne extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="row mx-5 mt-4 h-300">
-                        <div className="col-12 col-sm-12 col-md-12 bg-white content-state-cash">
-                        <div className="d-flex h-100">
-                            {clientAproaching?
-                                <div className="justify-content-center align-self-center mx-auto title-form">
-                                    {
-                                        clientAttented ?
-                                        <div className="text-center">
-                                            <p>Cliente se está aproximando</p>
-                                            <button className="btn-specialCash" onClick={this.updateHourAttention}>Iniciar Atención</button>
-                                            <audio ref="audio_tag" className='d-none' src="https://firebasestorage.googleapis.com/v0/b/recepcion-prod.appspot.com/o/SD_ALERT_29.mp3?alt=media&token=45fc466e-4aab-4898-8f9e-89ebc1f7d139" controls autoPlay/>
+                            </div>
+                        </div>
+                        <div className="col-6 box-attend">
+                            <div className="row">
+                                <div className="col-12 col-sm-12 col-md-12 bg-white content-state-cash">
+                                    <div className="d-flex h-100">
+                                        {clientAproaching?
+                                            <div className="justify-content-center align-self-center mx-auto title-form">
+                                                {
+                                                    clientAttented ?
+                                                    <div className="text-center pt-3">
+                                                        <p className="pt-4">Cliente se está aproximando</p>
+                                                        <button className="btn-specialCash" onClick={this.updateHourAttention}>Iniciar Atención</button>
+                                                        <audio ref="audio_tag" className='d-none' src="https://firebasestorage.googleapis.com/v0/b/recepcion-prod.appspot.com/o/SD_ALERT_29.mp3?alt=media&token=45fc466e-4aab-4898-8f9e-89ebc1f7d139" controls autoPlay/>
 
-                                        </div>:
-                                        <button className="btn-specialCash-out" onClick={this.updateClearCashForm}>Salida del cliente</button>
-                                    }
-                                </div>:
-                                <div></div>
-                            }        
+                                                    </div>:
+                                                    <button className="btn-specialCash-out" onClick={this.updateClearCashForm}>Salida del cliente</button>
+                                                }
+                                            </div>:
+                                            <div></div>
+                                        }        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

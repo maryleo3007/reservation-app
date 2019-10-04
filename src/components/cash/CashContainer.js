@@ -158,7 +158,6 @@ class Cash extends Component {
     }
 
     render() { 
-        console.log(this.props)
         //validaciones si las listas devuelven indefinido
         if(this.state.cashList === undefined || this.state.formCashList === undefined || this.state.specialCashList === undefined) return null;
 

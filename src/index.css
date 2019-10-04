@@ -13,6 +13,8 @@ body {
 }
 .bg-main{
   background-color: #f5f6fa;
+  height: 100vh;
+  position: relative;
 }
 .sidebar{
   background-color: #ffffff;
@@ -454,4 +456,9 @@ body {
  }
  .btn-rtsr{
    background-color: rgba(66, 127, 180, 0.3) !important;
+ }
+ .box-attend{
+   margin-top: 3.5rem;
+   height: 340px;
+   background-color: #ffffff;
  }
