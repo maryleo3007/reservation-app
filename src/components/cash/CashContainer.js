@@ -173,31 +173,40 @@ class Cash extends Component {
             arrcashList = this.state.cashList;
             arrformCashList = this.state.formCashList;
             arrspecialCashList = this.state.specialCashList;
-
+            console.log(arrcashList)    
+            
             currentObjSpecialCash = arrspecialCashList.find((e) => e.userId === this.props.data.uid)
             
             if (currentObjSpecialCash !== undefined) {
                 currentObjCashRoom = arrcashList.find((e) => e.id === currentObjSpecialCash.cashRoom_Id); 
                 currentObjFormCash = arrformCashList.find((e) => e.id === currentObjSpecialCash.formCash_Id); 
             }
+            // console.log(currentObjCashRoom)
+            
         }
 
         return ( 
             <div className="bg-main">
-                <SpecialCashOne 
-                    updateHrAtCashForm = {this.updateHrAtCashForm}
-                    updateClearCashForm = {this.updateClearCashForm}
-                    addRegisterCash = {this.addRegisterCash}
-                    changeCashStateAvailable = {this.changeCashStateAvailable}
-                    changeStateCash = {this.changeStateCash}
-                    currentObjFormCash = {currentObjFormCash}
-                    currentObjCashRoom = {currentObjCashRoom}
-                    currentObjSpecialCash = {currentObjSpecialCash}
-                    changeStateSpecialCash = {this.changeStateSpecialCash}
-                    data = {this.props.data}
-                    client = {this.state.client}
-                    addRegisterSpecialCash = {this.addRegisterSpecialCash}
-                />
+                     <SpecialCashOne 
+                        updateHrAtCashForm = {this.updateHrAtCashForm}
+                        updateClearCashForm = {this.updateClearCashForm}
+                        addRegisterCash = {this.addRegisterCash}
+                        changeCashStateAvailable = {this.changeCashStateAvailable}
+                        changeStateCash = {this.changeStateCash}
+                        //modificado para q el audio reproduzca 1 vez
+                        currentObjFormCash = {currentObjFormCash}
+                        currentObjCashRoom = {currentObjCashRoom}
+                        currentObjSpecialCash = {currentObjSpecialCash}
+                        //modificado para q el audio reproduzca 1 vez
+                        // currentObjFormCash = {arrformCashList[0]}
+                        // currentObjCashRoom = {arrcashList[1]}
+                        // currentObjSpecialCash = {arrspecialCashList[0]}
+                        changeStateSpecialCash = {this.changeStateSpecialCash}
+                        data = {this.props.data}
+                        client = {this.state.client}
+                        addRegisterSpecialCash = {this.addRegisterSpecialCash}
+                    />
+                
                 <button
                 style={{border: 'none', background: 'transparent'}}
                 onClick={() => {

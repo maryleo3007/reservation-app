@@ -90,7 +90,9 @@ class SpecialCashPP extends Component {
         if (Object.keys(this.props.currentObjCashRoom).length !== 0 && this.props.currentObjCashRoom !== undefined) {
             currentObjCashRoom = this.props.currentObjCashRoom
             if (currentObjCashRoom.state === 'Ocupado') {
-                clientAproaching = true
+                clientAproaching = true;
+                this.player.src = 'https://firebasestorage.googleapis.com/v0/b/recepcion-prod.appspot.com/o/SD_ALERT_29.mp3?alt=media&token=45fc466e-4aab-4898-8f9e-89ebc1f7d139';
+                this.player.play();
             }
             if (currentObjCashRoom.state === 'Disponible' || currentObjCashRoom.state === 'No disponible') {
                 selectDisabled = false;
@@ -156,8 +158,8 @@ class SpecialCashPP extends Component {
                                                     <div className="text-center">
                                                         <p className="pt-4">Cliente se está aproximando</p>
                                                         <button className="btn-specialCash" onClick={this.updateHourAttention}>Iniciar Atención</button>
-                                                        <audio ref="audio_tag" className='d-none' src="https://firebasestorage.googleapis.com/v0/b/recepcion-prod.appspot.com/o/SD_ALERT_29.mp3?alt=media&token=45fc466e-4aab-4898-8f9e-89ebc1f7d139" controls autoPlay/>
-
+                                                        {/* <audio ref="audio_tag" className='d-none' src="https://firebasestorage.googleapis.com/v0/b/recepcion-prod.appspot.com/o/SD_ALERT_29.mp3?alt=media&token=45fc466e-4aab-4898-8f9e-89ebc1f7d139" controls autoPlay/> */}
+                                                        <audio ref={ref => this.player = ref} />
                                                     </div>:
                                                     <button className="btn-specialCash-out" onClick={this.updateClearCashForm}>Salida del cliente</button>
                                                 }
