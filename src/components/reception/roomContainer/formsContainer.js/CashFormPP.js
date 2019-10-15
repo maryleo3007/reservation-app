@@ -108,7 +108,6 @@ class CashFormPP extends Component {
                                 <div className="col-sm-7">
                                     <button className="btn-play" onClick={this.customerIncome}><i aria-hidden="true" className="fa fa-caret-right"></i></button>
                                 </div>
-                                <audio ref="audio_tag" className='d-none' src="https://firebasestorage.googleapis.com/v0/b/recepcion-prod.appspot.com/o/SD_ALERT_29.mp3?alt=media&token=45fc466e-4aab-4898-8f9e-89ebc1f7d139" controls autoPlay/>
                             </div> :
                             <div>
                                 <div className="form-group row">

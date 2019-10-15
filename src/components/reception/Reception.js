@@ -135,7 +135,6 @@ class Reception extends Component {
         let name = getCutName(this.props.responsable.userMail); 
         
         this.storage = storage.ref('/users').child(`${name}.jpg`).getDownloadURL().then(url => {
-            console.log(url)
             this.setState({
                 userImage: url
             })

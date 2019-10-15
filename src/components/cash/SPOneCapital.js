@@ -1,36 +1,141 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
+import { logout } from './../../components/helpers/authFirebase';
+import {ref} from './../../services/firebase';
 import { getHour, getDateFull } from './../helpers/date.js';
 import { changeNameBranchOffice} from './../helpers/receptionHelper';
 import './cashComponent.css';
 
-class SpecialCashOne extends Component {
-
-    state = {
+class SPOneCapital extends Component {
+    state={
+        userName: '',
+        client: {},
+        currentObjSpecialCash: {},
+        currentObjCashRoom: {},
+        currentObjFormCash:{},
         clientAttented : true,
         stateValue : '',
         availableClass : '',
         getHourReg : false,
         hourStartSC : ''
     }
-    
-    updateHourAttention = () => {
         
-        const hourAttention = getHour();
-        this.props.updateHrAtCashForm(this.props.currentObjFormCash.key,hourAttention);
-        this.setState({clientAttented:false})
+    dbFormCash = ref.child('FormCaja/-LWRAmCghpfW7PXIv7_P');
+    dbCashRoom = ref.child('CashRoom/-lajsdiwoj');
+    dbSpecialCash = ref.child('SpecialCash/-LAOP22KASD-adSD');
+    dbClients =  ref.child('Clients/')
+    refRegister = ref.child('CashRegister')
+    //actualizar hora de atención del form de caja
+    updateHrAtCashForm = (hourAttention) => {
+        this.dbFormCash.update({
+            hourAttention: hourAttention
+        })
+    }
+    //actualizar hora final de atención del form de caja
+    clearCashForm = () => {
+        const teamObj = {
+            label: '',
+            value: ''
+        }
+        this.dbFormCash.update({
+            appointment: "",
+            date:"",
+            fromRoom:"",
+            hourInit:"00:00:00",
+            hourEnd: "",
+            hourAttention:"00:00:00",
+            team:teamObj,
+            comments:""
+        })
+    }
+    //agregar registro de caja
+    addRegisterCash = (obj) => {
+        const addRegister = this.refRegister.push({
+            indicator : obj.indicator,
+            date: obj.date,
+            cash: obj.cash,
+            hourInit: obj.hourInit,
+            hourAttention: obj.hourAttention,
+            hourEnd: obj.hourEnd,
+            team:obj.team,
+            comment:obj.comment,
+            branchOffice: obj.branchOffice
+        })
+        const newRegister = addRegister.key;
+        this.refRegister.child(newRegister).update({
+            id: newRegister
+        })
+    }
+    //cambia estado de caja
+    changeCashStateAvailable = () => {
+        this.dbCashRoom.update({
+            state: 'Disponible',
+            showComponent: true
+        });
+    }
+    //cambia a estado de caja a ausente
+    changeStateCash = (state) => {
+        this.dbCashRoom.update({
+            state
+        });
+    }
+    //cambia estado de caja especial
+    changeStateSpecialCash = (state) => {
+        this.dbSpecialCash.update({
+            state
+        });
     }
 
-    updateClearCashForm = () => {
+    addRegisterSpecialCash = (obj) => {
+        const refRegister = ref.child('CashSpecialRegister/');
+        const addRegister = refRegister.push({
+            name : obj.name,
+            state: obj.state,
+            hourInit: obj.hourInit,
+            hourEnd: obj.hourEnd,
+            branchOffice: obj.branchOffice,
+            date: obj.date
+        })
+        const newRegister = addRegister.key;
+        refRegister.child(newRegister).update({
+            id: newRegister
+        })
+    }
+
+    componentDidMount(){
+        this.dbFormCash.on('value',snap => {
+            this.setState({currentObjFormCash:snap.val()})
+        });
+
+        this.dbCashRoom.on('value', snap => {
+            this.setState({currentObjCashRoom:snap.val()})
+        });
+
+        this.dbSpecialCash.on('value', snap => {
+            this.setState({currentObjSpecialCash: snap.val()})
+        });
+
+        this.dbClients.on('value', snap => {
+            this.setState({client: snap.val()})
+        });
+    }
+
+    /*funciones de caja especial*/
+    updateHourAttention = () => {
+        const hourAttention = getHour();
+        this.updateHrAtCashForm(hourAttention);
+        this.setState({clientAttented:false})
+    }
+    updateClearCashForm =() =>{
         
         const hourEndAttention = getHour();   
-        const {comments, date, hourAttention, hourInit, team, appointment} = this.props.currentObjFormCash;
+        const {comments, date, hourAttention, hourInit, team, appointment} = this.state.currentObjFormCash;
         
         let branchOfficeName = changeNameBranchOffice(this.props.data.branchOffice);
 
         let obj = {
             indicator : appointment,
             date: date,
-            cash: this.props.currentObjCashRoom.title,
+            cash: this.state.currentObjCashRoom.title,
             hourInit: hourInit,
             hourAttention: hourAttention,
             hourEnd: hourEndAttention,
@@ -38,14 +143,12 @@ class SpecialCashOne extends Component {
             comment:comments,
             branchOffice: branchOfficeName
         }
-
-        this.props.addRegisterCash(obj);
-        this.props.changeCashStateAvailable(this.props.currentObjCashRoom.key);
+        this.addRegisterCash(obj);
+        this.changeCashStateAvailable();
         this.setState({clientAttented:true});
-        this.props.updateClearCashForm(this.props.currentObjFormCash.key);
+        this.clearCashForm();
         // this.props.updateNumOfClients();
     }
-
     getStateSpecialCash = (e) => {
         
         // let dataVal= e.target.options[e.target.selectedIndex].dataset
@@ -57,49 +160,40 @@ class SpecialCashOne extends Component {
         if(this.state.getHourReg && value === 'Disponible'){
             this.setState({getHourReg : false, hourEndSC: getHour()})
             let objSpecialCash = {
-                name : this.props.currentObjCashRoom.title,
+                name : this.state.currentObjCashRoom.title,
                 state: 'No disponible',
                 hourInit: this.state.hourStartSC,
                 hourEnd: getHour(),
                 branchOffice: changeNameBranchOffice(this.props.data.branchOffice),
                 date: getDateFull()
             }
-            this.props.addRegisterSpecialCash(objSpecialCash);
+            this.addRegisterSpecialCash(objSpecialCash);
         }
-
-        this.props.changeStateSpecialCash(this.props.currentObjSpecialCash.key, value);
-
-        (this.props.currentObjCashRoom.state === 'Disponible' || this.props.currentObjCashRoom.state === 'No disponible') ? 
-            this.props.changeStateCash(this.props.currentObjCashRoom.key, value):
-            alert('no puede cambiar de estado cuando la caja esta en ocupado o por confirmar')
         
+        this.changeStateSpecialCash(value);
+       
+        (this.state.currentObjCashRoom.state === 'Disponible' || this.state.currentObjCashRoom.state === 'No disponible') ? 
+            this.changeStateCash(value):
+            alert('no puede cambiar de estado cuando la caja esta en ocupado o por confirmar')
+    
     }
 
-    render() {
-        console.log(this.props)
-
-        if(this.props.currentObjCashRoom === undefined ) return null;
-        if(this.props.currentObjSpecialCash === undefined ) return null;
-        if(this.props.client.numberOfClients === undefined) return null;
-
-        let currentObjCashRoom =  {}; let clientAttented = this.state.clientAttented; let clientAproaching = false; let selectDisabled = true;
-        let numberOfClients = this.props.client.numberOfClients;
-
-        if ( this.props.currentObjCashRoom !== undefined) {
-            currentObjCashRoom = this.props.currentObjCashRoom;
-            
-            if (currentObjCashRoom.state === 'Ocupado') {
-                clientAproaching = true;
-            }
-            if (currentObjCashRoom.state === 'Disponible' || currentObjCashRoom.state === 'No disponible') {
-                selectDisabled = false;
-            } 
+    render() { 
+          
+        if(this.state.currentObjSpecialCash === undefined || this.state.currentObjCashRoom === undefined  || this.state.currentObjFormCash === undefined) return null;
+        let clientAttented = this.state.clientAttented; let clientAproaching = false; let selectDisabled = true;
+        let numberOfClients = this.state.client.numberOfClients;
+        
+        if (this.state.currentObjCashRoom.state === 'Ocupado') {
+            clientAproaching = true;
         }
-
-        let branchOfficeName = changeNameBranchOffice(this.props.data.branchOffice)
-
-        return (
-            <div> 
+        if (this.state.currentObjCashRoom.state === 'Disponible' || this.state.currentObjCashRoom.state === 'No disponible') {
+            selectDisabled = false;
+        } 
+        let branchOfficeName = changeNameBranchOffice(this.props.data.branchOffice);
+        return ( 
+            <div className="bg-main">
+                <div> 
                 <div className="content-specialCash px-5 py-3">
                 <div className="container">
                     <div className="row">
@@ -134,8 +228,8 @@ class SpecialCashOne extends Component {
                         </div>
                         <div className="col-12 col-sm-12 col-md-12 bg-white rounded-bottom rounded-left content-state-cash  h-75">
                             <div className="d-flex justify-content-center mt-4">
-                                <span className={`${this.props.currentObjSpecialCash.state === 'Disponible' ? 'box-available' : 'box-unAvailable'} rounded-circle pr-3 mr-3 myState-cash`}></span>
-                                <select name="stateValue" className="d-inline-block title-form" onChange={this.getStateSpecialCash} disabled={selectDisabled ? true : null} value={this.props.currentObjSpecialCash.state}>
+                                <span className={`${this.state.currentObjSpecialCash.state === 'Disponible' ? 'box-available' : 'box-unAvailable'} rounded-circle pr-3 mr-3 myState-cash`}></span>
+                                <select name="stateValue" className="d-inline-block title-form" onChange={this.getStateSpecialCash} disabled={selectDisabled ? true : null} value={this.state.currentObjSpecialCash.state}>
                                     <option value="Disponible">Disponible</option>
                                     <option value="No disponible">No disponible</option>
                                 </select>
@@ -157,7 +251,7 @@ class SpecialCashOne extends Component {
                                                         <button className="btn-specialCash" onClick={this.updateHourAttention}>Iniciar Atención</button>
                                                         <audio ref="audio_tag" className='d-none' src="https://firebasestorage.googleapis.com/v0/b/recepcion-prod.appspot.com/o/SD_ALERT_29.mp3?alt=media&token=45fc466e-4aab-4898-8f9e-89ebc1f7d139" controls autoPlay/>
                                                     </div>:
-                                                    <button className="btn-specialCash-out mt-5" onClick={this.updateClearCashForm}>Salida del cliente</button>
+                                                    <button className="btn-specialCash-out" onClick={this.updateClearCashForm}>Salida del cliente</button>
                                                 }
                                             </div>:
                                             <div></div>
@@ -170,8 +264,17 @@ class SpecialCashOne extends Component {
                 </div>
             </div>
        
+            </div>    
+                
+                <button
+                style={{border: 'none', background: 'transparent'}}
+                onClick={() => {
+                    logout()
+                }}
+                className="navbar-brand text-secondary"><i aria-hidden="true" className="fa fa-sign-out"></i>Salir</button>
             </div>
-        );
+         );
     }
 }
-export default SpecialCashOne;
+ 
+export default SPOneCapital;
